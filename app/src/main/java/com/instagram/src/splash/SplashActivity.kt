@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivitySplashBinding
+import com.instagram.src.main.LoginActivity
 import com.instagram.src.main.MainActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
@@ -13,7 +14,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         super.onCreate(savedInstanceState)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, 1500)
     }

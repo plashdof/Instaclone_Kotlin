@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.instagram.src.main.LoginActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name="com.instagram.src.main.MainActivity"
             android:exported="false"

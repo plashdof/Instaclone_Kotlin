@@ -16,4 +16,9 @@
     <color name="insta_white">#FFFFFF</color>
     <color name="insta_black">#000000</color>
 
+    <color name="insta_login_textbtn">#104370</color>
+    <color name="insta_login_btn">#c1dff9</color>
+    <color name="insta_login_border">#dadada</color>
+    <color name="insta_gray">#b8b4b4</color>
+
 </resources>

@@ -20,7 +20,7 @@
         <ImageButton
             android:id="@+id/btn_home_dm"
             android:layout_width="30dp"
-            android:layout_height="30"
+            android:layout_height="30dp"
             android:layout_gravity="end"
             android:src="@drawable/video_on"
             android:scaleType="fitCenter"

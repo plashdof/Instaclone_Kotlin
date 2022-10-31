@@ -4,8 +4,11 @@ import android.os.Bundle
 import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityMainBinding
+import com.instagram.src.main.ProfilePage.ProfileFragment
 import com.instagram.src.main.home.HomeFragment
-import com.instagram.src.main.myPage.MyPageFragment
+import com.instagram.src.main.SearchPage.SearchFragment
+import com.instagram.src.main.ShoppingPage.ShoppingFragment
+import com.instagram.src.main.VideoPage.VideoFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
@@ -26,7 +29,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     }
                     R.id.menu_btn_search -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_frm, MyPageFragment())
+                            .replace(R.id.main_frm, SearchFragment())
+                            .commitAllowingStateLoss()
+                    }
+
+                    R.id.menu_btn_video -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, VideoFragment())
+                            .commitAllowingStateLoss()
+                    }
+
+                    R.id.menu_btn_shopping -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, ShoppingFragment())
+                            .commitAllowingStateLoss()
+                    }
+
+                    R.id.menu_btn_profile -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, ProfileFragment())
                             .commitAllowingStateLoss()
                     }
                 }

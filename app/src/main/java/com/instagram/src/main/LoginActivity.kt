@@ -9,6 +9,7 @@ import android.util.Log
 import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityLoginBinding
+import com.instagram.src.main.SignupPages.SignupActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate){
 
@@ -47,18 +48,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 pw = binding.etLoginPw.text.toString()
 
+
                 pwflag = pw.isNotBlank()
+
 
                 if(pwflag && idflag){
                     loginbtn.setBackgroundResource(R.drawable.shape_loginbtn_active)
                 }else{
                     loginbtn.setBackgroundResource(R.drawable.shape_loginbtn)
                 }
-
             }
-
             override fun afterTextChanged(p0: Editable?) {}
-
         })
 
         binding.btnLoginLogin.setOnClickListener {

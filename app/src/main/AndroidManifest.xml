@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"/>
 
-        <activity android:name=".src.main.SignupActivity"
+        <activity android:name=".src.main.SignupPages.SignupActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>
 

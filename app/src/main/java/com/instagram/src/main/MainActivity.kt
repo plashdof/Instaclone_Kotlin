@@ -14,15 +14,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
 
+        binding.mainBtmNav.itemIconTintList = null
+
         binding.mainBtmNav.run {
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.menu_main_btm_nav_home -> {
+                    R.id.menu_btn_home -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, HomeFragment())
                             .commitAllowingStateLoss()
                     }
-                    R.id.menu_main_btm_nav_my_page -> {
+                    R.id.menu_btn_search -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, MyPageFragment())
                             .commitAllowingStateLoss()
@@ -30,7 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 }
                 true
             }
-            selectedItemId = R.id.menu_main_btm_nav_home
+            selectedItemId = R.id.menu_btn_home
         }
     }
 }

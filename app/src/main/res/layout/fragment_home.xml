@@ -1,37 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".src.main.home.HomeFragment">
+    android:layout_width="match_parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/home_button_try_get_jwt"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/home_btn_try_get_http_method" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/home_et_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="@string/home_et_id" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/login_header"/>
 
-    <EditText
-        android:id="@+id/home_et_pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/home_et_pw" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/home_btn_try_post_http_method"
-        android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/btn_home_dm"
+            android:layout_width="30dp"
+            android:layout_height="30"
+            android:layout_gravity="end"
+            android:src="@drawable/video_on"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/btn_home_like"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:src="@drawable/video_off"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/btn_home_upload"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:src="@drawable/shopping_off"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_home_story"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="@string/home_btn_try_post_http_method" />
-</LinearLayout>
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/home_toolbar"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_home_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/recycler_home_story"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,11 @@
 
         <activity android:name="com.instagram.src.main.LoginActivity"
             android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity android:name=".src.main.SignupActivity"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

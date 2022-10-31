@@ -50,9 +50,9 @@
         <Button
             android:id="@+id/btn_login_login"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:background="@color/insta_login_btn"
+            android:background="@drawable/shape_loginbtn"
             android:text="로그인"
             android:textColor="@color/insta_white"/>
 

@@ -8,7 +8,7 @@ template 준비 완료
 
 - LoginActivity 구현
     
-    <img src ="https://user-images.githubusercontent.com/86242930/199235259-c4b875ab-3d37-41a8-aa27-f9f691ef1761.jpg" width="100" height="50"/>
+    <img src ="https://user-images.githubusercontent.com/86242930/199235259-c4b875ab-3d37-41a8-aa27-f9f691ef1761.jpg" width="50" height="100"/>
     
 
 - MainActivity BottomNavigationView 구현

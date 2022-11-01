@@ -60,19 +60,19 @@ template 준비 완료
 - 데이터베이스 연결실패 이슈 발생
 - 서버 팀원에게 전달
 
-<img src ="https://user-images.githubusercontent.com/86242930/199235427-96f90d16-279d-464c-9614-1fdd5043141a.JPG" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199235427-96f90d16-279d-464c-9614-1fdd5043141a.JPG" width="300" height="150"/>
 
 1.2 checkUserKey API
-<img src ="https://user-images.githubusercontent.com/86242930/199235437-84ab51df-73cd-4acd-b44c-88c155173b78.JPG" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199235437-84ab51df-73cd-4acd-b44c-88c155173b78.JPG" width="300" height="150"/>
 
 1.3 checkUserNickName API 
-<img src ="https://user-images.githubusercontent.com/86242930/199235443-31b5c647-c510-4240-aa94-31566fc29d1c.JPG" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199235443-31b5c647-c510-4240-aa94-31566fc29d1c.JPG" width="300" height="150"/>
 
 2.1 logIn API (이슈)
 
 - 데이터베이스 연결실패 이슈 발생
 - 서버 팀원에게 전달
-<img src ="https://user-images.githubusercontent.com/86242930/199235454-3e561dd1-6388-4f5c-98bd-1063d2422f22.JPG" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199235454-3e561dd1-6388-4f5c-98bd-1063d2422f22.JPG" width="300" height="150"/>
 
 template 양식에 맞게 Retrofit2 구현
 

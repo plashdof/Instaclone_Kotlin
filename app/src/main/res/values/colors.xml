@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorPrimary">#fefefe</color>
+    <color name="colorPrimaryDark">#fefefe</color>
+    <color name="colorAccent">#fefefe</color>
 
     <!-- 기본 -->
-    <color name="white">#FFFFFF</color>
+    <color name="white">#fefefe</color>
     <color name="black">#000000</color>
 
-    <color name="whiteForBackground">#FFFFFF</color>
+    <color name="whiteForBackground">#fefefe</color>
     <color name="blackForText">#4a4a4a</color>
     <color name="redForText">#d9534f</color>
 
     <color name="insta_et">#f5f4f2</color>
-    <color name="insta_white">#FFFFFF</color>
+    <color name="insta_white">#fefefe</color>
     <color name="insta_black">#000000</color>
 
     <color name="insta_login_textbtn">#104370</color>

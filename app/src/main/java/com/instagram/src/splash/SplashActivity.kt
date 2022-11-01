@@ -6,8 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivitySplashBinding
-import com.instagram.src.main.LoginActivity
-import com.instagram.src.main.MainActivity
+import com.instagram.src.main.Login.LoginActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
     override fun onCreate(savedInstanceState: Bundle?) {

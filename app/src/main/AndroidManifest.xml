@@ -4,6 +4,7 @@
     package="com.instagram">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="com.instagram.config.ApplicationClass"
@@ -26,12 +27,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.instagram.src.main.LoginActivity"
+        <activity android:name="com.instagram.src.main.Login.LoginActivity"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".src.main.SignupPages.SignupActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".src.main.SignupPages.SignuppwActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".src.main.SignupPages.SignupnickActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".src.main.SignupPages.SignupbirthActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>
 

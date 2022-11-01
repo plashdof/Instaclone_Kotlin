@@ -8,12 +8,12 @@ template 준비 완료
 
 - LoginActivity 구현
     
-    <img src ="https://user-images.githubusercontent.com/86242930/199235259-c4b875ab-3d37-41a8-aa27-f9f691ef1761.jpg" width="50" height="100"/>
+ <img src ="https://user-images.githubusercontent.com/86242930/199235259-c4b875ab-3d37-41a8-aa27-f9f691ef1761.jpg" width="100" height="200"/>
     
 
 - MainActivity BottomNavigationView 구현
 
-![HomeFrag.jpg](https://user-images.githubusercontent.com/86242930/199235290-58584dc8-cebd-413a-938b-2bfd2618c59b.jpg)
+<img src ="https://user-images.githubusercontent.com/86242930/199235290-58584dc8-cebd-413a-938b-2bfd2618c59b.jpg" width="100" height="200"/>
 
 ### 2022.10.31  내용
 

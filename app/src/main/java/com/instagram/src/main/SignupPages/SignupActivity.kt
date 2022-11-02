@@ -87,7 +87,7 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
     }
 
     override fun onGetCheckuserKeySuccess(response: CheckuserKey) {
-        if(response.isSuccess){
+        if(response.result == "사용가능한 이메일 혹은 전화번호입니다."){
             val intent = Intent(this, SignuppwActivity::class.java)
                 .putExtra("userKey", inputdata)
             startActivity(intent)

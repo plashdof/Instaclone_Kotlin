@@ -5,17 +5,16 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivitySignupnickBinding
+import com.instagram.src.main.Login.LoginActivity
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.SignupPages.models.CheckuserKey
 import com.instagram.src.main.SignupPages.models.CheckuserNick
 import com.instagram.src.main.SignupPages.models.PostSignup
 import com.instagram.src.main.SignupPages.models.Signup
-import com.instagram.src.main.home.models.PostSignUpRequest
 
 class SignupnickActivity :BaseActivity<ActivitySignupnickBinding>(ActivitySignupnickBinding::inflate),SignupActivityInterface{
 
@@ -63,7 +62,7 @@ class SignupnickActivity :BaseActivity<ActivitySignupnickBinding>(ActivitySignup
     }
 
     override fun onGetCheckuserNickSuccess(response: CheckuserNick) {
-        if(response.isSuccess){
+        if(response.result == "사용가능한 닉네임입니다."){
             nextbtn.isClickable =true
             nextbtn.setBackgroundResource(R.drawable.shape_loginbtn_active)
         }else{
@@ -78,10 +77,8 @@ class SignupnickActivity :BaseActivity<ActivitySignupnickBinding>(ActivitySignup
 
     override fun onPostSignupSuccess(response: Signup) {
 
-        Log.d("result: ", "${response.isSuccess} ${response.code} ${response.message} ${response.result}")
-
         if(response.isSuccess){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

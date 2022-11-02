@@ -6,7 +6,7 @@ data class Signup(
     @SerializedName("isSuccess") val isSuccess : Boolean,
     @SerializedName("code") val code : Int,
     @SerializedName("message") val message : String? = "",
-    @SerializedName("result") val result : ArrayList<userId>
+    @SerializedName("result") val result : userId
 )
 
 data class userId(

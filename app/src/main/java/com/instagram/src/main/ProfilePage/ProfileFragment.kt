@@ -1,5 +1,6 @@
 package com.instagram.src.main.ProfilePage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.GridLayout
@@ -58,8 +59,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         // 프로필 편집버튼 클릭시 ProfileeditFragment 로 이동
         editbtn.setOnClickListener {
-            val Activity = activity as MainActivity
-            Activity.changeFragment("ProfileEdit")
+            val intent = Intent(context,ProfileeditActivity::class.java)
+            startActivity(intent)
         }
 
     }

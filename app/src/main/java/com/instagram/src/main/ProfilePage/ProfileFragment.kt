@@ -3,7 +3,6 @@ package com.instagram.src.main.ProfilePage
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.GridLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
@@ -17,10 +16,17 @@ import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.ProfilePage.adapter.ProfileStoryAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
+import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
 import com.instagram.src.main.home.models.StoryData
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileActivityInterface{
+
+    var name : String? = ""
+    var nick : String? = ""
+    var website : String? = ""
+    var description : String? = ""
+    var profile : String? = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,6 +34,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val mypostbtn = binding.btnProfileMypost
         val tagpostbtn = binding.btnProfileTagpost
         val editbtn = binding.btnProfileEdit
+        val profileimg = binding.btnProfileImage
         
         // 4.1 API 통신
         // 팔로워수 / 팔로잉수 / 게시물수 / 프로필이미지 / 링크 / 소개글 / 실명 / 닉네임 받아오기
@@ -58,9 +65,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
         // 프로필 편집버튼 클릭시 ProfileeditFragment 로 이동
+        // 편집데이터도 같이 전송
+        
         editbtn.setOnClickListener {
-            val intent = Intent(context,ProfileeditActivity::class.java)
-            startActivity(intent)
+            val data = arrayOf(name, nick, website, description, profile)
+            setFragmentResult("fromProfileFragment", bundleOf("bundleKey" to data))
+            val Activity = activity as MainActivity
+            Activity.changeFragment("ProfileEdit")
         }
 
     }
@@ -71,20 +82,23 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.tvProfileFollowerCount.text = response.result.followerCount.toString()
         binding.tvProfileFollowingCount.text = response.result.followingCount.toString()
 
-        binding.tvProfileRealname.text = response.result.name
-        binding.tvProfileNickname.text  = response.result.nickname
 
-        val website = response.result.link
-        val description = response.result.description
 
+        name = response.result.name
+        nick = response.result.nickname
+        website = response.result.link
+        description = response.result.description
+        profile = response.result.profileUrl
+
+        binding.tvProfileRealname.text = name
+        binding.tvProfileNickname.text  = nick
         binding.tvProfileDescription.text = description
         binding.tvProfileWebsite.text = website
 
         
         // 만약 website 나 소개 가 없다면, 해당공간 없애기
-        binding.tvProfileWebsite.isVisible = website.isNotBlank()
-        binding.tvProfileDescription.isVisible = description.isNotBlank()
-
+        binding.tvProfileWebsite.isVisible = website!!.isNotBlank()
+        binding.tvProfileDescription.isVisible = description!!.isNotBlank()
 
         val profileimg = binding.btnProfileImage
 
@@ -94,6 +108,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     override fun onGetMyProfileFailure(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPatchModifyProfileFailure(message: String) {
         TODO("Not yet implemented")
     }
 

@@ -5,8 +5,8 @@ import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityMainBinding
 import com.instagram.src.main.ProfilePage.ProfileFragment
-import com.instagram.src.main.ProfilePage.ProfileeditActivity
-import com.instagram.src.main.ProfilePage.ProfileeditTextActivity
+import com.instagram.src.main.ProfilePage.ProfileeditFragment
+import com.instagram.src.main.ProfilePage.ProfileeditTextFragment
 import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.SearchPage.SearchFragment
 import com.instagram.src.main.ShoppingPage.ShoppingFragment
@@ -14,7 +14,7 @@ import com.instagram.src.main.VideoPage.VideoFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
-    private var profileeditActivity : ProfileeditActivity ? = null
+    private var profileeditActivity : ProfileeditFragment ? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +64,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
             selectedItemId = R.id.menu_btn_home
         }
+    }
+
+    // 프래그먼트간 이동 구현
+    fun changeFragment(name : String){
+        when(name){
+
+            "Profile"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, ProfileFragment())
+                    .commit()
+            }
+
+            "ProfileEdit"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, ProfileeditFragment())
+                    .commit()
+            }
+
+            "ProfileEditText"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, ProfileeditTextFragment())
+                    .commit()
+            }
+        }
+
     }
 
 }

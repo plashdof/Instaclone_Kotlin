@@ -103,3 +103,69 @@ for(i in 0 until size){
     }
 }
 ```
+
+### 2022.11.02  내용
+
+---
+
+### 레이아웃
+
+이미지 채도 변경 : ImageButton alpha 속성
+
+이미지 동그라미 : CircleImageView 라이브러리 사용
+
+Toolbar & LinearLayout 양끝 배치 : 가운데에 빈 View 삽입
+
+- **ProfileFragment**
+
+<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e8c623dc-28b0-4bc3-b63c-7802a2769430/ProfilePage.jpg" width="150" height="300"/>
+
+
+- **ProfileeditFragment**
+
+<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d32137d-da5b-4689-99a5-19becebd2edd/ProfileEditPage.jpg" width="150" height="300"/>
+
+- **ProfileeditTextFragment**
+
+<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2547cbfb-4a1b-44f2-94e6-4c9c2a91c037/Profileeidttext.jpg" width="150" height="300"/>
+
+### API
+
+4.1API 프로필 정보 불러와서 화면 출력하기 성공.
+
+jwt는 싱글톤 객체를 활용하여 private으로 관리.
+
+getjwt 와 setjwt로 꺼내고 저장할 수 있음.
+
+```kotlin
+// 싱글톤 객체
+
+object Jwt {
+    private var jwt : String? = ""
+
+    fun setjwt(data : String?){
+        jwt = data
+    }
+
+    fun getjwt() : String?{
+        return jwt
+    }
+}
+
+// Login 후, MainActivity 에서의 setjwt 구문
+
+Jwt.setjwt(intent.getStringExtra("jwt"))
+
+```
+
+url 이미지는 Glide 라이브러리 사용.
+
+description 과 website 같은경우, 설정을 안해놨으면 해당공간 비어있어야함. visibility로 레이아웃 컨트롤
+
+<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d4b997d-7315-46b3-8674-cc42aa2aa023/ProfilePage(API).jpg" width="150" height="300"/>
+
+<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b361ab51-ec72-4a9d-9a4a-104fba0de844/4.1API.jpg" width="400" height="150"/>
+
+### 이슈
+
+- Fragment 간 데이터 전달 이슈. 구상중

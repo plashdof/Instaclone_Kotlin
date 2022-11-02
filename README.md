@@ -118,16 +118,16 @@ Toolbar & LinearLayout 양끝 배치 : 가운데에 빈 View 삽입
 
 - **ProfileFragment**
 
-<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e8c623dc-28b0-4bc3-b63c-7802a2769430/ProfilePage.jpg" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199505010-4827804b-1e7a-4786-8b43-baf9ceb9035b.jpg" width="150" height="300"/>
 
 
 - **ProfileeditFragment**
 
-<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d32137d-da5b-4689-99a5-19becebd2edd/ProfileEditPage.jpg" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199505027-19325255-3572-441b-851d-6dd38162b243.jpg" width="150" height="300"/>
 
 - **ProfileeditTextFragment**
 
-<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2547cbfb-4a1b-44f2-94e6-4c9c2a91c037/Profileeidttext.jpg" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199505060-7e206158-72ea-4eb4-9692-bd286a56159b.jpg" width="150" height="300"/>
 
 ### API
 
@@ -162,9 +162,9 @@ url 이미지는 Glide 라이브러리 사용.
 
 description 과 website 같은경우, 설정을 안해놨으면 해당공간 비어있어야함. visibility로 레이아웃 컨트롤
 
-<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d4b997d-7315-46b3-8674-cc42aa2aa023/ProfilePage(API).jpg" width="150" height="300"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199505085-248d96cc-45cd-4a4d-813a-5dc12a5b8c80.jpg" width="150" height="300"/>
 
-<img src ="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b361ab51-ec72-4a9d-9a4a-104fba0de844/4.1API.jpg" width="400" height="150"/>
+<img src ="https://user-images.githubusercontent.com/86242930/199505117-051872f3-774a-4fca-9534-62da5b8ee536.JPG" width="400" height="150"/>
 
 ### 이슈
 

@@ -41,11 +41,21 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/tv_profileedittext_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/toolbar_profileedit_text"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <EditText
         android:id="@+id/et_profileedit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_profileedit_text"
+        app:layout_constraintTop_toBottomOf="@id/tv_profileedittext_title"
         android:backgroundTint="@color/insta_skyblue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -105,17 +105,6 @@
                         android:textColor="@color/insta_black"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_profile_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""/>
-
-                    <TextView
-                        android:id="@+id/tv_profile_website"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""/>
 
 
                 </LinearLayout>
@@ -209,6 +198,22 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_profile_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_profile_header"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text=""/>
+
+            <TextView
+                android:id="@+id/tv_profile_website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_description"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text=""/>
+
             <LinearLayout
                 android:id="@+id/layout_profile_buttons"
                 android:layout_width="match_parent"
@@ -218,7 +223,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile_header">
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_website">
 
                 <Button
                     android:id="@+id/btn_profile_edit"

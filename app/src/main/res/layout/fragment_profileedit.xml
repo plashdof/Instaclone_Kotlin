@@ -89,6 +89,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:backgroundTint="@color/insta_gray"
+            android:focusableInTouchMode="true"
             android:textSize="14sp"/>
 
         <TextView

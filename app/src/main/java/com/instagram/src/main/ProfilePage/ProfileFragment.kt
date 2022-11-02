@@ -3,7 +3,9 @@ package com.instagram.src.main.ProfilePage
 import android.os.Bundle
 import android.view.View
 import android.widget.GridLayout
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide

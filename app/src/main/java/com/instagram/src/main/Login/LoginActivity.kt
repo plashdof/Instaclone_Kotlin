@@ -112,11 +112,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     }
 
     override fun onPostLoginSuccess(response: LoginData) {
+        if(response.code == 1000){
+            showCustomToast("로그인 성공")
 
-        showCustomToast("로그인 성공")
+            val jwt = response.result.jwt
 
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+            val intent = Intent(this, MainActivity::class.java)
+                .putExtra("jwt",jwt)
+            startActivity(intent)
+        }
+
     }
 
     override fun onPostLoginFailure(message: String) {

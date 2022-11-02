@@ -1,198 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/profile_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="p.real_sound"
-            android:textStyle="bold"
-            android:textColor="@color/insta_black"
-            android:textSize="25sp"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profile_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/btn_profile_namedetail"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:src="@drawable/home_plus"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"/>
+            <TextView
+                android:id="@+id/tv_profile_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="p.real_sound"
+                android:textColor="@color/insta_black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/btn_profile_menu"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/home_menu1"
-            android:scaleType="fitCenter"
-            android:layout_gravity="end"
-            android:layout_marginRight="20dp"
-            android:background="@android:color/transparent"/>
-
-        <ImageButton
-            android:id="@+id/btn_proifle_plus"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="end"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/home_plus"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"/>
-
-    </androidx.appcompat.widget.Toolbar>
-
-
-    <LinearLayout
-        android:id="@+id/layout_profile_header"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/profile_toolbar">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/btn_profile_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/test_profile"
-                android:background="@drawable/shape_story"/>
+                android:id="@+id/btn_profile_namedetail"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/profile_downarrow" />
 
-            <TextView
-                android:id="@+id/tv_profile_realname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="realname"
-                android:textColor="@color/insta_black"
-                android:textStyle="bold"/>
+            <ImageButton
+                android:id="@+id/btn_profile_menu"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_menu1" />
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btn_proifle_plus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="25dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_plus" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+        </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/insta_black"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="게시물"
-                android:textColor="@color/insta_black"
-                android:textSize="15sp" />
 
-        </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15"
-                android:textColor="@color/insta_black"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="팔로워"
-                android:textColor="@color/insta_black"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="50"
-                android:textColor="@color/insta_black"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="팔로잉"
-                android:textColor="@color/insta_black"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_profile_buttons"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/layout_profile_header"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_profile_edit"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:text="프로필 편집"
-            android:textColor="@color/insta_black"
-            android:textStyle="bold"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp">
 
-        <ImageButton
-            android:id="@+id/btn_profile_plus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/profile_plus"
-            android:scaleType="fitCenter"/>
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_profile_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/btn_profile_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/shape_story"
+                        android:scaleType="centerCrop"
+                        android:clickable="true"
+                        android:src="@drawable/test_profile" />
+
+
+                    <TextView
+                        android:id="@+id/tv_profile_realname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="realname"
+                        android:textColor="@color/insta_black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+
+                    <TextView
+                        android:id="@+id/tv_profile_website"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_profile_postcount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/insta_black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="게시물"
+                        android:textColor="@color/insta_black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_profile_follower_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15"
+                        android:textColor="@color/insta_black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="팔로워"
+                        android:textColor="@color/insta_black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_profile_following_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50"
+                        android:textColor="@color/insta_black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="팔로잉"
+                        android:textColor="@color/insta_black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_profile_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_profile_header">
+
+                <Button
+                    android:id="@+id/btn_profile_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="9"
+                    android:background="@drawable/shape_et"
+                    android:text="프로필 편집"
+                    android:textColor="@color/insta_black"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btn_profile_plus"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_et"
+                    android:padding="9dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/profile_addfriend" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_profile_story"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_profile_buttons">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_profile_story"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/recycler_story"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/btn_profile_addstory"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/profile_addstory"
+                        android:padding="25dp"
+                        android:scaleType="fitCenter"
+                        android:background="@drawable/shape_addstory"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="신규"
+                        android:textColor="@color/insta_black"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_profile_postbtns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_profile_story">
+
+                <ImageButton
+                    android:id="@+id/btn_profile_mypost"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/profile_gridbtn"
+                    android:background="@drawable/shape_signupbtn_active"
+                    android:scaleType="fitCenter"
+                    android:alpha="1"
+                    android:padding="8dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_profile_tagpost"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:src="@drawable/profile_tagbtn"
+                    android:background="@drawable/shape_signupbtn"
+                    android:alpha="0.3"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_profile_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/recycler_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/layout_profile_postbtns"/>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                app:layout_constraintTop_toBottomOf="@id/recycler_profile_thumbnail"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

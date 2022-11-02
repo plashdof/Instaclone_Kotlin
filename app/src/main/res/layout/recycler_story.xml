@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
+    android:layout_marginLeft="5dp">
 
     <Button
         android:id="@+id/recycler_story_border"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:background="@drawable/shape_story"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center|top"
+        android:background="@drawable/shape_story" />
 
-    <ImageButton
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/recycler_story_imagebtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/signup_birth"
-        android:scaleType="fitCenter"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="5dp"
         android:background="@drawable/shape_story"
-        android:layout_gravity="center"/>
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_profile" />
+
 
     <TextView
         android:id="@+id/recycler_story_nick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="80dp"
         android:text="nickname"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
-
-
-
+        android:textSize="12sp" />
 
 
 </FrameLayout>

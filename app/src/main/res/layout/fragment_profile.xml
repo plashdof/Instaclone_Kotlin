@@ -1,6 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="p.real_sound"
+            android:textStyle="bold"
+            android:textColor="@color/insta_black"
+            android:textSize="25sp"/>
+
+        <ImageButton
+            android:id="@+id/btn_profile_namedetail"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/home_plus"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/btn_profile_menu"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/home_menu1"
+            android:scaleType="fitCenter"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/btn_proifle_plus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/home_plus"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/layout_profile_header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/profile_toolbar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_profile_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_profile"
+                android:background="@drawable/shape_story"/>
+
+            <TextView
+                android:id="@+id/tv_profile_realname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="realname"
+                android:textColor="@color/insta_black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/insta_black"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="게시물"
+                android:textColor="@color/insta_black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                android:textColor="@color/insta_black"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="팔로워"
+                android:textColor="@color/insta_black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textColor="@color/insta_black"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="팔로잉"
+                android:textColor="@color/insta_black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_profile_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile_header"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_profile_edit"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="프로필 편집"
+            android:textColor="@color/insta_black"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/btn_profile_plus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/profile_plus"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

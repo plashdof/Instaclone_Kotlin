@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -45,7 +46,7 @@
                 android:src="@drawable/home_menu1" />
 
             <ImageButton
-                android:id="@+id/btn_proifle_plus"
+                android:id="@+id/btn_profile_plus"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="end"
@@ -62,13 +63,14 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginTop="50dp">
-
 
             <LinearLayout
                 android:id="@+id/layout_profile_header"
@@ -77,8 +79,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -203,16 +204,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile_header"
-                app:layout_constraintStart_toStartOf="parent"
                 android:text=""/>
 
             <TextView
                 android:id="@+id/tv_profile_website"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_profile_description"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginLeft="20dp"
                 android:text=""/>
 
@@ -224,8 +221,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/tv_profile_website">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_profile_edit"
@@ -238,7 +234,7 @@
                     android:textStyle="bold" />
 
                 <ImageButton
-                    android:id="@+id/btn_profile_plus"
+                    android:id="@+id/btn_profile_recommand"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="10dp"
@@ -251,32 +247,30 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_profile_story"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile_buttons">
+                android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_profile_story"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    tools:listitem="@layout/recycler_story"
-                    />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/recycler_story" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
                     >
 
                     <ImageButton
                         android:id="@+id/btn_profile_addstory"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
                         android:src="@drawable/profile_addstory"
                         android:padding="25dp"
                         android:scaleType="fitCenter"
@@ -286,21 +280,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="신규"
+                        android:layout_marginLeft="25dp"
                         android:textColor="@color/insta_black"
                         />
 
                 </LinearLayout>
 
-
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/layout_profile_postbtns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile_story">
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btn_profile_mypost"
@@ -335,20 +329,13 @@
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/recycler_thumbnail"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile_postbtns"/>
-
-
+                />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                app:layout_constraintTop_toBottomOf="@id/recycler_profile_thumbnail"
-                />
+                android:layout_height="500dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
+        </LinearLayout>
 
 
 

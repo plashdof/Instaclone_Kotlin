@@ -22,7 +22,7 @@
         android:background="@drawable/shape_story"
         android:clickable="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/test_profile" />
+        android:src="@drawable/home_plus" />
 
 
     <TextView

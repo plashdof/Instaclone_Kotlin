@@ -1,8 +1,20 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/shape_bottom_sheet</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -10,4 +22,5 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/insta_white</item>
     </style>
+
 </resources>

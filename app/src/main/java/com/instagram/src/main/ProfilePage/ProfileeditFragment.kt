@@ -16,6 +16,8 @@ import com.instagram.config.BaseFragment
 import com.instagram.databinding.FragmentProfileeditBinding
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
+import com.instagram.src.main.Modals.BottomSheetProfileChange
+import com.instagram.src.main.Modals.BottomSheetProfileplus
 import com.instagram.src.main.ProfilePage.models.ModifyProfileBodyData
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
@@ -199,14 +201,23 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
 
 
 
+        // x 버튼 클릭. 저장하지않고 뒤로가기
         cancelbtn.setOnClickListener {
             val Activity = activity as MainActivity
             Activity.changeFragment("Profile")
         }
 
+        // 체크버튼 클릭. 서버에 변경된 프로필 저장. 그후 뒤로가기
         storebtn.setOnClickListener {
+            Log.d("aaaaa", "$nick")
             val datas = ModifyProfileBodyData(name = name, nickname = nick, link = website, description = description, profileUrl = profile)
             ProfileService(this).tryPatchProfileModifyData(Jwt.getjwt(), datas)
+        }
+
+        // 이미지 클릭. bottom Sheet 불러오기
+        changeimage.setOnClickListener {
+            val bottomSheet = BottomSheetProfileChange()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }
 
     }

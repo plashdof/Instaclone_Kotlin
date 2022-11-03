@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="70dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/bottom_sheet_head" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="프로필 사진 변경"
+        android:textColor="@color/insta_black"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/insta_et" />
+
+    <TextView
+        android:id="@+id/bottomsheet_newimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:clickable="true"
+        android:textSize="18sp"
+        android:text="새 프로필 사진"
+        android:textColor="@color/insta_black" />
+
+    <TextView
+        android:id="@+id/bottomsheet_toFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:text="Facebook에서 가져오기"
+        android:textColor="@color/insta_black" />
+
+    <TextView
+        android:id="@+id/bottomsheet_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:text="아바타 사용"
+        android:textColor="@color/insta_black" />
+
+    <TextView
+        android:id="@+id/bottomsheet_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:text="프로필 사진 삭제"
+        android:textColor="@android:color/holo_red_light" />
+
+
+</LinearLayout>

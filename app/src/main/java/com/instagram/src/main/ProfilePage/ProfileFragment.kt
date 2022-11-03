@@ -1,6 +1,5 @@
 package com.instagram.src.main.ProfilePage
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -12,8 +11,10 @@ import com.bumptech.glide.Glide
 import com.instagram.R
 import com.instagram.config.BaseFragment
 import com.instagram.databinding.FragmentProfileBinding
+import com.instagram.src.main.Modals.BottomSheetProfilemenu
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
+import com.instagram.src.main.Modals.BottomSheetProfileplus
 import com.instagram.src.main.ProfilePage.adapter.ProfileStoryAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
@@ -35,6 +36,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val tagpostbtn = binding.btnProfileTagpost
         val editbtn = binding.btnProfileEdit
         val profileimg = binding.btnProfileImage
+        val plusbtn = binding.btnProfilePlus
+        val menubtn = binding.btnProfileMenu
+
+        recyclerStory()
+        recyclerMypost()
         
         // 4.1 API 통신
         // 팔로워수 / 팔로잉수 / 게시물수 / 프로필이미지 / 링크 / 소개글 / 실명 / 닉네임 받아오기
@@ -61,6 +67,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             mypostbtn.alpha = 0.3F
 
             recyclerTagpost()
+        }
+
+
+        // 메뉴버튼 클릭시 Bottom Sheet
+
+        menubtn.setOnClickListener {
+
+            val bottomSheet = BottomSheetProfilemenu()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
+
+        // plus 버튼 클릭시 Bottom Sheet
+
+        plusbtn.setOnClickListener {
+            val bottomSheet = BottomSheetProfileplus()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }
 
 
@@ -128,7 +150,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
             "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
             "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",)
+            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
+            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp","https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
+            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
+            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp","https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp","https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
+            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
+            )
 
 
         val adapter = ProfileThumbnailAdapter(data)
@@ -154,7 +181,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private fun recyclerStory(){
 
         val data = StoryData(profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickName = "Noah")
-        val datas = arrayListOf<StoryData>(data, data, data, data)
+        val datas = arrayListOf<StoryData>(data, data, data, data,data,data,data,data)
 
 
         val adapter = ProfileStoryAdapter(datas)

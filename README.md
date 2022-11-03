@@ -1,6 +1,6 @@
 # RisingTest 개발일지
 
-### 2022.10.30  내용
+# 2022.10.30  내용
 
 ---
 
@@ -49,7 +49,7 @@ template 준비 완료
 - shape_signupbtn / shape_signupbtn_active
 - shape_et
 
-### 2022.11.01  내용
+# 2022.11.01  내용
 
 ---
 
@@ -104,7 +104,7 @@ for(i in 0 until size){
 }
 ```
 
-### 2022.11.02  내용
+# 2022.11.02  내용
 
 ---
 
@@ -169,3 +169,56 @@ description 과 website 같은경우, 설정을 안해놨으면 해당공간 비
 ### 이슈
 
 - Fragment 간 데이터 전달 이슈. 구상중
+
+
+
+# 2022.11.03  내용
+
+---
+
+- 프로필 편집시,  데이터 유지 구현 완료
+
+https://user-images.githubusercontent.com/86242930/199724004-fae3bba9-9ed1-4206-9ced-c6440d3f9dbd.mp4
+
+- 프로필 편집 4.4 API 통신테스트 성공
+
+<img src ="https://user-images.githubusercontent.com/86242930/199724024-03f2f7f7-920f-4022-8bc1-8ff92e6a1b3e.JPG" width="400" height="150"/>
+
+
+- 프로필페이지 PostRecyclerView 스크롤 이슈 해결
+
+- 프로필 사진편집 / 프로필페이지 메뉴버튼 / 프로필페이지 만들기버튼  BottomSheet 구현
+
+Bottom Sheet Dialog 활용위해
+
+`implementation 'com.google.android.material:material:1.5.0-alpha02'` 의존성 추가
+
+Bottom Sheet 에 둥근 모서리 적용
+
+```
+<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+</style>
+
+<style name="AppBottomSheetDialogTheme"
+    parent="Theme.Design.Light.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/AppModalStyle</item>
+</style>
+
+<style name="AppModalStyle"
+    parent="Widget.Design.BottomSheet.Modal">
+    <item name="android:background">@drawable/rounded_dialog</item>
+</style>
+```
+
+→ 프로필 사진편집
+
+<img src ="https://user-images.githubusercontent.com/86242930/199724047-efed6698-b805-4465-aad8-d8fa247d4a1a.jpg" width="150" height="300"/>
+
+→ 프로필페이지 메뉴버튼
+
+<img src ="https://user-images.githubusercontent.com/86242930/199724055-31f1f5cb-f1f9-43e6-bf86-173208a18fce.jpg" width="150" height="300"/>
+
+→ 프로필페이지 만들기버튼
+
+<img src ="https://user-images.githubusercontent.com/86242930/199724064-d536f34b-dbb8-48c6-80f6-28cac975271d.jpg" width="150" height="300"/>

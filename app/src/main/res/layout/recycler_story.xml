@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="100dp"
-    android:layout_marginLeft="5dp">
+    android:layout_height="80dp"
+    android:layout_marginLeft="15dp">
+
 
     <Button
         android:id="@+id/recycler_story_border"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center|top"
-        android:background="@drawable/shape_story" />
+        android:background="@drawable/shape_story_unread" />
+
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/recycler_story_imagebtn"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center|top"
         android:layout_marginTop="5dp"
-        android:background="@drawable/shape_story"
         android:clickable="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/home_plus" />
+        android:background="@drawable/shape_story"
+        android:src="@drawable/test_profile" />
+
 
 
     <TextView
@@ -30,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:text="nickname"
         android:textSize="12sp" />
 

@@ -15,7 +15,7 @@ import com.instagram.src.main.Modals.BottomSheetProfilemenu
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileplus
-import com.instagram.src.main.ProfilePage.adapter.ProfileStoryAdapter
+import com.instagram.src.main.home.adapter.StoryAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
@@ -184,7 +184,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val datas = arrayListOf<StoryData>(data, data, data, data,data,data,data,data)
 
 
-        val adapter = ProfileStoryAdapter(datas)
+        val adapter = StoryAdapter(datas)
         binding.recyclerProfileStory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.recyclerProfileStory.adapter = adapter
     }

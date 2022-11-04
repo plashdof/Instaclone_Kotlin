@@ -1,5 +1,6 @@
 package com.instagram.src.main.ProfilePage
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -28,6 +29,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     var website : String? = ""
     var description : String? = ""
     var profile : String? = ""
+    var postclick : Boolean = true
+
+    inner class roomToAdapter{
+        fun moveToProfilePost(){
+            changeProfile()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,6 +62,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             tagpostbtn.setBackgroundResource(R.drawable.shape_signupbtn)
             tagpostbtn.alpha = 0.3F
 
+            postclick = true
+
             recyclerMypost()
         }
 
@@ -65,6 +75,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
             mypostbtn.setBackgroundResource(R.drawable.shape_signupbtn)
             mypostbtn.alpha = 0.3F
+
+            postclick = false
 
             recyclerTagpost()
         }
@@ -141,6 +153,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         TODO("Not yet implemented")
     }
 
+    fun changeProfile(){
+        setFragmentResult("fromProfileFragment", bundleOf("bundleKey" to postclick))
+        val Activity = activity as MainActivity
+        Activity.changeFragment("ProfilePost")
+    }
+
 
 
     private fun recyclerMypost(){
@@ -157,8 +175,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
             )
 
-
-        val adapter = ProfileThumbnailAdapter(data)
+        var linking = roomToAdapter()
+        val adapter = ProfileThumbnailAdapter(data,linking)
         binding.recyclerProfileThumbnail.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
         binding.recyclerProfileThumbnail.adapter = adapter
     }
@@ -172,8 +190,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
             "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",)
 
-
-        val adapter = ProfileThumbnailAdapter(data)
+        var linking = roomToAdapter()
+        val adapter = ProfileThumbnailAdapter(data, linking)
         binding.recyclerProfileThumbnail.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
         binding.recyclerProfileThumbnail.adapter = adapter
     }

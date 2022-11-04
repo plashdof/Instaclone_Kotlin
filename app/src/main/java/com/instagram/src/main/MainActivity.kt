@@ -5,10 +5,12 @@ import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityMainBinding
 import com.instagram.src.main.ProfilePage.ProfileFragment
+import com.instagram.src.main.ProfilePage.ProfilePostFragment
 import com.instagram.src.main.ProfilePage.ProfileeditFragment
 import com.instagram.src.main.ProfilePage.ProfileeditTextFragment
 import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.SearchPage.SearchFragment
+import com.instagram.src.main.SearchPage.SearchRecentsearchFragment
 import com.instagram.src.main.ShoppingPage.ShoppingFragment
 import com.instagram.src.main.VideoPage.VideoFragment
 
@@ -90,8 +92,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .replace(R.id.main_frm, ProfileeditTextFragment())
                     .commit()
             }
-        }
 
+            "ProfilePost"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, ProfilePostFragment())
+                    .commit()
+            }
+
+            "SearchRecentsearch"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm,SearchRecentsearchFragment())
+                    .commit()
+            }
+
+            "Search"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm,SearchFragment())
+                    .commit()
+            }
+        }
     }
 
 }

@@ -2,17 +2,25 @@ package com.instagram.src.main.ProfilePage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.databinding.RecyclerThumbnailBinding
+import com.instagram.src.main.MainActivity
+import com.instagram.src.main.ProfilePage.ProfileFragment
 
-class ProfileThumbnailAdapter(private val datas : ArrayList<String>) : RecyclerView.Adapter<ProfileThumbnailAdapter.ViewHolder>(){
+class ProfileThumbnailAdapter(private val datas : ArrayList<String>, var link : ProfileFragment.roomToAdapter) : RecyclerView.Adapter<ProfileThumbnailAdapter.ViewHolder>(){
     inner class ViewHolder(private val viewBinding: RecyclerThumbnailBinding) : RecyclerView.ViewHolder(viewBinding.root){
         fun bind(item : String){
             val view = viewBinding.recyclerThumbnailImg
             Glide.with(itemView)
                 .load(item)
                 .into(view)
+
+
+            view.setOnClickListener{
+                link.moveToProfilePost()
+            }
         }
     }
 

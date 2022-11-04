@@ -11,6 +11,7 @@ import com.instagram.src.main.ProfilePage.ProfileeditTextFragment
 import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.SearchPage.SearchFragment
 import com.instagram.src.main.SearchPage.SearchRecentsearchFragment
+import com.instagram.src.main.SearchPage.SearchToolFragment
 import com.instagram.src.main.ShoppingPage.ShoppingFragment
 import com.instagram.src.main.VideoPage.VideoFragment
 
@@ -100,17 +101,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .commit()
             }
 
-            "SearchRecentsearch"->{
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_frm,SearchRecentsearchFragment())
-                    .commit()
-            }
-
             "Search"->{
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.main_frm,SearchFragment())
+                    .commit()
+            }
+
+            "SearchTool"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm,SearchToolFragment())
                     .commit()
             }
         }

@@ -2,6 +2,7 @@ package com.instagram.src.main.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.instagram.R
 import com.instagram.config.BaseFragment

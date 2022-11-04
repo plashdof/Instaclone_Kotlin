@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recycler_recentsearch_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/search_on"
+        android:background="@drawable/shape_recentsearch"
+        android:layout_marginLeft="20dp"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/recycler_recentsearch_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="dd"
+        android:layout_gravity="center"
+        android:textColor="@color/insta_black"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/recycler_recentsearch_deletebtn"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/x_icon"
+        android:layout_gravity="center"
+        android:layout_marginRight="20dp"/>
+
+
+
+
+</LinearLayout>

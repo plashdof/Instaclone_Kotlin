@@ -21,7 +21,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding> (FragmentSearchBindin
 
         binding.etSearch.setOnClickListener {
             val Activity = activity as MainActivity
-            Activity.changeFragment("SearchRecentsearch")
+            Activity.changeFragment("SearchTool")
         }
 
         recyclerSearchThumbnail()

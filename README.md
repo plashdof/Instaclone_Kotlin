@@ -222,3 +222,168 @@ Bottom Sheet 에 둥근 모서리 적용
 → 프로필페이지 만들기버튼
 
 <img src ="https://user-images.githubusercontent.com/86242930/199724064-d536f34b-dbb8-48c6-80f6-28cac975271d.jpg" width="150" height="300"/>
+
+
+# 2022.11.04 내용
+
+---
+
+### 레이아웃
+
+- **HomeFragment 구현**
+    - Story RecyclerView
+    - Post RecyclerView
+        - ViewPager2
+    
+    - RecyclerView 안에 ViewPager 를, 어뎁터 두개를 연결하여 구현
+    
+    ```kotlin
+    // PostAdapter.kt
+    
+    class PostAdapter(private val datas: Array<PostData>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+        inner class ViewHolder(private val viewBinding: RecyclerPostBinding) : RecyclerView.ViewHolder(viewBinding.root){
+            fun bind(item:PostData){
+                ...
+    
+                val viewpager = viewBinding.recyclerPostViewpager
+                val viewImg = item.imgdata
+    
+                val adapter = PostViewAdapter(viewImg)
+                viewpager.adapter = adapter
+    
+            }
+        }
+        
+    ...
+    }
+    
+    // PostViewAdapter.kt
+    
+    class PostViewAdapter(private val datas: Array<String>) : RecyclerView.Adapter<PostViewAdapter.ViewHolder>() {
+        inner class ViewHolder(private val viewBinding: ViewpagePostBinding) : RecyclerView.ViewHolder(viewBinding.root){
+            fun bind(item:String){
+                val img = viewBinding.viewpageImg
+    
+                Glide.with(itemView)
+                    .load(item)
+                    .into(img)
+            }
+        }
+        ...
+    }
+    ```
+    
+- **viewpager indicator 구현**
+    - instadot library 사용 (의존성 추가)
+    
+    `implementation 'com.github.hrskrs:InstaDotView:1.1'`
+    
+    - `viewpager.registerOnPageChangeCallback` 을 통해, 페이지에 대칭되는 indicator 디자인 변화
+    
+    ```kotlin
+    
+    // Post Adapter.kt   // inner class ViewHolder
+    
+    val indicator = viewBinding.recyclerPostIndicator
+    indicator.noOfPages = viewImg.size
+    
+    val adapter = PostViewAdapter(viewImg)
+    viewpager.adapter = adapter
+    
+    viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+        }
+    
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            indicator.onPageChange(position)
+            Log.d("aaaa","selected position : $position")
+        }
+    
+        override fun onPageScrollStateChanged(state: Int) {
+            super.onPageScrollStateChanged(state)
+        }
+    })
+    ```
+    
+    - 인스타와 동일하게 보여지도록 레이아웃 세부설정
+    
+    ```xml
+    <com.hrskrs.instadotlib.InstaDotView
+            android:id="@+id/recycler_post_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/recycler_post_viewpager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:dot_activeSize="5.5dp"
+            app:dot_inactiveSize="4dp"
+            app:dot_inactiveColor="#a7a9a8"
+            app:dot_mediumSize="4dp"
+            app:dot_smallSize="3dp"
+            app:dot_margin="3dp"/>
+    ```
+    
+
+- **세부 Text Layout 구현**
+
+<img src ="https://user-images.githubusercontent.com/86242930/199978725-b55fb6a9-2ce3-4d66-8d8d-2de381bd0b3f.jpg" width="150" height="300"/>
+
+
+### API
+
+### 이슈
+
+- **스토리 테두리 디자인 이슈**
+
+Story 아이콘 디자인을 위해 gradient 디자인을 활용한 layout-list 를 통하여 중첩된 원 두개로 디자인을 잡았으나,
+
+FrameLayout를 사용하여도 그 위에 사진이 덮어씌기가 안되는 에러 발생.
+
+해결 못하여 gradient 사용 포기. 그냥 shape으로 디자인 잡음
+
+```xml
+// 실패한 gradient 테두리 디자인
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+        <shape android:shape="rectangle" >
+            <gradient
+                android:angle="45"
+                android:centerColor="@android:color/holo_blue_bright"
+                android:endColor="@android:color/holo_red_light"
+                android:startColor="@android:color/holo_green_light" />
+
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp">
+
+        <shape android:shape="rectangle" >
+            <solid android:color="#ffffff" />
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+
+</layer-list>
+```
+
+- **스크롤이슈**
+
+NestedScrollView 내부에 ConstraintLayout을 사용하면, RecyclerView가 안보이는 이슈 발생함!!!
+
+되도록 LinearLayout으로 사용하자!!!
+
+fillviewPort = true
+

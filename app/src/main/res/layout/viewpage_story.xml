@@ -1,82 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/story_wholepage"
+    android:clickable="true"
     android:background="@color/insta_black">
 
-    <!--    <androidx.viewpager2.widget.ViewPager2-->
-    <!--        android:id="@+id/story_viewpager"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"/>-->
 
     <ImageView
         android:id="@+id/story_img"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/test_profile"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"/>
+        android:scaleType="centerCrop"/>
+
+    <jp.shts.android.storiesprogressview.StoriesProgressView
+        android:id="@+id/story_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" />
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="35dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="15dp"
-        android:gravity="center|start">
+        android:gravity="center|start"
+        android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/story_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/test_profile"/>
+            android:src="@drawable/test_profile" />
 
         <TextView
             android:id="@+id/tv_story_nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:text="p.real_sound"/>
+            android:text="p.real_sound"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/tv_story_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/insta_et"
+            android:layout_marginLeft="10dp"
             android:text="12시간"
-            android:layout_marginLeft="10dp"/>
+            android:textColor="@color/insta_et" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/btm_story_menu"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/story_menu"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"/>
+            android:src="@drawable/story_menu" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_gravity="bottom"
         android:layout_marginBottom="35dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
         <EditText
@@ -85,33 +94,56 @@
             android:layout_weight="5"
             android:background="@drawable/shape_et_story"
             android:hint="메세지 보내기"
+            android:paddingLeft="15dp"
+            android:textColor="@color/insta_white"
             android:textColorHint="@color/insta_white"
             android:textSize="15sp"
-            android:paddingLeft="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/insta_white"/>
+            android:textStyle="bold" />
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/story_heart"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"/>
+            android:src="@drawable/story_heart" />
 
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/story_send"
-            android:scaleType="fitCenter"
             android:layout_marginLeft="15dp"
-            android:background="@android:color/transparent"/>
-
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/story_send" />
 
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/story_leftside"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:minWidth="1dp"/>
+
+        <View
+            android:id="@+id/story_rightside"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:minWidth="1dp"/>
+
+    </LinearLayout>
 
 
 

@@ -73,20 +73,90 @@
             android:orientation="vertical"
             android:layout_marginTop="70dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_home_story"
+
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_story_thumbnail" />
+                android:layout_height="90dp"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_marginLeft="15dp">
+
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/btn_home_mystory"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center|top"
+                            android:layout_marginTop="5dp"
+                            android:clickable="true"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/shape_story"
+                            android:src="@drawable/test_profile" />
+
+
+
+                        <TextView
+                            android:id="@+id/recycler_story_nick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|top"
+                            android:layout_marginTop="70dp"
+                            android:textColor="@color/insta_black"
+                            android:text="내 스토리"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/storythumbnail_add"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="45dp"/>
+
+
+                    </FrameLayout>
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginLeft="75dp"
+                        android:id="@+id/recycler_home_story"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:orientation="horizontal"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/recycler_story_thumbnail" />
+
+
+
+
+
+                </RelativeLayout>
+
+
+
+
+
+            </HorizontalScrollView>
+
+
+
 
             <View
                 android:id="@+id/line_home_story"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/insta_et"/>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_home_body"

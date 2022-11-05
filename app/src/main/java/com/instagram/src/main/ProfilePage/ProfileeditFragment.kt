@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
@@ -30,8 +32,12 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
     var description : String? = ""
     var profile : String? = ""
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         val editname = binding.etProfileeditName
         val editnick = binding.etProfileeditNickname

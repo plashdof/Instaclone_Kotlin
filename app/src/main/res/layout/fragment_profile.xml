@@ -20,7 +20,7 @@
                 android:id="@+id/tv_profile_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="p.real_sound"
+                android:text=""
                 android:textColor="@color/insta_black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="realname"
+                        android:text="."
                         android:textColor="@color/insta_black"
                         android:textStyle="bold" />
 
@@ -125,7 +125,7 @@
                         android:id="@+id/tv_profile_postcount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="게시물"
                         android:textColor="@color/insta_black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -133,7 +133,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="게시물"
+                        android:text="0"
                         android:textColor="@color/insta_black"
                         android:textSize="15sp" />
 
@@ -154,7 +154,7 @@
                         android:id="@+id/tv_profile_follower_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15"
+                        android:text="0"
                         android:textColor="@color/insta_black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -183,7 +183,7 @@
                         android:id="@+id/tv_profile_following_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="50"
+                        android:text="0"
                         android:textColor="@color/insta_black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -246,47 +246,68 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:scrollbars="none">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_profile_story"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/recycler_story_thumbnail" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/btn_profile_addstory"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:src="@drawable/profile_addstory"
-                        android:padding="25dp"
-                        android:scaleType="fitCenter"
-                        android:background="@drawable/shape_addstory"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_profile_story"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/recycler_story_thumbnail" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="신규"
-                        android:layout_marginLeft="25dp"
-                        android:textColor="@color/insta_black"
-                        />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="15dp"
+                            >
 
-                </LinearLayout>
+                            <ImageButton
+                                android:id="@+id/btn_profile_addstory"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@drawable/profile_addstory"
+                                android:padding="25dp"
+                                android:scaleType="fitCenter"
+                                android:background="@drawable/shape_addstory"/>
 
-            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="신규"
+                                android:layout_marginLeft="25dp"
+                                android:textColor="@color/insta_black"
+                                />
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+
 
 
             <LinearLayout

@@ -1,6 +1,7 @@
 package com.instagram.src.main
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityMainBinding
@@ -74,24 +75,33 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         when(name){
 
             "Profile"->{
+
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.main_frm, ProfileFragment())
                     .commit()
+
+                makebtnnav()
             }
 
             "ProfileEdit"->{
+
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.main_frm, ProfileeditFragment())
                     .commit()
+
+                hidebtnnav()
             }
 
             "ProfileEditText"->{
+
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.main_frm, ProfileeditTextFragment())
                     .commit()
+
+                hidebtnnav()
             }
 
             "ProfilePost"->{
@@ -116,6 +126,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
 
         }
+    }
+
+    fun hidebtnnav(){
+        binding.mainBtmNav.isVisible = false
+    }
+
+    fun makebtnnav(){
+        binding.mainBtmNav.isVisible = true
     }
 
 }

@@ -387,3 +387,147 @@ NestedScrollView 내부에 ConstraintLayout을 사용하면, RecyclerView가 안
 
 fillviewPort = true
 
+
+
+
+# 2022.11.05 내용
+
+---
+
+### 레이아웃
+
+→ SearchPage 구현
+
+- 스크롤반응 ToolBar
+    - `app:contentInsetStart="0dp"`  :  툴바 왼쪽공간 없애줌
+    - `app:layout_scrollFlags="scroll|enterAlways"`  :  아래스크롤시 툴바 숨기기
+
+→ SearchrecentPage 구현
+
+- SearchPage 에서 edittext 클릭시, 최근검색어 목록을 보여줌.
+- edittext를 버튼으로 활용하기 위해,  아래 속성 추가
+    - `android:focusableInTouchMode="false"`
+    - `android:clickable="true"`
+
+→ SearchautocompletePage 구현
+
+- edittext에 검색어를 입력하면, 자동완성 fragment로 하단이 교체됨
+
+[검색페이지.mp4](https://user-images.githubusercontent.com/86242930/200122617-5a24d857-be16-468c-9fb7-851fbbc45866.mp4)
+
+→ ProfilePostPage 구현
+
+- ProfilePage 에서 게시물 썸네일 클릭시, 게시물 목록 페이지로 이동
+- 내 게시물 또는 태그된 게시물을 RecyclerView 로 보여줌
+
+<img src ="https://user-images.githubusercontent.com/86242930/200122628-65da7e07-53d2-4bd4-a82a-8e8e434d4827.jpg" width="150" height="300"/>
+
+<img src ="https://user-images.githubusercontent.com/86242930/200122631-477e1181-5c8e-49ec-8c60-263fdffc61dc.jpg" width="150" height="300"/>
+
+→ Story 썸네일 클릭시 StoryPage 구현
+
+- Viewpager로 이미지 스와이핑
+- 스토리 페이지에서는, statusbar 가 검은색으로 바뀜. 새로운 style resource 구현
+
+```xml
+<style name="AppTheme.NoActionBar.black">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowBackground">@color/insta_black</item>
+    <item name="android:statusBarColor">@color/black</item>
+</style>
+```
+
+- 하단 navigation bar 또한 검은색으로 바뀜. kotlin 에서 변경
+
+```kotlin
+window.navigationBarColor = Color.BLACK
+```
+
+[story 페이지.mp4](https://user-images.githubusercontent.com/86242930/200122635-c77694ef-eaea-4aef-9dc1-e360fb39f56c.mp4)
+
+### 로직
+
+→ ProfileFragment → ProfilePostFragment 으로의 이동
+
+- 프로필페이지 게시물 썸네일 클릭시,   게시물 페이지로 이동시켜야했다.
+- 하지만, 게시물 썸네일이 RecyclerView로 구현되었기 때문에, Fragment 사이의 이동을 Adapter 에서 처리해줘야 했다.  Adapter에서 MainActivity에도 접근이 안되고, FragmentManager 호출도 안되기 때문에,  inner class를 활용하여 페이지 이동함수 자체를 담아서 옮겨 주었다
+
+```kotlin
+// ProfileFragment
+
+inner class roomToAdapter{
+    fun moveToProfilePost(){
+        changeProfile()
+    }
+}
+
+fun changeProfile(){
+    setFragmentResult("fromProfileFragment", bundleOf("bundleKey" to postclick))
+    val Activity = activity as MainActivity
+    Activity.changeFragment("ProfilePost")
+}
+
+var linking = roomToAdapter()
+val adapter = ProfileThumbnailAdapter(data,linking)
+binding.recyclerProfileThumbnail.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+binding.recyclerProfileThumbnail.adapter = adapter
+
+// ProfileThumbnailAdapter
+
+class ProfileThumbnailAdapter(private val datas : ArrayList<String>, var link : ProfileFragment.roomToAdapter) : RecyclerView.Adapter<ProfileThumbnailAdapter.ViewHolder>(){
+    
+inner class ViewHolder(private val viewBinding: RecyclerThumbnailBinding) : RecyclerView.ViewHolder(viewBinding.root){
+        fun bind(item : String){
+            ...
+            view.setOnClickListener{
+                link.moveToProfilePost()
+            }
+        }
+    }
+```
+
+→ 키보드올리기 / 내리기 제어  & edittext 포커싱
+
+- Fragment 안에 Fragment를 구현하면서,  Fragment간 이동시 edittext 포커싱 유지 & 키보드 올리기를 하고싶었다
+- edittext 포커싱
+    - `binding.etSearchtool.requestFocus()`  쏘 간단
+- 키보드 컨트롤
+    
+    ```
+    // 컨트롤 변수 선언
+    val inputMethodManager =context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    
+    // 키보드 올리기
+    inputMethodManager.showSoftInput(binding.etSearchtool,0)
+    
+    // 키보드 내리기
+    inputMethodManager.hideSoftInputFromWindow(binding.etSearchAddress.windowToken, 0)
+    ```
+    
+
+→ edittext 감지하여, 하위 Fragment 교체!!
+
+- EditText가 있는 SearchToolFragment 에서 FrameLayout으로 하단 Fragment를 컨트롤하기 때문에,  EditText에 검색어 입력을 감지하여, autocomplete Fragment로 교체하게끔 구현!
+
+```kotlin
+override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    searchtext = binding.etSearchtool.text.toString()
+    if(searchtext!!.isNotBlank()){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.search_frm, SearchAutocompleteFragment(searchtext))
+            .commit()
+    }else{
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.search_frm, SearchRecentsearchFragment())
+            .commit()
+    }
+}
+```
+
+### API
+
+### 이슈
+
+
+

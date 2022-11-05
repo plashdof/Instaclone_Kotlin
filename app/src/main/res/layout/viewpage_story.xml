@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/insta_black">
+
+    <!--    <androidx.viewpager2.widget.ViewPager2-->
+    <!--        android:id="@+id/story_viewpager"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+
+    <ImageView
+        android:id="@+id/story_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/test_profile"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center|start">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/story_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/test_profile"/>
+
+        <TextView
+            android:id="@+id/tv_story_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:text="p.real_sound"/>
+
+        <TextView
+            android:id="@+id/tv_story_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/insta_et"
+            android:text="12시간"
+            android:layout_marginLeft="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/btm_story_menu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/story_menu"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="35dp"
+        android:gravity="center">
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="5"
+            android:background="@drawable/shape_et_story"
+            android:hint="메세지 보내기"
+            android:textColorHint="@color/insta_white"
+            android:textSize="15sp"
+            android:paddingLeft="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/insta_white"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/story_heart"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/story_send"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="15dp"
+            android:background="@android:color/transparent"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</FrameLayout>

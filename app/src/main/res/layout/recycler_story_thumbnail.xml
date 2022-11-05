@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/recycler_story_border"
+        android:id="@+id/recycler_storythumbnail_border"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center|top"
@@ -19,7 +19,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/recycler_story_imagebtn"
+        android:id="@+id/recycler_storythumbnail_imagebtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center|top"

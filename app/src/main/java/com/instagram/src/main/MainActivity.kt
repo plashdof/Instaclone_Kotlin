@@ -114,6 +114,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .replace(R.id.main_frm,SearchToolFragment())
                     .commit()
             }
+
         }
     }
 

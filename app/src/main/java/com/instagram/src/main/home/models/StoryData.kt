@@ -3,8 +3,13 @@ package com.instagram.src.main.home.models
 import com.google.gson.annotations.SerializedName
 
 data class StoryData(
-    @SerializedName("state") var state : Boolean ? = false,
-    @SerializedName("profileimage") var profile : String,
-    @SerializedName("nickName") var nickName : String
+    @SerializedName("profile") val profile : String? = "",
+    @SerializedName("imglist") val imglist : ArrayList<ImgList>,
+    @SerializedName("nick") val nick : String? = "",
+)
 
+
+data class ImgList(
+    @SerializedName("time") val time : String? = "",
+    @SerializedName("img") val img : String? = ""
 )

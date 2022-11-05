@@ -1,6 +1,5 @@
 package com.instagram.src.main.ProfilePage
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -16,11 +15,11 @@ import com.instagram.src.main.Modals.BottomSheetProfilemenu
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileplus
-import com.instagram.src.main.home.adapter.StoryAdapter
+import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
-import com.instagram.src.main.home.models.StoryData
+import com.instagram.src.main.home.models.StoryThumbnailData
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileActivityInterface{
 
@@ -198,11 +197,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private fun recyclerStory(){
 
-        val data = StoryData(profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickName = "Noah")
-        val datas = arrayListOf<StoryData>(data, data, data, data,data,data,data,data)
+        val data = StoryThumbnailData(profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickName = "Noah")
+        val datas = arrayListOf<StoryThumbnailData>(data, data, data, data,data,data,data,data)
 
 
-        val adapter = StoryAdapter(datas)
+        val adapter = StoryThumbnailAdapter(datas)
         binding.recyclerProfileStory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.recyclerProfileStory.adapter = adapter
     }

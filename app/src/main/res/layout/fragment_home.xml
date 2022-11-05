@@ -79,7 +79,7 @@
                 android:layout_height="80dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_story" />
+                tools:listitem="@layout/recycler_story_thumbnail" />
 
             <View
                 android:id="@+id/line_home_story"

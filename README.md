@@ -531,3 +531,119 @@ override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
 
 
+
+# 2022.11.06 내용
+
+---
+
+### 레이아웃
+
+→ StoryPage 디테일 적용
+
+- 중첩 ViewPager2가 가능해야했음
+- Util 폴더에 NestedScrollableHost 추가.
+- 스크롤을 하는 자식 ViewPager2 XML에 NestedScrollableHost 를 감싸줌
+
+→ 중첩 ViewPager2 배제!! : 그냥 image와 time data만, 바꿔주는 View로 변경
+
+- 써드파티 라이브러리 `implementation 'com.github.shts:StoriesProgressView:3.0.0'` 사용
+- insta story progress bar 구현
+- Fragment에서 벗어나, StoryToolActivity를 별도로 생성
+
+→ 이슈해결 :  HorizontalScrollView 내부에서 RecyclerView와 다른View 함꼐 스크롤시키기
+
+- HorizontalScrollView 내부에는 RelativeLayout으로 작성.
+
+https://user-images.githubusercontent.com/86242930/200178772-fa835f58-e3d8-4bae-89e2-5736080bb6f7.mp4
+
+→ ReelsPage 레이아웃 구현
+
+- Vertical Viewpager2 로 구현
+
+→ ShoppingPage 레이아웃 구현
+
+- SearchPage와 유사한 단계로 구현.
+
+https://user-images.githubusercontent.com/86242930/200178779-0ff243dc-f991-4bd4-a236-b1f8f5480557.mp4
+
+### 로직
+
+→ 스토리페이지,  상태바&네비게이션 바 색상 변경 
+
+- 네비게이션 바는 수동으로 설정
+- *`window*.*navigationBarColor* = Color.*BLACK*`
+- 스타일 적용
+
+```
+<style name="AppTheme.NoActionBar.black">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowBackground">@color/insta_black</item>
+    <item name="android:statusBarColor">@color/black</item>
+</style>
+```
+
+→ 스토리페이지 클릭시 이미지 변경 및 progressbar 상태 변경 구현
+
+```kotlin
+// 스토리 progressbar
+progressbar = viewBinding.storyProgressbar
+progressbar.setStoriesCount(item.imgData.size)
+progressbar.setStoryDuration(4000L)
+progressbar.setStoriesListener(this@ViewHolder)
+progressbar.startStories()
+
+leftside.setOnClickListener {
+
+    if(currentindex != 0){
+        --currentindex
+        Glide.with(itemView)
+            .load(item.imgData[currentindex].img)
+            .into(storyimg)
+        time.text = item.imgData[currentindex].time
+        progressbar.reverse()
+
+    }
+
+}
+
+rightside.setOnClickListener {
+
+    clicked = true
+
+    if(currentindex != maxindex){
+        ++currentindex
+        Glide.with(itemView)
+            .load(item.imgData[currentindex].img)
+            .into(storyimg)
+        time.text = item.imgData[currentindex].time
+        progressbar.skip()
+    }
+
+}
+```
+
+- 화면 좌우에 빈 View를 덮어씌운뒤,   왼쪽화면 클릭시 뒤로가기 & 오른쪽화면 클릭시 앞으로가기 구현
+
+### API
+
+→ 3.3 API 통신테스트 성공
+
+- 홈화면 게시물 리스트 GET API
+
+
+<img src ="https://user-images.githubusercontent.com/86242930/200178781-da6d03ec-a7ae-483c-9639-53b688e433bd.JPG" width="400" height="150"/>
+
+https://user-images.githubusercontent.com/86242930/200178784-6c821ae0-6c2e-4b46-be93-908070824caf.mp4
+
+### 이슈
+
+→ Retrofit 중복 콜 문제
+
+- OkHttpClient 의 빌딩과정의 문제인걸 확인
+- Build시 `.retryOnConnectionFailure(false)` 추가
+
+→ 갤러리 연동 실패
+
+- 스토리/게시물 작성 & 프로필사진 변경을 위해,  이미지 연동 커스텀 페이지 제작 시도
+- 실패.. ContentProvider를 활용하여 재도전 해볼 예정

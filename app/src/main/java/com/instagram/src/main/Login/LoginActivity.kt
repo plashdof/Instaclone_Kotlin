@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityLoginBinding
@@ -27,6 +28,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         super.onCreate(savedInstanceState)
         val loginbtn = binding.btnLoginLogin
         loginbtn.isClickable = false
+
+        Log.d("aaaaa","onCreate")
 
 
 
@@ -105,6 +108,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
             if(emailflag){
                 val data = PostLoginData(email = id, password = pw)
+
                 LoginService(this).tryPostLogin(data)
             }else if(nickflag){
                 val data = PostLoginData(nickName = id, password = pw)
@@ -119,6 +123,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     override fun onPostLoginSuccess(response: LoginData) {
         if(response.code == 1000){
             showCustomToast("로그인 성공")
+
+
 
             val jwt = response.result.jwt
 

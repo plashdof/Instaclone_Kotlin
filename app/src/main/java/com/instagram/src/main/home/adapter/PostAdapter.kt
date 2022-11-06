@@ -4,23 +4,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.google.android.material.tabs.TabLayoutMediator
-import com.instagram.R
 import com.instagram.databinding.RecyclerPostBinding
-import com.instagram.src.main.home.models.PostData
 import com.instagram.src.main.home.models.PostdetialData
-import okio.utf8Size
 
 
-class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
-    inner class ViewHolder(private val viewBinding: RecyclerPostBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(item:PostdetialData){
+class PostAdapter(private val datas: ArrayList<PostdetialData>) :
+    RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+
+
+    inner class ViewHolder(private val viewBinding: RecyclerPostBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+        fun bind(item: PostdetialData) {
             val nick = viewBinding.recyclerPostNick
             val profileimg = viewBinding.recylerPostProfileimg
             val likecount = viewBinding.recyclerPostBottomlikeNumber
@@ -33,33 +30,36 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.A
             val moreseebtn = viewBinding.recyclerPostBottomDetailLine1Moreseebtn
             val detailLine2 = viewBinding.recyclerPostBottomDetailLine2
 
-            Log.d("aaaaa","${item.imgUrlList[0]}")
+            Log.d("aaaaa", "${item.imgUrlList[0]}")
 
             nick.text = item.nickname
             postnick.text = item.nickname
             postTime.text = item.time
 
+
+            // Comment Parsing 로직
+
             var count = 0
             var flag = true
             val contentString = item.content.toString()
 
-            for(i in 0 until contentString.length - 1){
-                if(contentString[i] == ' '){
+            for (i in 0 until contentString.length - 1) {
+                if (contentString[i] == ' ') {
                     count++
                 }
 
-                if(count == 3){
+                if (count == 3) {
                     flag = false
-                    firstcontent.text = contentString.substring(0,i+1)
+                    firstcontent.text = contentString.substring(0, i + 1)
 
-                    for(j in i+1 until contentString.length - 1){
-                        if(contentString[j] == ' '){
+                    for (j in i + 1 until contentString.length - 1) {
+                        if (contentString[j] == ' ') {
                             count++
                         }
 
-                        if(count == 4){
-                            detailLine1.text = contentString.substring(i+1, j+1)
-                            detailLine2.text = contentString.substring(j+1)
+                        if (count == 4) {
+                            detailLine1.text = contentString.substring(i + 1, j + 1)
+                            detailLine2.text = contentString.substring(j + 1)
                             break
                         }
                     }
@@ -73,30 +73,33 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.A
                 }
             }
 
-            if(flag){
+            if (flag) {
                 detailLine1.isVisible = false
-                detailLine2.isVisible =false
+                detailLine2.isVisible = false
                 moreseebtn.isVisible = false
                 firstcontent.text = contentString
             }
 
-            if(item.likeCount == 0){
+
+            // 나머지 데이터로 layout 채우기
+
+            if (item.likeCount == 0) {
                 likecount.isVisible = false
-            }else{
+            } else {
                 likecount.text = "좋아요 ${item.likeCount}개"
             }
 
-            if(item.commentCount == 0){
+            if (item.commentCount == 0) {
                 commentCount.isVisible = false
-            }else{
+            } else {
                 commentCount.text = "댓글 ${item.commentCount}개 모두 보기"
             }
 
-            if(item.hashTagList.isNullOrEmpty()){
+            if (item.hashTagList.isNullOrEmpty()) {
                 hashtaglist.isVisible = false
-            }else{
+            } else {
                 var hashTagString = ""
-                for(i in item.hashTagList){
+                for (i in item.hashTagList) {
                     hashTagString += "#$i "
                 }
                 hashtaglist.text = hashTagString
@@ -117,7 +120,9 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.A
             viewpager.adapter = adapter
 
 
-            viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            // viewpager 와 indicator 연결부분
+
+            viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
@@ -129,7 +134,7 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.A
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     indicator.onPageChange(position)
-                    Log.d("aaaa","selected position : $position")
+                    Log.d("aaaa", "selected position : $position")
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
@@ -138,12 +143,14 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.A
             })
 
 
-
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewBinding = RecyclerPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val viewBinding =
+            RecyclerPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(viewBinding)
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

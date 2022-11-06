@@ -36,29 +36,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     R.id.menu_btn_home -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, HomeFragment())
+                            .addToBackStack(null)
                             .commitAllowingStateLoss()
                     }
                     R.id.menu_btn_search -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, SearchFragment())
+                            .addToBackStack(null)
                             .commitAllowingStateLoss()
                     }
 
                     R.id.menu_btn_video -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, VideoFragment())
+                            .addToBackStack(null)
                             .commitAllowingStateLoss()
                     }
 
                     R.id.menu_btn_shopping -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, ShoppingFragment())
+                            .addToBackStack(null)
                             .commitAllowingStateLoss()
                     }
 
                     R.id.menu_btn_profile -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, ProfileFragment())
+                            .addToBackStack(null)
                             .commitAllowingStateLoss()
                     }
                 }
@@ -70,6 +75,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onBackPressed() {
         super.onBackPressed()
+
     }
 
     // 프래그먼트간 이동 구현

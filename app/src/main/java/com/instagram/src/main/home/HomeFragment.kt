@@ -3,19 +3,29 @@ package com.instagram.src.main.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.instagram.R
 import com.instagram.config.BaseFragment
 import com.instagram.databinding.FragmentHomeBinding
 import com.instagram.src.main.Jwt
+import com.instagram.src.main.MainActivity
 import com.instagram.src.main.home.adapter.PostAdapter
 import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.home.models.PostData
 import com.instagram.src.main.home.models.PostdetialData
 import com.instagram.src.main.home.models.StoryThumbnailData
+import java.lang.Thread.sleep
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home),HomeFragmentInterface{
 
+
+    private var dataCount = 0
+    private var nextpage = false
+    private var page  = 0
+    private val datas = arrayListOf<PostdetialData>()
 
     inner class getcontext{
         val fragcontext = context
@@ -25,21 +35,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         super.onStart()
         Log.d("ddddd","onStart")
 
-        HomeService(this).tryGetHomePostData(Jwt.getjwt(),"0")
+
+        HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
 
         recyclerStoryThumbnail()
 
+
+        // 최하단 스크롤 감지시, getMoreData 실행
+        binding.homeScroll.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+
+            if(!v.canScrollVertically(1)){
+                Log.d("aaaaa","lastScroll")
+
+                getMoreData()
+            }
+        }
+
     }
-
-    override fun onGetHomePostDataSuccess(response: PostData) {
-        recyclerPost(response.result.postList)
-
-    }
-
-    override fun onGetHomePostDataFailure(message: String) {
-    }
-
-
 
     private fun recyclerStoryThumbnail(){
 
@@ -56,10 +68,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     }
 
     private fun recyclerPost(datas : ArrayList<PostdetialData>){
-        Log.d("ddddd","recyclerPost")
+
+        if(nextpage){
+            binding.recyclerHomeBody.adapter?.notifyItemInserted(datas.size)
+            binding.recyclerHomeBody.adapter?.notifyDataSetChanged()
+        }
+
         val adapter = PostAdapter(datas)
         binding.recyclerHomeBody.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerHomeBody.adapter = adapter
+
+
     }
+
+    
+    override fun onGetHomePostDataSuccess(response: PostData) {
+
+        dataCount = response.result.postList.size
+        page = response.result.page
+        for(i in response.result.postList){
+            datas.add(i)
+        }
+
+        recyclerPost(datas)
+
+    }
+
+    override fun onGetHomePostDataFailure(message: String) {}
+
+    
+    fun getMoreData(){
+        nextpage = true
+        page++
+        
+        // page수를 증가시켜서 서버 요청
+        HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
+    }
+
 
 }

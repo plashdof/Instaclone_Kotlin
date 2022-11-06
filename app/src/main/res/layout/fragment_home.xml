@@ -23,6 +23,7 @@
                 android:layout_gravity="start"/>
 
 
+
             <ImageButton
                 android:id="@+id/btn_home_dm"
                 android:layout_width="25dp"
@@ -164,12 +165,22 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_post"/>
+                />
+
+
+
+            <ProgressBar
+                android:id="@+id/home_page_progressbar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:progressTint="@color/insta_gray"
+                android:max="100"
+                android:indeterminateTint="@color/insta_gray"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                />
+                android:layout_height="50dp"/>
 
         </LinearLayout>
 

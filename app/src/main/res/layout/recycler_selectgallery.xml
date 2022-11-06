@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="133dp"
+    android:layout_height="133dp"
+    android:layout_marginTop="3dp"
+    android:layout_weight="1">
+
+    <ImageButton
+        android:id="@+id/recycler_selectgallery_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/test_profile"
+        android:scaleType="centerCrop"
+        android:background="@android:color/transparent"/>
+
+    <CheckBox
+        android:id="@+id/selectgallery_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"/>
+
+
+
+</FrameLayout>

@@ -29,8 +29,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding> (FragmentSearchBindin
 
     fun recyclerSearchThumbnail(){
         val data = SearchThumbnailData(img = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", id = "12")
-        val datas = arrayOf(data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data
-            , data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data)
+        val data2 = SearchThumbnailData(img = "https://source.unsplash.com/collection/3730086/1080x1080", id = "12")
+        val data3 = SearchThumbnailData(img = "https://source.unsplash.com/collection/2463607/1080x1080", id = "12")
+        val datas = arrayOf(data, data2, data, data, data2, data, data, data, data, data, data, data2, data, data, data3, data, data2, data, data
+            , data, data3, data3, data, data, data3, data, data, data3, data3, data2, data, data3, data, data2, data, data, data, data)
         val adapter = SearchThumbnailAdapter(datas)
         binding.recyclerSearchThumbnail.layoutManager = GridLayoutManager(context,3,
             LinearLayoutManager.VERTICAL,false)

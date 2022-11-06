@@ -36,28 +36,16 @@ class ProfilePostFragment : BaseFragment<FragmentProfilePostBinding>(FragmentPro
             Activity.changeFragment("Profile")
         }
 
-        recyclerPost()
+//        recyclerPost()
     }
 
 
 
-    private fun recyclerPost(){
-        val viewdata = arrayOf<String>("https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp")
-
-        val data = PostData(imgdata = viewdata, nick = "noah", profileimg = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp")
-        val data2 = PostData(imgdata = viewdata, nick = "noa", profileimg = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp")
-
-        val datas = arrayOf(data,data2,data,data2)
-
-        val adapter = PostAdapter(datas)
-        binding.recyclerProfilepost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerProfilepost.adapter = adapter
-    }
+//    private fun recyclerPost(){
+//
+//
+//        val adapter = PostAdapter(datas)
+//        binding.recyclerProfilepost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//        binding.recyclerProfilepost.adapter = adapter
+//    }
 }

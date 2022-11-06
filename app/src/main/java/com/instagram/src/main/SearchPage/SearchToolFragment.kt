@@ -44,10 +44,12 @@ class SearchToolFragment : BaseFragment<FragmentSearchToolBinding>(FragmentSearc
                 if(searchtext!!.isNotBlank()){
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.search_frm, SearchAutocompleteFragment(searchtext))
+                        .addToBackStack(null)
                         .commit()
                 }else{
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.search_frm, SearchRecentsearchFragment())
+                        .addToBackStack(null)
                         .commit()
                 }
             }

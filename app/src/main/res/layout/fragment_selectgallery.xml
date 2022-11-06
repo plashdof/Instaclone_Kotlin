@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_profileedit_cancel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/profileedit_exit"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="갤러리"
+            android:textColor="@color/insta_black"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_profileedit_store"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/profileedit_check"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"/>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_changeprofile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

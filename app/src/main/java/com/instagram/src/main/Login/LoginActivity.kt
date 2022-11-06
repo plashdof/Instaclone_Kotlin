@@ -74,6 +74,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             override fun afterTextChanged(p0: Editable?) {}
         })
 
+
+        binding.btnLoginSignup.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         binding.btnLoginLogin.setOnClickListener {
             val size = id.length
 
@@ -103,12 +114,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 LoginService(this).tryPostLogin(data)
             }
         }
-
-        binding.btnLoginSignup.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     override fun onPostLoginSuccess(response: LoginData) {

@@ -33,10 +33,10 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
     fun viewpageStorytool(){
 
         val temp = ImgData(img = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", time = "12시간")
-        val temp2 = ImgData(img = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", time = "6시간")
+        val temp2 = ImgData(img = "https://source.unsplash.com/collection/3730086/1080x1080", time = "6시간")
         val imgdata = arrayListOf<ImgData>(temp,temp2)
         val imgdata2 = arrayListOf<ImgData>(temp,temp2,temp,temp2)
-        val data = StoryData(nick = "noah", profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", imgData = imgdata)
+        val data = StoryData(nick = "noah", profile = "https://source.unsplash.com/collection/932210/1080x1080", imgData = imgdata)
         val data2 = StoryData(nick = "noah", profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", imgData = imgdata2)
 
         val datas = arrayListOf(data,data2,data,data2,data,data2)

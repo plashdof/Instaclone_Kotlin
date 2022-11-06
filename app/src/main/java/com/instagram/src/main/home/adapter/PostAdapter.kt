@@ -3,6 +3,7 @@ package com.instagram.src.main.home.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -13,27 +14,108 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.instagram.R
 import com.instagram.databinding.RecyclerPostBinding
 import com.instagram.src.main.home.models.PostData
+import com.instagram.src.main.home.models.PostdetialData
+import okio.utf8Size
 
 
-class PostAdapter(private val datas: Array<PostData>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(private val datas: ArrayList<PostdetialData>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     inner class ViewHolder(private val viewBinding: RecyclerPostBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(item:PostData){
+        fun bind(item:PostdetialData){
             val nick = viewBinding.recyclerPostNick
             val profileimg = viewBinding.recylerPostProfileimg
+            val likecount = viewBinding.recyclerPostBottomlikeNumber
+            val postnick = viewBinding.recyclerPostBottomtextNick
+            val firstcontent = viewBinding.recyclerPostBottomtextFirstline
+            val hashtaglist = viewBinding.recyclerPostHashtag
+            val commentCount = viewBinding.recyclerPostCommentCount
+            val postTime = viewBinding.recyclerPostTime
+            val detailLine1 = viewBinding.recyclerPostBottomDetailLine1Text
+            val moreseebtn = viewBinding.recyclerPostBottomDetailLine1Moreseebtn
+            val detailLine2 = viewBinding.recyclerPostBottomDetailLine2
 
-            nick.text = item.nick
+            Log.d("aaaaa","${item.imgUrlList[0]}")
+
+            nick.text = item.nickname
+            postnick.text = item.nickname
+            postTime.text = item.time
+
+            var count = 0
+            var flag = true
+            val contentString = item.content.toString()
+
+            for(i in 0 until contentString.length - 1){
+                if(contentString[i] == ' '){
+                    count++
+                }
+
+                if(count == 3){
+                    flag = false
+                    firstcontent.text = contentString.substring(0,i+1)
+
+                    for(j in i+1 until contentString.length - 1){
+                        if(contentString[j] == ' '){
+                            count++
+                        }
+
+                        if(count == 4){
+                            detailLine1.text = contentString.substring(i+1, j+1)
+                            detailLine2.text = contentString.substring(j+1)
+                            break
+                        }
+                    }
+
+                    detailLine2.isVisible = false
+                    moreseebtn.setOnClickListener {
+                        detailLine2.isVisible = true
+                        moreseebtn.isVisible = false
+                    }
+
+                }
+            }
+
+            if(flag){
+                detailLine1.isVisible = false
+                detailLine2.isVisible =false
+                moreseebtn.isVisible = false
+                firstcontent.text = contentString
+            }
+
+            if(item.likeCount == 0){
+                likecount.isVisible = false
+            }else{
+                likecount.text = "좋아요 ${item.likeCount}개"
+            }
+
+            if(item.commentCount == 0){
+                commentCount.isVisible = false
+            }else{
+                commentCount.text = "댓글 ${item.commentCount}개 모두 보기"
+            }
+
+            if(item.hashTagList.isNullOrEmpty()){
+                hashtaglist.isVisible = false
+            }else{
+                var hashTagString = ""
+                for(i in item.hashTagList){
+                    hashTagString += "#$i "
+                }
+                hashtaglist.text = hashTagString
+            }
+
+
             Glide.with(itemView)
-                .load(item.profileimg)
+                .load(item.userImg)
                 .into(profileimg)
 
             val viewpager = viewBinding.recyclerPostViewpager
-            val viewImg = item.imgdata
+            val viewImg = item.imgUrlList
 
             val indicator = viewBinding.recyclerPostIndicator
             indicator.noOfPages = viewImg.size
 
             val adapter = PostViewAdapter(viewImg)
             viewpager.adapter = adapter
+
 
             viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 override fun onPageScrolled(

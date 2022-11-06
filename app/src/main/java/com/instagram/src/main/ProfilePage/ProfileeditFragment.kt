@@ -1,6 +1,8 @@
 package com.instagram.src.main.ProfilePage
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -19,10 +23,10 @@ import com.instagram.databinding.FragmentProfileeditBinding
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileChange
-import com.instagram.src.main.Modals.BottomSheetProfileplus
 import com.instagram.src.main.ProfilePage.models.ModifyProfileBodyData
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentProfileeditBinding::bind, R.layout.fragment_profileedit),ProfileActivityInterface{
 
@@ -32,11 +36,14 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
     var description : String? = ""
     var profile : String? = ""
 
+    private lateinit var changeimage : CircleImageView
+
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
         val editname = binding.etProfileeditName
@@ -46,7 +53,8 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
 
         val cancelbtn = binding.btnProfileeditCancel
         val storebtn = binding.btnProfileeditStore
-        val changeimage = binding.btnProfileeditChangeimage
+        changeimage = binding.btnProfileeditChangeimage
+
 
 
         // Fragment 데이터 이동간, 데이터 매칭을 위해,  Array로 indexing 활용
@@ -70,6 +78,8 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
 
 
 
+
+
         
         // ProfileFragment 에서 데이터 넘겨받기
         setFragmentResultListener("fromProfileFragment"){requestKey, bundle ->
@@ -82,28 +92,6 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
                 description = result[3]
                 profile = result[4]
                 
-                editname.setText(name)
-                editnick.setText(nick)
-                editweb.setText(website)
-                editintro.setText(description)
-
-                Glide.with(this)
-                    .load(profile)
-                    .into(changeimage)
-            }
-        }
-
-        //ProfileeditTextFragment 에서 Cancel 했을때 넘겨받기
-        setFragmentResultListener("fromProfileeditTextFragmentCancel"){requestKey, bundle ->
-            val result = bundle.getStringArray("bundleKey")
-
-            if(result != null){
-                name = result[0]
-                nick = result[1]
-                website = result[2]
-                description = result[3]
-                profile =result[4]
-
                 editname.setText(name)
                 editnick.setText(nick)
                 editweb.setText(website)
@@ -222,6 +210,7 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
 
         // 이미지 클릭. bottom Sheet 불러오기
         changeimage.setOnClickListener {
+
             val bottomSheet = BottomSheetProfileChange()
             bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }
@@ -246,14 +235,11 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
     }
 
 
+    override fun onResume() {
+        super.onResume()
 
-
-
-    fun gotoGallery(){
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(intent,2000)
     }
+
 
 }
 

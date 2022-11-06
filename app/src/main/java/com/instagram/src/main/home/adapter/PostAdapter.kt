@@ -3,21 +3,26 @@ package com.instagram.src.main.home.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.instagram.databinding.RecyclerPostBinding
+import com.instagram.src.main.MainActivity
+import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.home.models.PostdetialData
 
 
-class PostAdapter(private val datas: ArrayList<PostdetialData>) :
+class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : HomeFragment.getcontext? = null) :
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(private val viewBinding: RecyclerPostBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(item: PostdetialData) {
+
             val nick = viewBinding.recyclerPostNick
             val profileimg = viewBinding.recylerPostProfileimg
             val likecount = viewBinding.recyclerPostBottomlikeNumber
@@ -119,6 +124,10 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>) :
             val adapter = PostViewAdapter(viewImg)
             viewpager.adapter = adapter
 
+
+            commentCount.setOnClickListener {
+                linking?.gotoComment(item.postId)
+            }
 
             // viewpager 와 indicator 연결부분
 

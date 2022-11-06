@@ -13,6 +13,7 @@ import com.instagram.src.main.SearchPage.SearchToolFragment
 import com.instagram.src.main.ShoppingPage.ShoppingFragment
 import com.instagram.src.main.ShoppingPage.ShoppingToolFragment
 import com.instagram.src.main.VideoPage.VideoFragment
+import com.instagram.src.main.home.CommentFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
@@ -81,6 +82,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     // 프래그먼트간 이동 구현
     fun changeFragment(name : String){
         when(name){
+            "Home"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, HomeFragment())
+                    .addToBackStack(null)
+                    .commit()
+                makebtnnav()
+            }
+
+            "Comment"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, CommentFragment())
+                    .addToBackStack(null)
+                    .commit()
+                hidebtnnav()
+            }
 
             "Profile"->{
 

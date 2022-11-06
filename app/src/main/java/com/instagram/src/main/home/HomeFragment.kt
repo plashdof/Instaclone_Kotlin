@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.instagram.R
@@ -29,6 +31,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     inner class getcontext{
         val fragcontext = context
+        fun gotoComment(postid : Int){
+            movetoCommentPage(postid)
+        }
     }
 
     override fun onStart() {
@@ -74,7 +79,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             binding.recyclerHomeBody.adapter?.notifyDataSetChanged()
         }
 
-        val adapter = PostAdapter(datas)
+        val linking = getcontext()
+
+        val adapter = PostAdapter(datas, linking)
         binding.recyclerHomeBody.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerHomeBody.adapter = adapter
 
@@ -103,6 +110,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         
         // page수를 증가시켜서 서버 요청
         HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
+    }
+
+    fun movetoCommentPage(postid : Int){
+        val Activity = activity as MainActivity
+        setFragmentResult("fromHome", bundleOf("bundleKey" to postid))
+        Activity.changeFragment("Comment")
     }
 
 

@@ -1,18 +1,11 @@
 package com.instagram.src.main.ProfilePage
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ImageButton
-import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -26,9 +19,10 @@ import com.instagram.src.main.Modals.BottomSheetProfileChange
 import com.instagram.src.main.ProfilePage.models.ModifyProfileBodyData
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
+import com.instagram.src.main.ProfilePage.models.OthersProfileData
 import de.hdodenhof.circleimageview.CircleImageView
 
-class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentProfileeditBinding::bind, R.layout.fragment_profileedit),ProfileActivityInterface{
+class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentProfileeditBinding::bind, R.layout.fragment_profileedit),ProfileFragmentInterface{
 
     var name : String? = ""
     var nick : String? = ""
@@ -222,18 +216,11 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
         Activity.changeFragment("Profile")
     }
 
-    override fun onPatchModifyProfileFailure(message: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onGetMyProfileSuccess(response: MyProfileData) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onGetMyProfileFailure(message: String) {
-        TODO("Not yet implemented")
-    }
-
+    override fun onPatchModifyProfileFailure(message: String) {}
+    override fun onGetMyProfileSuccess(response: MyProfileData) {}
+    override fun onGetMyProfileFailure(message: String) {}
+    override fun onGetOthersProfileSuccess(response: OthersProfileData) {}
+    override fun onGetOthersProfileFailure(message: String) {}
 
     override fun onResume() {
         super.onResume()

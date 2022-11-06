@@ -4,11 +4,12 @@ import com.instagram.config.ApplicationClass
 import com.instagram.src.main.ProfilePage.models.ModifyProfileBodyData
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
+import com.instagram.src.main.ProfilePage.models.OthersProfileData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileService(val profileActivityInterface: ProfileActivityInterface) {
+class ProfileService(val profileActivityInterface: ProfileFragmentInterface) {
 
     fun tryGetMyProfileData(jwt : String?){
         val profileRetrofitInterface = ApplicationClass.sRetrofit.create(ProfileRetrofitInterface::class.java)
@@ -19,6 +20,20 @@ class ProfileService(val profileActivityInterface: ProfileActivityInterface) {
 
             override fun onFailure(call: Call<MyProfileData>, t: Throwable) {
                 profileActivityInterface.onGetMyProfileFailure(t.message ?: "통신 오류")
+            }
+        })
+    }
+
+    fun tryGetOthersProfileData(jwt : String?, targetNickname:String?){
+        val profileRetrofitInterface = ApplicationClass.sRetrofit.create(ProfileRetrofitInterface::class.java)
+        profileRetrofitInterface.getOthersProfile(jwt, targetNickname).enqueue(object: Callback<OthersProfileData>{
+            override fun onResponse(call: Call<OthersProfileData>, response: Response<OthersProfileData>
+            ) {
+                profileActivityInterface.onGetOthersProfileSuccess(response.body() as OthersProfileData)
+            }
+
+            override fun onFailure(call: Call<OthersProfileData>, t: Throwable) {
+                profileActivityInterface.onGetOthersProfileFailure(t.message?: "통신 오류")
             }
         })
     }

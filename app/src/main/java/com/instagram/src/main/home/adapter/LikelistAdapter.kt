@@ -1,5 +1,6 @@
 package com.instagram.src.main.home.adapter
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,8 +34,10 @@ class LikelistAdapter(private val datas: ArrayList<LikelistdetialData>) : Recycl
 
             if(item.followState == "팔로잉"){
                 followbtn.setBackgroundResource(R.drawable.shape_et)
+                followbtn.setTextColor(Color.BLACK)
             }else{
                 followbtn.setBackgroundResource(R.drawable.shape_loginbtn_active)
+                followbtn.setTextColor(R.color.insta_white)
             }
 
         }

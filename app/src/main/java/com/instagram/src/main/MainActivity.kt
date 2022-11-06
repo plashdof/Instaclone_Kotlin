@@ -149,6 +149,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .commit()
             }
 
+            "ProfileOthers"->{
+
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, OthersProfileFragment())
+                    .addToBackStack(null)
+                    .commit()
+
+                makebtnnav()
+            }
+
             "Search"->{
                 supportFragmentManager
                     .beginTransaction()

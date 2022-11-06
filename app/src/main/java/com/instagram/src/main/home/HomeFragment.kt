@@ -29,6 +29,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         fun gotoLikelist(postid : Int){
             movetoLikelistPage(postid)
         }
+        fun gotoOthersprofile(targetNickname: String?){
+            movetoOthersprofilePage(targetNickname)
+        }
     }
 
     override fun onStart() {
@@ -117,6 +120,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         val Activity = activity as MainActivity
         setFragmentResult("fromHome", bundleOf("bundleKey" to postid))
         Activity.changeFragment("Likelist")
+    }
+
+    fun movetoOthersprofilePage(targetNickname : String?){
+        val Activity = activity as MainActivity
+        setFragmentResult("fromHome", bundleOf("bundleKey" to targetNickname))
+        Activity.changeFragment("ProfileOthers")
     }
 
 

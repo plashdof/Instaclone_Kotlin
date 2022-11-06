@@ -103,6 +103,8 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                 likecount.text = "좋아요 ${item.likeCount}개"
             }
 
+            // 좋아요페이지 이동
+
             likecount.setOnClickListener {
                 Log.d("aaaaa","보내는쪽 postID : ${item.postId}")
                 linking?.gotoLikelist(item.postId)
@@ -115,6 +117,12 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                 commentCount.isVisible = false
             } else {
                 commentCount.text = "댓글 ${item.commentCount}개 모두 보기"
+            }
+
+            // 댓글버튼 클릭시 commetFrag 로 이동
+
+            commentCount.setOnClickListener {
+                linking?.gotoComment(item.postId)
             }
 
 
@@ -150,6 +158,12 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                 .load(item.userImg)
                 .into(profileimg)
 
+            // 프로필이미지 클릭시 others프로필 페이지 이동
+
+            profileimg.setOnClickListener{
+                linking?.gotoOthersprofile(item.nickname)
+            }
+
 
             // 게시물 이미지리스트 viewpager & indicator
 
@@ -163,13 +177,9 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             viewpager.adapter = adapter
 
 
-            // 댓글버튼 클릭시 commetFrag 로 이동
 
-            commentCount.setOnClickListener {
-                linking?.gotoComment(item.postId)
-            }
 
-            // 좋아요 like / unlike
+            // 좋아요 like / unlike API 통신
 
             var liking = item.myPostLike
 

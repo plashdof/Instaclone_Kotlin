@@ -19,9 +19,10 @@ import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
+import com.instagram.src.main.ProfilePage.models.OthersProfileData
 import com.instagram.src.main.home.models.StoryThumbnailData
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileActivityInterface{
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileFragmentInterface{
 
     var name : String? = ""
     var nick : String? = ""
@@ -140,17 +141,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             .into(profileimg)
     }
 
-    override fun onGetMyProfileFailure(message: String) {
-        TODO("Not yet implemented")
-    }
+    override fun onGetMyProfileFailure(message: String) {}
 
-    override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {
-        TODO("Not yet implemented")
-    }
+    override fun onGetOthersProfileSuccess(response: OthersProfileData) {}
+    override fun onGetOthersProfileFailure(message: String) {}
 
-    override fun onPatchModifyProfileFailure(message: String) {
-        TODO("Not yet implemented")
-    }
+    override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {}
+    override fun onPatchModifyProfileFailure(message: String) {}
 
     fun changeProfile(){
         setFragmentResult("fromProfileFragment", bundleOf("bundleKey" to postclick))

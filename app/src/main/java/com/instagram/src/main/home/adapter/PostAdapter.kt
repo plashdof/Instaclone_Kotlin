@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.instagram.R
 import com.instagram.databinding.RecyclerPostBinding
 import com.instagram.src.main.Jwt
+import com.instagram.src.main.MainActivity
 import com.instagram.src.main.home.*
 import com.instagram.src.main.home.API.HomelikeAPI
 import com.instagram.src.main.home.models.PostdetialData
@@ -100,6 +101,11 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                 likecount.isVisible = false
             } else {
                 likecount.text = "좋아요 ${item.likeCount}개"
+            }
+
+            likecount.setOnClickListener {
+                Log.d("aaaaa","보내는쪽 postID : ${item.postId}")
+                linking?.gotoLikelist(item.postId)
             }
 
 

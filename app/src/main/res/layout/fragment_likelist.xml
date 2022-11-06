@@ -17,7 +17,7 @@
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/btn_comment_backbtn"
+                android:id="@+id/btn_likelist_backbtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center|start"
@@ -29,22 +29,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="댓글"
+                android:text="좋아요"
                 android:layout_marginLeft="30dp"
                 android:textColor="@color/insta_black"
                 android:textStyle="bold"
                 android:textSize="18dp"/>
-
-            <ImageButton
-                android:id="@+id/btn_comment_dm"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="end"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/home_share" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -63,13 +52,13 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_comment"
+                android:id="@+id/recycler_likelist"
                 android:layout_marginTop="55dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/recycler_comment"/>
+                tools:listitem="@layout/recycler_likelist"/>
 
 
         </LinearLayout>

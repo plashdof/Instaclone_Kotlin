@@ -11,10 +11,7 @@ import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.home.adapter.PostAdapter
 import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
-import com.instagram.src.main.home.models.PostData
-import com.instagram.src.main.home.models.PostdetialData
-import com.instagram.src.main.home.models.PostlikeData
-import com.instagram.src.main.home.models.StoryThumbnailData
+import com.instagram.src.main.home.models.*
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home),HomeFragmentInterface{
 
@@ -28,6 +25,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         val fragcontext = context
         fun gotoComment(postid : Int){
             movetoCommentPage(postid)
+        }
+        fun gotoLikelist(postid : Int){
+            movetoLikelistPage(postid)
         }
     }
 
@@ -112,6 +112,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         setFragmentResult("fromHome", bundleOf("bundleKey" to postid))
         Activity.changeFragment("Comment")
     }
+
+    fun movetoLikelistPage(postid : Int){
+        val Activity = activity as MainActivity
+        setFragmentResult("fromHome", bundleOf("bundleKey" to postid))
+        Activity.changeFragment("Likelist")
+    }
+
+
+
+    override fun onGetLikelistSuccess(response: LikelistData) {}
+    override fun onGetLikelistFailure(message: String) { }
+
+
 
 
 }

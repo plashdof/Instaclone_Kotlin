@@ -14,6 +14,7 @@ import com.instagram.src.main.ShoppingPage.ShoppingFragment
 import com.instagram.src.main.ShoppingPage.ShoppingToolFragment
 import com.instagram.src.main.VideoPage.VideoFragment
 import com.instagram.src.main.home.CommentFragment
+import com.instagram.src.main.home.LikelistFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
@@ -98,6 +99,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .addToBackStack(null)
                     .commit()
                 hidebtnnav()
+            }
+
+            "Likelist"->{
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frm, LikelistFragment())
+                    .addToBackStack(null)
+                    .commit()
             }
 
             "Profile"->{

@@ -1,5 +1,6 @@
 package com.instagram.src.main.home
 
+import com.instagram.src.main.home.models.LikelistData
 import com.instagram.src.main.home.models.PostData
 import com.instagram.src.main.home.models.PostlikeData
 import retrofit2.Call
@@ -13,5 +14,10 @@ interface HomeRetrofitInterface {
         @Path("page") page : String? = ""
     ) : Call<PostData>
 
+    @GET("/posts/like-list/{postid}")
+    fun getLikelist(
+        @Header("ACCESS-TOKEN") jwt : String? = "",
+        @Path("postid") postid : String? = ""
+    ) : Call<LikelistData>
 
 }

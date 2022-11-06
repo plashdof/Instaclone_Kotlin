@@ -3,20 +3,27 @@ package com.instagram.src.main.home.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.instagram.R
 import com.instagram.databinding.RecyclerPostBinding
-import com.instagram.src.main.MainActivity
-import com.instagram.src.main.home.HomeFragment
+import com.instagram.src.main.Jwt
+import com.instagram.src.main.home.*
+import com.instagram.src.main.home.API.HomelikeAPI
 import com.instagram.src.main.home.models.PostdetialData
+import com.instagram.src.main.home.models.PostlikeData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : HomeFragment.getcontext? = null) :
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+
 
 
     inner class ViewHolder(private val viewBinding: RecyclerPostBinding) :
@@ -25,6 +32,7 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
 
             val nick = viewBinding.recyclerPostNick
             val profileimg = viewBinding.recylerPostProfileimg
+            val likebtn = viewBinding.recyclerPostLikebtn
             val likecount = viewBinding.recyclerPostBottomlikeNumber
             val postnick = viewBinding.recyclerPostBottomtextNick
             val firstcontent = viewBinding.recyclerPostBottomtextFirstline
@@ -86,7 +94,7 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             }
 
 
-            // 나머지 데이터로 layout 채우기
+            // 좋아요 수
 
             if (item.likeCount == 0) {
                 likecount.isVisible = false
@@ -94,11 +102,17 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                 likecount.text = "좋아요 ${item.likeCount}개"
             }
 
+
+            // 댓글 수
+
             if (item.commentCount == 0) {
                 commentCount.isVisible = false
             } else {
                 commentCount.text = "댓글 ${item.commentCount}개 모두 보기"
             }
+
+
+            // 해시태그
 
             if (item.hashTagList.isNullOrEmpty()) {
                 hashtaglist.isVisible = false
@@ -111,9 +125,27 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             }
 
 
+            // 좋아요버튼
+
+            if(item.myPostLike == 1){
+                Glide.with(itemView)
+                    .load(R.drawable.home_like)
+                    .into(likebtn)
+            }else{
+                Glide.with(itemView)
+                    .load(R.drawable.home_unlike)
+                    .into(likebtn)
+            }
+
+
+            // 게시물 작성자 프로필이미지
+
             Glide.with(itemView)
                 .load(item.userImg)
                 .into(profileimg)
+
+
+            // 게시물 이미지리스트 viewpager & indicator
 
             val viewpager = viewBinding.recyclerPostViewpager
             val viewImg = item.imgUrlList
@@ -125,9 +157,78 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             viewpager.adapter = adapter
 
 
+            // 댓글버튼 클릭시 commetFrag 로 이동
+
             commentCount.setOnClickListener {
                 linking?.gotoComment(item.postId)
             }
+
+            // 좋아요 like / unlike
+
+            var liking = item.myPostLike
+
+            likebtn.setOnClickListener {
+                if(liking == 1){
+
+                    val buildLikeRetro = Retrofit.Builder()
+                        .baseUrl("https://prod.lukechoi.shop/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                    val api = buildLikeRetro.create(HomelikeAPI::class.java)
+                    api.postunLikestate(Jwt.getjwt(),item.postId.toString())
+                        .enqueue(object: Callback<PostlikeData>{
+                            override fun onResponse(
+                                call: Call<PostlikeData>,
+                                response: Response<PostlikeData>
+                            ) {
+                                Log.d("API결과","${response.body()?.result}")
+                                Log.d("API결과","${response.raw()}")
+
+                                liking = 0
+
+                                Glide.with(itemView)
+                                    .load(R.drawable.home_unlike)
+                                    .into(likebtn)
+
+                            }
+                            override fun onFailure(call: Call<PostlikeData>, t: Throwable) {
+                                Log.d("API결과", "실패 : $t")
+
+
+                            }
+                        })
+                }else{
+
+                    val buildLikeRetro = Retrofit.Builder()
+                        .baseUrl("https://prod.lukechoi.shop/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                    val api = buildLikeRetro.create(HomelikeAPI::class.java)
+                    api.postLikestate(Jwt.getjwt(),item.postId.toString())
+                        .enqueue(object: Callback<PostlikeData>{
+                            override fun onResponse(
+                                call: Call<PostlikeData>,
+                                response: Response<PostlikeData>
+                            ) {
+                                Log.d("API결과","${response.body()?.result}")
+                                Log.d("API결과","${response.raw()}")
+
+                                liking = 1
+
+                                Glide.with(itemView)
+                                    .load(R.drawable.home_like)
+                                    .into(likebtn)
+
+                            }
+
+                            override fun onFailure(call: Call<PostlikeData>, t: Throwable) {
+                                Log.d("API결과", "실패 : $t")
+
+                            }
+                        })
+                }
+            }
+
 
             // viewpager 와 indicator 연결부분
 
@@ -167,4 +268,7 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
     }
 
     override fun getItemCount(): Int = datas.size
+
+
+
 }

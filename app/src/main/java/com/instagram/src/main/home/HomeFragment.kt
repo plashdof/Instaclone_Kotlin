@@ -1,14 +1,9 @@
 package com.instagram.src.main.home
 
-import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.instagram.R
 import com.instagram.config.BaseFragment
 import com.instagram.databinding.FragmentHomeBinding
@@ -18,8 +13,8 @@ import com.instagram.src.main.home.adapter.PostAdapter
 import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.home.models.PostData
 import com.instagram.src.main.home.models.PostdetialData
+import com.instagram.src.main.home.models.PostlikeData
 import com.instagram.src.main.home.models.StoryThumbnailData
-import java.lang.Thread.sleep
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home),HomeFragmentInterface{
 

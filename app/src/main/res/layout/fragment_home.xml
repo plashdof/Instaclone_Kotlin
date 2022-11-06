@@ -43,7 +43,7 @@
                 android:layout_marginLeft="20dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/home_like" />
+                android:src="@drawable/home_unlike" />
 
             <ImageButton
                 android:id="@+id/btn_home_upload"

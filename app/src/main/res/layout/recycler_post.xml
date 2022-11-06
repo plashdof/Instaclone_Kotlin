@@ -71,7 +71,7 @@
             android:id="@+id/recycler_post_likebtn"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/home_like"
+            android:src="@drawable/home_unlike"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"/>
 

@@ -647,3 +647,115 @@ https://user-images.githubusercontent.com/86242930/200178784-6c821ae0-6c2e-4b46-
 
 - 스토리/게시물 작성 & 프로필사진 변경을 위해,  이미지 연동 커스텀 페이지 제작 시도
 - 실패.. ContentProvider를 활용하여 재도전 해볼 예정
+
+
+
+
+
+
+
+
+# 2022.11.07 내용
+
+---
+
+### 레이아웃
+
+→ 원형 ProgressBar 색상변경
+
+- indeterminateTint = “” 로 설정
+
+→ 댓글페이지 구현
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373210-6770316d-9d2b-46dc-b1d9-903a6e502a3a.jpg" width="150" height="300"/>
+
+→ 좋아요페이지 구현
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373243-3312e776-c683-413e-8882-b3bcf7052d62.jpg" width="150" height="300"/>
+
+→ 타인프로필 페이지 구현
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373257-e265b19a-d04c-4165-b6fd-7f23d0ab44ca.jpg" width="150" height="300"/>
+
+### 로직
+
+→ Home 게시물 페이징 구현
+
+```kotlin
+private var dataCount = 0
+private var nextpage = false
+private var page  = 0
+private val datas = arrayListOf<PostdetialData>()
+
+// 최하단 스크롤 감지시, getMoreData 실행
+binding.homeScroll.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+
+    if(!v.canScrollVertically(1)){
+        Log.d("aaaaa","lastScroll")
+
+        getMoreData()
+    }
+}
+
+// 전역변수로 설정된 page 수를 증가시켜, 다음페이지 데이터롤 서버에서 GET한다
+
+fun getMoreData(){
+  nextpage = true
+  page++
+  
+  // page수를 증가시켜서 서버 요청
+  HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
+}
+
+// 통신성공시, 전역으로 설정된 data 변수에 추가데이터를 이어붙인뒤,  해당 데이터로 recyclerview 호출한다
+
+override fun onGetHomePostDataSuccess(response: PostData) {
+    if(response.isSuccess){
+        dataCount = response.result.postList.size
+        page = response.result.page
+        for(i in response.result.postList){
+            datas.add(i)
+        }
+
+        recyclerPost(datas)
+    }
+}
+
+// recyclerview adapter 연결시에는, nextpage boolean 변수로,  처음페이지일떄와 구분지어서 호출해준다
+// .notifyItemInserted 와 notifyDataSetChanged 로  아이템이 추가됨과 data가 변경됨을 알려준다
+
+private fun recyclerPost(datas : ArrayList<PostdetialData>){
+
+    if(nextpage){
+        binding.recyclerHomeBody.adapter?.notifyItemInserted(datas.size)
+        binding.recyclerHomeBody.adapter?.notifyDataSetChanged()
+    }
+
+    val linking = getcontext()
+
+    val adapter = PostAdapter(datas, linking)
+    binding.recyclerHomeBody.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    binding.recyclerHomeBody.adapter = adapter
+
+}
+```
+
+### API
+
+→ 3.11 3.12 API (좋아요/좋아요취소)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373285-ce6533c6-28b7-4011-a00f-6d8d50e4ffa6.JPG" width="400" height="150"/>
+
+→ 3.13 API (게시글 좋아요 리스트 조회 API)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373293-ca96c7f2-207d-45c7-b586-02329d0621f8.JPG" width="400" height="150"/>
+
+→ 4.2 API (타인프로필 조회 API)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373303-ed9fa382-a7a2-46a0-ac46-3f4ab8c89ade.JPG" width="400" height="150"/>
+
+→ 6.1 6.2 API (팔로우/팔로우취소)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373313-3e4ebafd-2769-457f-833e-411003ee3bd9.JPG" width="400" height="150"/>
+
+<img src ="https://user-images.githubusercontent.com/86242930/200373323-8b2621fa-dbe9-4893-8036-6fe044467585.JPG" width="400" height="150"/>

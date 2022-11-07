@@ -1,7 +1,12 @@
 package com.instagram.src.main.VideoPage
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.instagram.R
 import com.instagram.config.BaseFragment
@@ -13,6 +18,9 @@ class VideoFragment : BaseFragment<FragmentVideoBinding>(FragmentVideoBinding::b
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
 
         recyclerReels()
     }

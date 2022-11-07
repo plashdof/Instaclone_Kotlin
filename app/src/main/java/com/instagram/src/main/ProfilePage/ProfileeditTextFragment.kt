@@ -63,9 +63,11 @@ class ProfileeditTextFragment : BaseFragment<FragmentProfileeditTextBinding>(Fra
         }
 
 
+        // X 버튼 누를시 다시 edit Frag 로 돌아감
+
         cancel.setOnClickListener {
             val Activity = activity as MainActivity
-            Activity.onBackPressed()
+            Activity.changeFragment("ProfileEdit")
         }
 
         // ProfileeditFragment 로 입력한 항목, 입력한 내용, 유지할 내용 전달

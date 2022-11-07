@@ -121,10 +121,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     }
 
     override fun onPostLoginSuccess(response: LoginData) {
+
+        Log.d("aaaaa","${response.toString()}")
         if(response.code == 1000){
             showCustomToast("로그인 성공")
-
-
 
             val jwt = response.result.jwt
 

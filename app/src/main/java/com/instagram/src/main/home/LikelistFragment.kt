@@ -3,6 +3,8 @@ package com.instagram.src.main.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -18,6 +20,14 @@ import com.instagram.src.main.home.models.PostData
 
 class LikelistFragment : BaseFragment<FragmentLikelistBinding>(FragmentLikelistBinding::bind, R.layout.fragment_likelist),HomeFragmentInterface {
 
+
+    inner class getcontext{
+        val fragcontext = context
+
+        fun gotoOthersprofile(targetNickname: String?){
+            movetoOthersprofilePage(targetNickname)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,15 +48,26 @@ class LikelistFragment : BaseFragment<FragmentLikelistBinding>(FragmentLikelistB
 
     override fun onGetLikelistSuccess(response: LikelistData) {
 
-        recyclerlikelist(response.result)
+        if(response.isSuccess){
+            recyclerlikelist(response.result)
+        }
+
     }
     override fun onGetLikelistFailure(message: String) {}
 
     fun recyclerlikelist(datas : ArrayList<LikelistdetialData>){
 
-        val adapter = LikelistAdapter(datas)
+        val linking = getcontext()
+
+        val adapter = LikelistAdapter(datas, linking)
         binding.recyclerLikelist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
         binding.recyclerLikelist.adapter = adapter
+    }
+
+    fun movetoOthersprofilePage(targetNickname : String?){
+        val Activity = activity as MainActivity
+        setFragmentResult("fromHome", bundleOf("bundleKey" to targetNickname))
+        Activity.changeFragment("ProfileOthers")
     }
 
     override fun onGetHomePostDataSuccess(response: PostData) {}

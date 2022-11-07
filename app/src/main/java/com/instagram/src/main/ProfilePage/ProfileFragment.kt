@@ -112,33 +112,38 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     override fun onGetMyProfileSuccess(response: MyProfileData) {
 
-        binding.tvProfilePostcount.text = response.result.postCount.toString()
-        binding.tvProfileFollowerCount.text = response.result.followerCount.toString()
-        binding.tvProfileFollowingCount.text = response.result.followingCount.toString()
+        if(response.isSuccess){
+            binding.tvProfilePostcount.text = response.result.postCount.toString()
+            binding.tvProfileFollowerCount.text = response.result.followerCount.toString()
+            binding.tvProfileFollowingCount.text = response.result.followingCount.toString()
 
 
 
-        name = response.result.name
-        nick = response.result.nickname
-        website = response.result.link
-        description = response.result.description
-        profile = response.result.profileUrl
+            name = response.result.name
+            nick = response.result.nickname
+            website = response.result.link
+            description = response.result.description
+            profile = response.result.profileUrl
 
-        binding.tvProfileRealname.text = name
-        binding.tvProfileNickname.text  = nick
-        binding.tvProfileDescription.text = description
-        binding.tvProfileWebsite.text = website
+            binding.tvProfileRealname.text = name
+            binding.tvProfileNickname.text  = nick
+            binding.tvProfileDescription.text = description
+            binding.tvProfileWebsite.text = website
 
+
+            // 만약 website 나 소개 가 없다면, 해당공간 없애기
+            binding.tvProfileWebsite.isVisible = website!!.isNotBlank()
+            binding.tvProfileDescription.isVisible = description!!.isNotBlank()
+
+            val profileimg = binding.btnProfileImage
+
+            Glide.with(this)
+                .load(response.result.profileUrl)
+                .into(profileimg)
+        }else{
+            showCustomToast("프로필 불러오기 실패")
+        }
         
-        // 만약 website 나 소개 가 없다면, 해당공간 없애기
-        binding.tvProfileWebsite.isVisible = website!!.isNotBlank()
-        binding.tvProfileDescription.isVisible = description!!.isNotBlank()
-
-        val profileimg = binding.btnProfileImage
-
-        Glide.with(this)
-            .load(response.result.profileUrl)
-            .into(profileimg)
     }
 
     override fun onGetMyProfileFailure(message: String) {}

@@ -79,5 +79,44 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@drawable/shape_comment_layout"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_comment_profile"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/test_profile"
+            />
+
+        <EditText
+            android:id="@+id/et_postcomment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:hint="asdfasdf으로 댓글달기"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="20dp"
+            android:textSize="12sp"
+            />
+
+        <Button
+            android:id="@+id/btn_comment_makecommentbtn"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:background="@android:color/transparent"
+            android:text="게시"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/insta_login_btn"/>
+
+    </LinearLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

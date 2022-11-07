@@ -88,15 +88,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     
     override fun onGetHomePostDataSuccess(response: PostData) {
+        if(response.isSuccess){
+            dataCount = response.result.postList.size
+            page = response.result.page
+            for(i in response.result.postList){
+                datas.add(i)
+            }
 
-        dataCount = response.result.postList.size
-        page = response.result.page
-        for(i in response.result.postList){
-            datas.add(i)
+            recyclerPost(datas)
         }
-
-        recyclerPost(datas)
-
     }
 
     override fun onGetHomePostDataFailure(message: String) {}

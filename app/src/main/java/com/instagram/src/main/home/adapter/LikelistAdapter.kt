@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.R
 import com.instagram.databinding.RecyclerLikelistBinding
+import com.instagram.src.main.home.HomeFragment
+import com.instagram.src.main.home.LikelistFragment
 import com.instagram.src.main.home.models.LikelistdetialData
 
-class LikelistAdapter(private val datas: ArrayList<LikelistdetialData>) : RecyclerView.Adapter<LikelistAdapter.ViewHolder>() {
+class LikelistAdapter(private val datas: ArrayList<LikelistdetialData>, var linking : LikelistFragment.getcontext? = null) : RecyclerView.Adapter<LikelistAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val viewBinding: RecyclerLikelistBinding) : RecyclerView.ViewHolder(viewBinding.root){
 
@@ -37,7 +39,16 @@ class LikelistAdapter(private val datas: ArrayList<LikelistdetialData>) : Recycl
                 followbtn.setTextColor(Color.BLACK)
             }else{
                 followbtn.setBackgroundResource(R.drawable.shape_loginbtn_active)
-                followbtn.setTextColor(R.color.insta_white)
+                followbtn.setTextColor(Color.WHITE)
+            }
+            
+            // 프로필사진. 닉네임 클릭시 해당 유저 프로필페이지 이동
+
+            profileimg.setOnClickListener {
+                linking?.gotoOthersprofile(item.nickname)
+            }
+            nickname.setOnClickListener {
+                linking?.gotoOthersprofile(item.nickname)
             }
 
         }

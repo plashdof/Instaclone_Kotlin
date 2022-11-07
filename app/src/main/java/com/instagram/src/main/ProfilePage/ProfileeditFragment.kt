@@ -212,8 +212,12 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
     }
 
     override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {
-        val Activity = activity as MainActivity
-        Activity.changeFragment("Profile")
+        if(response.isSuccess){
+            val Activity = activity as MainActivity
+            Activity.changeFragment("Profile")
+        }else{
+            showCustomToast("저장 실패")
+        }
     }
 
     override fun onPatchModifyProfileFailure(message: String) {}

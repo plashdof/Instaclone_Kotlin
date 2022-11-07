@@ -20,7 +20,7 @@ class CommentFragment : BaseFragment<FragmentPostCommentBinding>(FragmentPostCom
 
         binding.btnCommentBackbtn.setOnClickListener {
             val Activity = activity as MainActivity
-            Activity.onBackPressed()
+            Activity.changeFragment("Home")
         }
 
     }

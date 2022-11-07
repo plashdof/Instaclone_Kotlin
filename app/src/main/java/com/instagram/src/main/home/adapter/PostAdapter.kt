@@ -95,20 +95,7 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             }
 
 
-            // 좋아요 수
 
-            if (item.likeCount == 0) {
-                likecount.isVisible = false
-            } else {
-                likecount.text = "좋아요 ${item.likeCount}개"
-            }
-
-            // 좋아요페이지 이동
-
-            likecount.setOnClickListener {
-                Log.d("aaaaa","보내는쪽 postID : ${item.postId}")
-                linking?.gotoLikelist(item.postId)
-            }
 
 
             // 댓글 수
@@ -119,9 +106,15 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                 commentCount.text = "댓글 ${item.commentCount}개 모두 보기"
             }
 
-            // 댓글버튼 클릭시 commetFrag 로 이동
+            // 댓글버튼 클릭시 commentFrag 로 이동
 
             commentCount.setOnClickListener {
+                linking?.gotoComment(item.postId)
+            }
+
+            // 댓글아이콘 클릭시 commentFrag 로 이동
+
+            viewBinding.recyclerPostCommentbtn.setOnClickListener {
                 linking?.gotoComment(item.postId)
             }
 
@@ -139,28 +132,21 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             }
 
 
-            // 좋아요버튼
-
-            if(item.myPostLike == 1){
-                Glide.with(itemView)
-                    .load(R.drawable.home_like)
-                    .into(likebtn)
-            }else{
-                Glide.with(itemView)
-                    .load(R.drawable.home_unlike)
-                    .into(likebtn)
-            }
-
-
             // 게시물 작성자 프로필이미지
 
             Glide.with(itemView)
                 .load(item.userImg)
                 .into(profileimg)
 
-            // 프로필이미지 클릭시 others프로필 페이지 이동
+            // 프로필이미지, 프로필nickname 클릭시 others프로필 페이지 이동
 
             profileimg.setOnClickListener{
+                linking?.gotoOthersprofile(item.nickname)
+            }
+            postnick.setOnClickListener {
+                linking?.gotoOthersprofile(item.nickname)
+            }
+            nick.setOnClickListener {
                 linking?.gotoOthersprofile(item.nickname)
             }
 
@@ -179,9 +165,39 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
 
 
 
+            // 좋아요 수
+
+
+            if (item.likeCount == 0) {
+                likecount.isVisible = false
+            } else {
+                likecount.text = "좋아요 ${item.likeCount}개"
+            }
+
+            // 내 좋아요 여부
+
+            if(item.myPostLike == 0){
+                Glide.with(itemView)
+                    .load(R.drawable.home_unlike)
+                    .into(likebtn)
+            }else{
+                Glide.with(itemView)
+                    .load(R.drawable.home_like)
+                    .into(likebtn)
+            }
+
+            // 좋아요페이지 이동
+
+            likecount.setOnClickListener {
+                Log.d("aaaaa","보내는쪽 postID : ${item.postId}")
+                linking?.gotoLikelist(item.postId)
+            }
+
+
             // 좋아요 like / unlike API 통신
 
             var liking = item.myPostLike
+            var likenum = item.likeCount
 
             likebtn.setOnClickListener {
                 if(liking == 1){
@@ -199,8 +215,14 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                             ) {
                                 Log.d("API결과","${response.body()?.result}")
                                 Log.d("API결과","${response.raw()}")
-
                                 liking = 0
+                                likenum--
+
+                                if(likenum > 0){
+                                    likecount.text = "좋아요 ${likenum}개"
+                                }else{
+                                    likecount.isVisible = false
+                                }
 
                                 Glide.with(itemView)
                                     .load(R.drawable.home_unlike)
@@ -230,6 +252,10 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                                 Log.d("API결과","${response.raw()}")
 
                                 liking = 1
+                                likenum++
+
+                                likecount.isVisible = true
+                                likecount.text = "좋아요 ${likenum}개"
 
                                 Glide.with(itemView)
                                     .load(R.drawable.home_like)
@@ -244,6 +270,8 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
                         })
                 }
             }
+
+
 
 
             // viewpager 와 indicator 연결부분

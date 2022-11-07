@@ -200,6 +200,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .replace(id.main_frm,SearchFragment())
                     .addToBackStack(null)
                     .commit()
+                makebtnnav()
             }
 
             "SearchTool"->{
@@ -208,6 +209,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     .replace(id.main_frm,SearchToolFragment())
                     .addToBackStack(null)
                     .commit()
+                hidebtnnav()
             }
 
             "SelectGallery"->{

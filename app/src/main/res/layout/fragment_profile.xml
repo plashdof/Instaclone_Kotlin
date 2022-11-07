@@ -289,7 +289,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="신규"
-                                android:layout_marginLeft="25dp"
+                                android:layout_marginLeft="22dp"
                                 android:textColor="@color/insta_black"
                                 />
 

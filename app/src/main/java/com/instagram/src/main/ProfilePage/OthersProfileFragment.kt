@@ -2,6 +2,7 @@ package com.instagram.src.main.ProfilePage
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
@@ -25,15 +26,23 @@ class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(Fragmen
 
         setFragmentResultListener("fromHome"){requestKey, bundle ->
             val result = bundle.getStringArray("bundleKey")
-
             val targetNick = result?.get(0)
             userId = result?.get(1)
             ProfileService(this).tryGetOthersProfileData(Jwt.getjwt(), targetNick)
         }
 
+        setFragmentResultListener("fromLikelist"){requestKey, bundle ->
+            val result = bundle.getStringArray("bundleKey")
+            Log.d("aaaaa", "타인프로필 $result")
+            val targetNick = result?.get(0)
+            userId = result?.get(1)
+            ProfileService(this).tryGetOthersProfileData(Jwt.getjwt(), targetNick)
+        }
+
+
         binding.btnOthersprofileBackbtn.setOnClickListener {
             val Activity = activity as MainActivity
-            Activity.onBackPressed()
+            Activity.changeFragment("Home")
         }
 
         binding.btnOthersprofileFollowbtn.setOnClickListener {

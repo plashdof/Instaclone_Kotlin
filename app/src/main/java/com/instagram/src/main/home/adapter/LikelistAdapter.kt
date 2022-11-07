@@ -61,11 +61,10 @@ class LikelistAdapter(private val datas: ArrayList<LikelistdetialData>, var link
             // 프로필사진. 닉네임 클릭시 해당 유저 프로필페이지 이동
 
             profileimg.setOnClickListener {
-                linking?.gotoOthersprofile(item.nickname)
+                linking?.gotoLiketoOthersprofile(item.nickname, item.userId)
             }
             nickname.setOnClickListener {
-                Log.d("aaaaa","Clicked")
-                linking?.gotoOthersprofile(item.nickname)
+                linking?.gotoLiketoOthersprofile(item.nickname, item.userId)
             }
 
 

@@ -25,8 +25,8 @@ class LikelistFragment : BaseFragment<FragmentLikelistBinding>(FragmentLikelistB
     inner class getcontext{
         val fragcontext = context
 
-        fun gotoOthersprofile(targetNickname: String?){
-            movetoOthersprofilePage(targetNickname)
+        fun gotoLiketoOthersprofile(targetNickname: String?, userId:Int){
+            moveLiketoOthersprofilePage(targetNickname, userId)
         }
     }
 
@@ -65,11 +65,16 @@ class LikelistFragment : BaseFragment<FragmentLikelistBinding>(FragmentLikelistB
         binding.recyclerLikelist.adapter = adapter
     }
 
-    fun movetoOthersprofilePage(targetNickname : String?){
+    fun moveLiketoOthersprofilePage(targetNickname : String?, userId: Int){
+
+        Log.d("aaaaa","moveLiketoOthers $targetNickname   $userId")
+
+        val data = arrayOf(targetNickname, userId.toString())
         val Activity = activity as MainActivity
-        setFragmentResult("fromHome", bundleOf("bundleKey" to targetNickname))
+        setFragmentResult("fromLikelist", bundleOf("bundleKey" to data))
         Activity.changeFragment("ProfileOthers")
     }
+
 
     override fun onGetHomePostDataSuccess(response: PostData) {}
     override fun onGetHomePostDataFailure(message: String) {}

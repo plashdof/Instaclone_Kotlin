@@ -141,13 +141,13 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
             // 프로필이미지, 프로필nickname 클릭시 others프로필 페이지 이동
 
             profileimg.setOnClickListener{
-                linking?.gotoOthersprofile(item.nickname)
+                linking?.gotoOthersprofile(item.nickname, item.userId)
             }
             postnick.setOnClickListener {
-                linking?.gotoOthersprofile(item.nickname)
+                linking?.gotoOthersprofile(item.nickname, item.userId)
             }
             nick.setOnClickListener {
-                linking?.gotoOthersprofile(item.nickname)
+                linking?.gotoOthersprofile(item.nickname, item.userId)
             }
 
 

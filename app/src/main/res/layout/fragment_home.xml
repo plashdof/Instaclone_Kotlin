@@ -84,7 +84,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="start">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -97,7 +98,6 @@
                             android:id="@+id/btn_home_mystory"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:layout_gravity="center|top"
                             android:layout_marginTop="5dp"
                             android:clickable="true"
                             android:scaleType="centerCrop"
@@ -110,9 +110,9 @@
                             android:id="@+id/recycler_story_nick"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center|top"
                             android:layout_marginTop="70dp"
                             android:textColor="@color/insta_black"
+                            android:layout_marginLeft="8dp"
                             android:text="내 스토리"
                             android:textSize="12sp" />
 

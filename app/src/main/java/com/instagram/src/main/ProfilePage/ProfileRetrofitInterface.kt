@@ -1,9 +1,6 @@
 package com.instagram.src.main.ProfilePage
 
-import com.instagram.src.main.ProfilePage.models.ModifyProfileBodyData
-import com.instagram.src.main.ProfilePage.models.ModifyProfileData
-import com.instagram.src.main.ProfilePage.models.MyProfileData
-import com.instagram.src.main.ProfilePage.models.OthersProfileData
+import com.instagram.src.main.ProfilePage.models.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -27,6 +24,16 @@ interface ProfileRetrofitInterface {
         @Body params : ModifyProfileBodyData
     ) : Call<ModifyProfileData>
 
+    @POST("/follows/follow")
+    fun postFollows(
+        @Header("ACCESS-TOKEN") jwt : String?,
+        @Query("targetId") targetId : Int
+    ) : Call<PostFollowingData>
 
+    @PATCH("/follows/unFollow")
+    fun patchunFollow(
+        @Header("ACCESS-TOKEN") jwt : String?,
+        @Query("targetId") targetId : Int
+    ): Call<PostFollowingData>
 
 }

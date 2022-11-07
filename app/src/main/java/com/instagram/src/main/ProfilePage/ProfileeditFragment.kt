@@ -16,10 +16,7 @@ import com.instagram.databinding.FragmentProfileeditBinding
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileChange
-import com.instagram.src.main.ProfilePage.models.ModifyProfileBodyData
-import com.instagram.src.main.ProfilePage.models.ModifyProfileData
-import com.instagram.src.main.ProfilePage.models.MyProfileData
-import com.instagram.src.main.ProfilePage.models.OthersProfileData
+import com.instagram.src.main.ProfilePage.models.*
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentProfileeditBinding::bind, R.layout.fragment_profileedit),ProfileFragmentInterface{
@@ -225,11 +222,10 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
     override fun onGetMyProfileFailure(message: String) {}
     override fun onGetOthersProfileSuccess(response: OthersProfileData) {}
     override fun onGetOthersProfileFailure(message: String) {}
-
-    override fun onResume() {
-        super.onResume()
-
-    }
+    override fun onPostFollowingSuccess(response: PostFollowingData) {}
+    override fun onPostFollowingFailure(message: String) {}
+    override fun onPatchunFollowingSuccess(response: PostFollowingData) {}
+    override fun onPatchunFollowingFailure(message: String) {}
 
 
 }

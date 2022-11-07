@@ -6,6 +6,7 @@ import com.instagram.config.ApplicationClass
 import com.instagram.src.main.home.models.LikelistData
 import com.instagram.src.main.home.models.PostData
 import com.instagram.src.main.home.models.PostlikeData
+import com.instagram.src.main.home.models.StoryData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +40,19 @@ class HomeService(val homeFragmentInterface: HomeFragmentInterface) {
             }
 
 
+        })
+    }
+
+    fun tryGetStoryData(jwt:String?){
+        val homeRetrofitInterface = ApplicationClass.sRetrofit.create(HomeRetrofitInterface::class.java)
+        homeRetrofitInterface.getStory(jwt).enqueue(object:Callback<StoryData>{
+            override fun onResponse(call: Call<StoryData>, response: Response<StoryData>) {
+                homeFragmentInterface.onGetStoryDataSuccess(response.body() as StoryData)
+            }
+
+            override fun onFailure(call: Call<StoryData>, t: Throwable) {
+                homeFragmentInterface.onGetStoryDataFailure(t.message ?:"통신오류")
+            }
         })
     }
 

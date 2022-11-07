@@ -29,8 +29,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         fun gotoLikelist(postid : Int){
             movetoLikelistPage(postid)
         }
-        fun gotoOthersprofile(targetNickname: String?){
-            movetoOthersprofilePage(targetNickname)
+        fun gotoOthersprofile(targetNickname: String?, userId:Int){
+            movetoOthersprofilePage(targetNickname, userId)
         }
     }
 
@@ -40,9 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
 
         HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
-
-        recyclerStoryThumbnail()
-
+        HomeService(this).tryGetStoryData(Jwt.getjwt())
 
         // 최하단 스크롤 감지시, getMoreData 실행
         binding.homeScroll.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
@@ -56,12 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     }
 
-    private fun recyclerStoryThumbnail(){
-
-        val data = StoryThumbnailData(profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickName = "Noah", state = false)
-        val data2 = StoryThumbnailData(profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickName = "Noah", state = true)
-        val datas = arrayListOf<StoryThumbnailData>(data, data2, data, data2,data,data2,data,data2)
-
+    private fun recyclerStoryThumbnail(datas : ArrayList<StorythumbnailData>){
 
         val linking = getcontext()
 
@@ -101,6 +94,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     override fun onGetHomePostDataFailure(message: String) {}
 
+    override fun onGetStoryDataSuccess(response: StoryData) {
+        recyclerStoryThumbnail(response.result)
+    }
+
+    override fun onGetStoryDataFailure(message: String) {}
     
     fun getMoreData(){
         nextpage = true
@@ -122,9 +120,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         Activity.changeFragment("Likelist")
     }
 
-    fun movetoOthersprofilePage(targetNickname : String?){
+    fun movetoOthersprofilePage(targetNickname : String?, userId: Int){
+        val data = arrayOf(targetNickname, userId.toString())
         val Activity = activity as MainActivity
-        setFragmentResult("fromHome", bundleOf("bundleKey" to targetNickname))
+        setFragmentResult("fromHome", bundleOf("bundleKey" to data))
         Activity.changeFragment("ProfileOthers")
     }
 

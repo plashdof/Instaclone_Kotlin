@@ -20,7 +20,8 @@ import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
 import com.instagram.src.main.ProfilePage.models.OthersProfileData
-import com.instagram.src.main.home.models.StoryThumbnailData
+import com.instagram.src.main.ProfilePage.models.PostFollowingData
+import com.instagram.src.main.home.models.StorythumbnailData
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileFragmentInterface{
 
@@ -47,7 +48,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val plusbtn = binding.btnProfilePlus
         val menubtn = binding.btnProfileMenu
 
-        recyclerStory()
+//        recyclerStory()
         recyclerMypost()
         
         // 4.1 API 통신
@@ -154,6 +155,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {}
     override fun onPatchModifyProfileFailure(message: String) {}
 
+    override fun onPostFollowingSuccess(response: PostFollowingData) {}
+    override fun onPostFollowingFailure(message: String) {}
+
+    override fun onPatchunFollowingSuccess(response: PostFollowingData) {}
+    override fun onPatchunFollowingFailure(message: String) {}
+
     fun changeProfile(){
         setFragmentResult("fromProfileFragment", bundleOf("bundleKey" to postclick))
         val Activity = activity as MainActivity
@@ -197,15 +204,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.recyclerProfileThumbnail.adapter = adapter
     }
 
-    private fun recyclerStory(){
-
-        val data = StoryThumbnailData(profile = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickName = "Noah")
-        val datas = arrayListOf<StoryThumbnailData>(data, data, data, data,data,data,data,data)
-
-
-        val adapter = StoryThumbnailAdapter(datas)
-        binding.recyclerProfileStory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
-        binding.recyclerProfileStory.adapter = adapter
-    }
+//    private fun recyclerStory(){
+//
+//        val data = StorythumbnailData(profileUrl = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", nickname = "Noah", visitCnt = 0)
+//        val datas = arrayListOf<StorythumbnailData>(data, data, data, data,data,data,data,data)
+//
+//
+//        val adapter = StoryThumbnailAdapter(datas)
+//        binding.recyclerProfileStory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+//        binding.recyclerProfileStory.adapter = adapter
+//    }
 
 }

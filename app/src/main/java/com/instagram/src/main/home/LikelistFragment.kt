@@ -17,6 +17,7 @@ import com.instagram.src.main.home.adapter.LikelistAdapter
 import com.instagram.src.main.home.models.LikelistData
 import com.instagram.src.main.home.models.LikelistdetialData
 import com.instagram.src.main.home.models.PostData
+import com.instagram.src.main.home.models.StoryData
 
 class LikelistFragment : BaseFragment<FragmentLikelistBinding>(FragmentLikelistBinding::bind, R.layout.fragment_likelist),HomeFragmentInterface {
 
@@ -72,5 +73,8 @@ class LikelistFragment : BaseFragment<FragmentLikelistBinding>(FragmentLikelistB
 
     override fun onGetHomePostDataSuccess(response: PostData) {}
     override fun onGetHomePostDataFailure(message: String) {}
+    override fun onGetStoryDataSuccess(response: StoryData) {}
+
+    override fun onGetStoryDataFailure(message: String) {}
 
 }

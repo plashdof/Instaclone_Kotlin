@@ -14,22 +14,42 @@ import com.instagram.src.main.MainActivity
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
 import com.instagram.src.main.ProfilePage.models.OthersProfileData
+import com.instagram.src.main.ProfilePage.models.PostFollowingData
 
 class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(FragmentProfileOthersBinding::bind, R.layout.fragment_profile_others),ProfileFragmentInterface {
 
+
+    var userId : String? = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setFragmentResultListener("fromHome"){requestKey, bundle ->
-            val result = bundle.getString("bundleKey")
+            val result = bundle.getStringArray("bundleKey")
 
-            ProfileService(this).tryGetOthersProfileData(Jwt.getjwt(), result)
+            val targetNick = result?.get(0)
+            userId = result?.get(1)
+            ProfileService(this).tryGetOthersProfileData(Jwt.getjwt(), targetNick)
         }
 
         binding.btnOthersprofileBackbtn.setOnClickListener {
             val Activity = activity as MainActivity
             Activity.onBackPressed()
         }
+
+        binding.btnOthersprofileFollowbtn.setOnClickListener {
+            if(binding.btnOthersprofileFollowbtn.text == "팔로우"){
+                userId?.let { it1 ->
+                    ProfileService(this).tryPostFollowingData(Jwt.getjwt(),
+                        it1.toInt())              
+                }
+            }else{
+                userId?.let { it1 ->
+                    ProfileService(this).tryPatchunFollowingData(Jwt.getjwt(),
+                        it1.toInt())
+                }
+            }
+        }
+
     }
 
     override fun onGetOthersProfileSuccess(response: OthersProfileData) {
@@ -42,6 +62,7 @@ class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(Fragmen
                 .load(response.result.profileUrl)
                 .into(binding.btnOthersprofileImage)
 
+
             binding.tvOthersprofileDescription.text = response.result.description
             binding.tvOthersprofileWebsite.text = response.result.link
             binding.tvOthersprofileRealname.text = response.result.name
@@ -49,6 +70,8 @@ class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(Fragmen
             binding.tvOthersprofileFollowingCount.text = response.result.followingCount.toString()
             binding.tvOthersprofileFollowerCount.text = response.result.followerCount.toString()
             binding.tvOthersprofilePostcount.text = response.result.postCount.toString()
+
+            // 나의 팔로우 팔로잉 여부 체크
 
             if(myfollowing == "Y"){
                 binding.btnOthersprofileFollowbtn.setBackgroundResource(R.drawable.shape_et)
@@ -59,6 +82,8 @@ class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(Fragmen
                 binding.btnOthersprofileFollowbtn.text = "팔로우"
                 binding.btnOthersprofileFollowbtn.setTextColor(Color.WHITE)
             }
+
+            // 함꼐 팔로우하는 목록
 
             if(!togetherlist.isEmpty()){
                 binding.layoutOthersprofileFollowtogether.isVisible = true
@@ -71,12 +96,30 @@ class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(Fragmen
                 binding.layoutOthersprofileFollowtogether.isVisible = false
             }
 
+
+
         }
 
     }
 
-    override fun onGetOthersProfileFailure(message: String) {}
+    override fun onPostFollowingSuccess(response: PostFollowingData) {
+        if(response.isSuccess){
+            binding.btnOthersprofileFollowbtn.setBackgroundResource(R.drawable.shape_et)
+            binding.btnOthersprofileFollowbtn.text = "팔로잉"
+            binding.btnOthersprofileFollowbtn.setTextColor(Color.BLACK)
+        }
+    }
+    override fun onPostFollowingFailure(message: String) {
+    }
 
+    override fun onPatchunFollowingSuccess(response: PostFollowingData) {
+        binding.btnOthersprofileFollowbtn.setBackgroundResource(R.drawable.shape_loginbtn_active)
+        binding.btnOthersprofileFollowbtn.text = "팔로우"
+        binding.btnOthersprofileFollowbtn.setTextColor(Color.WHITE)
+    }
+    override fun onPatchunFollowingFailure(message: String) {}
+
+    override fun onGetOthersProfileFailure(message: String) {}
     override fun onGetMyProfileSuccess(response: MyProfileData) {}
     override fun onGetMyProfileFailure(message: String) {}
     override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {}

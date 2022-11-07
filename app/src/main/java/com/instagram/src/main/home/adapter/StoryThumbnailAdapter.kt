@@ -1,7 +1,6 @@
 package com.instagram.src.main.home.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,27 +9,33 @@ import com.instagram.R
 import com.instagram.databinding.RecyclerStoryThumbnailBinding
 import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.home.StoryToolActivity
-import com.instagram.src.main.home.models.StoryThumbnailData
+import com.instagram.src.main.home.models.StorythumbnailData
 
-class StoryThumbnailAdapter(private val datas : ArrayList<StoryThumbnailData>, var linking : HomeFragment.getcontext? = null) : RecyclerView.Adapter<StoryThumbnailAdapter.ViewHolder>(){
+class StoryThumbnailAdapter(private val datas : ArrayList<StorythumbnailData>, var linking : HomeFragment.getcontext? = null) : RecyclerView.Adapter<StoryThumbnailAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val viewBinding: RecyclerStoryThumbnailBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(item : StoryThumbnailData){
+        fun bind(item : StorythumbnailData){
             val img = viewBinding.recyclerStorythumbnailImagebtn
             val nick = viewBinding.recyclerStoryNick
             val state = viewBinding.recyclerStorythumbnailBorder
 
+            val storydatasize = item.storyDataList.size
+
+            // 프로필 이미지 설정
             Glide.with(itemView)
-                .load(item.profile)
+                .load(item.profileUrl)
                 .into(img)
 
-            nick.text = item.nickName
+            // 닉네임 설정
+            nick.text = item.nickname
 
-            if(item.state == false){
-                state.setBackgroundResource(R.drawable.shape_story_unread)
-            }else{
+            // 읽었는지 여부  visitCnt 와 storydatasize 가 같으면 확인
+            if(item.visitCnt == storydatasize){
                 state.setBackgroundResource(R.drawable.shape_story)
+            }else{
+                state.setBackgroundResource(R.drawable.shape_story_unread)
             }
+
 
             state.setOnClickListener{
                 val intent = Intent(linking?.fragcontext, StoryToolActivity::class.java)

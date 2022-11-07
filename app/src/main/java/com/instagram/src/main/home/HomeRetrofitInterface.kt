@@ -3,6 +3,7 @@ package com.instagram.src.main.home
 import com.instagram.src.main.home.models.LikelistData
 import com.instagram.src.main.home.models.PostData
 import com.instagram.src.main.home.models.PostlikeData
+import com.instagram.src.main.home.models.StoryData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -19,5 +20,10 @@ interface HomeRetrofitInterface {
         @Header("ACCESS-TOKEN") jwt : String? = "",
         @Path("postid") postid : String? = ""
     ) : Call<LikelistData>
+
+    @GET("/storys/getList")
+    fun getStory(
+        @Header("ACCESS-TOKEN") jwt : String? = "",
+    ) : Call<StoryData>
 
 }

@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityStoryToolBinding
 import com.instagram.src.main.home.models.StoryData
+import com.instagram.src.main.home.models.StorythumbnailData
 import com.instagram.util.ZoomOutPageTransformer
 import jp.shts.android.storiesprogressview.StoriesProgressView
 
@@ -20,7 +21,12 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.navigationBarColor = Color.BLACK
-//        viewpageStorytool()
+
+        val storyData = intent.getSerializableExtra("storydata")
+        val currentnick = intent.getStringExtra("currentNick")
+
+        Log.d("aaaaa", "${storyData.toString()}")
+        Log.d("aaaaa", "$currentnick")
 
 
     }

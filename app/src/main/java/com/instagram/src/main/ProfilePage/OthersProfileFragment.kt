@@ -90,7 +90,7 @@ class OthersProfileFragment : BaseFragment<FragmentProfileOthersBinding>(Fragmen
                 Glide.with(this)
                     .load(response.result.followTogetherList[0].profileUrl)
                     .into(binding.followtogetherImg)
-                binding.followtogetherCount.text = (response.result.followTogetherList.size - 1).toString()
+                binding.followtogetherCount.text = "${(response.result.followTogetherList.size - 1)}명"
                 binding.followtogetherNick.text = response.result.followTogetherList[0].nickname
             }else{
                 binding.layoutOthersprofileFollowtogether.isVisible = false

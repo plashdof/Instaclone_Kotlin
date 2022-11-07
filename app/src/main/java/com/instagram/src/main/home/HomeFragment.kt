@@ -1,5 +1,6 @@
 package com.instagram.src.main.home
 
+import android.content.Intent
 import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
@@ -21,6 +22,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     private var page  = 0
     private val datas = arrayListOf<PostdetialData>()
 
+    private lateinit var passStoryData : ArrayList<StorythumbnailData>
+
     inner class getcontext{
         val fragcontext = context
         fun gotoComment(postid : Int){
@@ -31,6 +34,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         }
         fun gotoOthersprofile(targetNickname: String?, userId:Int){
             movetoOthersprofilePage(targetNickname, userId)
+        }
+
+        fun gotoStoryTool(targetNickname: String?){
+            movetoStorytoolPage(targetNickname)
         }
     }
 
@@ -95,7 +102,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
     override fun onGetHomePostDataFailure(message: String) {}
 
     override fun onGetStoryDataSuccess(response: StoryData) {
-        recyclerStoryThumbnail(response.result)
+        passStoryData = response.result
+
+        var index = 0
+        while(true){
+
+            if(index == passStoryData.size) break
+
+            if(passStoryData[index].storyDataList.isEmpty()){
+                passStoryData.removeAt(index)
+                Log.d("aaaaa", "${passStoryData.toString()}")
+            }else{
+                index++
+            }
+        }
+
+        if(passStoryData.isNotEmpty()){
+            recyclerStoryThumbnail(passStoryData)
+        }
+
+
     }
 
     override fun onGetStoryDataFailure(message: String) {}
@@ -126,6 +152,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         setFragmentResult("fromHome", bundleOf("bundleKey" to data))
         Activity.changeFragment("ProfileOthers")
     }
+
+    fun movetoStorytoolPage(targetNickname: String?){
+
+
+        Log.d("aaaaa", passStoryData.toString())
+        Log.d("aaaaa", "$targetNickname")
+        val intent = Intent(context,StoryToolActivity::class.java)
+            .putExtra("storydata",passStoryData)
+            .putExtra("currentNick", targetNickname)
+        startActivity(intent)
+
+    }
+
 
 
 

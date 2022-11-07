@@ -38,13 +38,11 @@ class StoryThumbnailAdapter(private val datas : ArrayList<StorythumbnailData>, v
 
 
             state.setOnClickListener{
-                val intent = Intent(linking?.fragcontext, StoryToolActivity::class.java)
-                intent.run{ linking?.fragcontext?.startActivity(this) }
+                linking?.gotoStoryTool(item.nickname)
             }
 
             nick.setOnClickListener{
-                val intent = Intent(linking?.fragcontext, StoryToolActivity::class.java)
-                intent.run{ linking?.fragcontext?.startActivity(this) }
+                linking?.gotoStoryTool(item.nickname)
             }
         }
     }

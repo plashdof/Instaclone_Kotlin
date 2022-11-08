@@ -759,3 +759,135 @@ private fun recyclerPost(datas : ArrayList<PostdetialData>){
 <img src ="https://user-images.githubusercontent.com/86242930/200373313-3e4ebafd-2769-457f-833e-411003ee3bd9.JPG" width="400" height="150"/>
 
 <img src ="https://user-images.githubusercontent.com/86242930/200373323-8b2621fa-dbe9-4893-8036-6fe044467585.JPG" width="400" height="150"/>
+
+
+
+
+# 2022.11.08 내용
+
+---
+
+## 레이아웃
+
+→ StatusBar, NavBar 색상, 글자 동적 변경
+
+- 
+
+```kotlin
+// reels 제외 화면
+
+binding.mainBtmNav.itemBackground= Color.rgb(254,254,254).toDrawable()
+binding.mainBtmNav.setBackgroundColor(Color.rgb(254,254,254))
+
+val controller = ViewCompat.getWindowInsetsController(window.decorView)
+controller?.isAppearanceLightStatusBars= true   //  StatusBar 글자 회색으로
+controller?.isAppearanceLightNavigationBars= true   // NavBar 글자 회색으로
+
+window.statusBarColor= Color.rgb(254,254,254)
+window.navigationBarColor= Color.rgb(254,254,254)
+
+// reels 화면
+
+binding.mainBtmNav.itemBackground = Color.BLACK.toDrawable()
+binding.mainBtmNav.setBackgroundColor(Color.BLACK)
+
+val controller = ViewCompat.getWindowInsetsController(window.decorView)
+controller?.isAppearanceLightStatusBars = false  //  StatusBar 글자 흰색으로
+controller?.isAppearanceLightNavigationBars = false  // NavBar 글자 흰색으로
+
+window.navigationBarColor = Color.BLACK
+window.statusBarColor = Color.BLACK
+```
+
+```kotlin
+
+// 투명상태바. (전체화면) 레이아웃 위로 올라감
+WindowCompat.setDecorFitsSystemWindows(window, false) 
+
+// 불투명상태바
+WindowCompat.setDecorFitsSystemWindows(window, true) 
+```
+
+→   스토리 작성 레이아웃
+
+- 카메라로 사진을찍으면, 스토리 작성 레이아웃으로 이동한다.
+- 이곳에서 최종 스토리에 올릴지 결정한다!
+
+https://user-images.githubusercontent.com/86242930/200609674-d962ecf4-912c-4de4-964a-16e993960be6.mp4
+
+https://user-images.githubusercontent.com/86242930/200609683-3ffd5ba3-28d4-480a-b749-3b93551fbd9b.mp4
+
+## 로직
+
+→ 카메라접근 & 찍은사진 불러와서 출력
+
+- deprecated 된 메소드가 너무 많아서 엄청 애먹었다….
+- 결과적으로, Camera 로 찍은 사진을 넘겨받기 위해서,  registerForAcrtivity Result를 사용하였다.
+
+```kotlin
+private fun openCamera() {
+    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+    state = false
+    Log.d("aaaaaa","openCamera")
+
+    createImageUri(newFileName(), "image/jpg")?.let { uri ->
+        realUri = uri
+        // MediaStore.EXTRA_OUTPUT을 Key로 하여 Uri를 넘겨주면
+        // 일반적인 Camera App은 이를 받아 내가 지정한 경로에 사진을 찍어서 저장시킨다.
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, realUri)
+        intent.also{
+            childForResult.launch(it)
+        }
+    }
+}
+
+@SuppressLint("SimpleDateFormat")
+private fun newFileName(): String {
+    val sdf = SimpleDateFormat("yyyyMMdd_HHmmss")
+    val filename = sdf.format(System.currentTimeMillis())
+    return "$filename.jpg"
+}
+
+private fun createImageUri(filename: String, mimeType: String): Uri? {
+    val Activity = activity as MainActivity
+    var values = ContentValues()
+    values.put(MediaStore.Images.Media.DISPLAY_NAME, filename)
+    values.put(MediaStore.Images.Media.MIME_TYPE, mimeType)
+    return Activity.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+}
+
+private val childForResult =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        val Activity = activity as MainActivity
+        Log.d("aaaaaa","$realUri")
+        setFragmentResult("fromCamera", bundleOf("bundleKey" to realUri))
+        Activity.changeFragment("Makestory")
+    }
+```
+
+→ 스토리데이터 parsing
+
+- 서버에서 넘겨받은  스토리생성후 지난 시간값 createAt를 이용하여, “몇시간전” 출력값을 출력하였다
+
+```kotlin
+// 시간 데이터 parsing
+if(item.storyDataList[0].createdAt < 60){
+    time.text = "${(item.storyDataList[0].createdAt)}분 전"
+}else{
+    time.text = "${(item.storyDataList[0].createdAt)/60}시간 전"
+}
+```
+
+## API
+
+→ 5.1 API (스토리생성)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200609693-792ab5f5-bafe-4f92-97f6-b767cf0c8287.JPG" width="400" height="150"/>
+
+→ 5.2 API (홈 스토리 데이터리스트)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200609702-4ca6c738-9c27-4af8-b5a3-c356986cd8ba.JPG" width="400" height="150"/>
+
+→ 5.3 API (target 스토리 데이터)
+
+<img src ="https://user-images.githubusercontent.com/86242930/200609707-7b63b7ec-b3a6-4bc6-80d0-361ac9de33c8.JPG" width="400" height="150"/>

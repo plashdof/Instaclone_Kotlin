@@ -94,12 +94,23 @@
 
 
 
+                        <Button
+                            android:id="@+id/home_mystory_border"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="start|top"
+                            android:background="@drawable/shape_story_unread" />
+
+
+
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/btn_home_mystory"
+                            android:id="@+id/home_myprofile_imagebtn"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
+                            android:layout_gravity="start|top"
                             android:layout_marginTop="5dp"
                             android:clickable="true"
+                            android:layout_marginLeft="5dp"
                             android:scaleType="centerCrop"
                             android:background="@drawable/shape_story"
                             android:src="@drawable/test_profile" />
@@ -107,16 +118,17 @@
 
 
                         <TextView
-                            android:id="@+id/recycler_story_nick"
+                            android:id="@+id/home_mynick"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="start|top"
                             android:layout_marginTop="70dp"
-                            android:textColor="@color/insta_black"
                             android:layout_marginLeft="8dp"
-                            android:text="내 스토리"
+                            android:text="nickname"
                             android:textSize="12sp" />
 
                         <ImageView
+                            android:id="@+id/home_makestory_btn"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/storythumbnail_add"

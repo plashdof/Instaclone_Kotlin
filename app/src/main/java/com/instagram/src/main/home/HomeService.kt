@@ -3,10 +3,7 @@ package com.instagram.src.main.home
 import android.content.Context
 import android.util.Log
 import com.instagram.config.ApplicationClass
-import com.instagram.src.main.home.models.LikelistData
-import com.instagram.src.main.home.models.PostData
-import com.instagram.src.main.home.models.PostlikeData
-import com.instagram.src.main.home.models.StoryData
+import com.instagram.src.main.home.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,6 +52,8 @@ class HomeService(val homeFragmentInterface: HomeFragmentInterface) {
             }
         })
     }
+
+
 
 
 }

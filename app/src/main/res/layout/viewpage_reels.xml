@@ -9,13 +9,12 @@
     android:background="@color/insta_black">
 
 
-    <ImageView
+    <VideoView
         android:id="@+id/iv_recycler_reels"
         android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/test_profile"
-        android:scaleType="centerCrop"/>
+        android:src="@drawable/test_profile"/>
 
 
 

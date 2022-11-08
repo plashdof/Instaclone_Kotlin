@@ -2,26 +2,30 @@ package com.instagram.src.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
-import androidx.core.view.marginBottom
 import com.instagram.R
 import com.instagram.R.*
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityMainBinding
 import com.instagram.src.main.ProfilePage.*
+import com.instagram.src.main.ProfilePage.models.ModifyProfileData
+import com.instagram.src.main.ProfilePage.models.MyProfileData
+import com.instagram.src.main.ProfilePage.models.OthersProfileData
+import com.instagram.src.main.ProfilePage.models.PostFollowingData
 import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.SearchPage.SearchFragment
-import com.instagram.src.main.SearchPage.SearchRecentsearchFragment
 import com.instagram.src.main.SearchPage.SearchToolFragment
 import com.instagram.src.main.ShoppingPage.ShoppingFragment
 import com.instagram.src.main.ShoppingPage.ShoppingToolFragment
 import com.instagram.src.main.VideoPage.VideoFragment
 import com.instagram.src.main.home.CommentFragment
 import com.instagram.src.main.home.LikelistFragment
+import com.instagram.src.main.home.MakestoryFragment
 
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),ProfileFragmentInterface {
 
     private var profileeditActivity : ProfileeditFragment ? = null
 
@@ -29,11 +33,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         super.onCreate(savedInstanceState)
 
         supportFragmentManager.beginTransaction().replace(id.main_frm, HomeFragment()).commitAllowingStateLoss()
-
         binding.mainBtmNav.itemIconTintList = null
 
-        Jwt.setjwt(intent.getStringExtra("jwt"))
-
+        ProfileService(this).tryGetMyProfileData(Jwt.getjwt())
 
         // BottomNavigationView 구현
 
@@ -44,7 +46,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         binding.mainBtmNav.itemBackground = Color.rgb(254,254,254).toDrawable()
                         binding.mainBtmNav.setBackgroundColor(Color.rgb(254,254,254))
 
-                        window.statusBarColor = Color.rgb(254,254,254)
+                        val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                        controller?.isAppearanceLightStatusBars = true
+                        controller?.isAppearanceLightNavigationBars = true
+
+                        window.statusBarColor = Color.argb(0,254,254,254)
                         window.navigationBarColor = Color.rgb(254,254,254)
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, HomeFragment())
@@ -54,6 +60,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     R.id.menu_btn_search -> {
                         binding.mainBtmNav.itemBackground = Color.rgb(254,254,254).toDrawable()
                         binding.mainBtmNav.setBackgroundColor(Color.rgb(254,254,254))
+
+                        val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                        controller?.isAppearanceLightStatusBars = true
+                        controller?.isAppearanceLightNavigationBars = true
 
                         window.statusBarColor = Color.rgb(254,254,254)
                         window.navigationBarColor = Color.rgb(254,254,254)
@@ -67,6 +77,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         binding.mainBtmNav.itemBackground = Color.BLACK.toDrawable()
                         binding.mainBtmNav.setBackgroundColor(Color.BLACK)
 
+                        val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                        controller?.isAppearanceLightStatusBars = false
+                        controller?.isAppearanceLightNavigationBars = false
+
                         window.navigationBarColor = Color.BLACK
                         window.statusBarColor = Color.BLACK
                         supportFragmentManager.beginTransaction()
@@ -79,6 +93,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         binding.mainBtmNav.itemBackground = Color.rgb(254,254,254).toDrawable()
                         binding.mainBtmNav.setBackgroundColor(Color.rgb(254,254,254))
 
+                        val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                        controller?.isAppearanceLightStatusBars = true
+                        controller?.isAppearanceLightNavigationBars = true
 
                         window.statusBarColor = Color.rgb(254,254,254)
                         window.navigationBarColor = Color.rgb(254,254,254)
@@ -91,6 +108,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     R.id.menu_btn_profile -> {
                         binding.mainBtmNav.itemBackground = Color.rgb(254,254,254).toDrawable()
                         binding.mainBtmNav.setBackgroundColor(Color.rgb(254,254,254))
+
+                        val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                        controller?.isAppearanceLightStatusBars = true
+                        controller?.isAppearanceLightNavigationBars = true
 
                         window.statusBarColor = Color.rgb(254,254,254)
                         window.navigationBarColor = Color.rgb(254,254,254)
@@ -114,13 +135,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     // 프래그먼트간 이동 구현
     fun changeFragment(name : String){
         when(name){
+
             "Home"->{
+
+                val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                controller?.isAppearanceLightStatusBars = true
+                controller?.isAppearanceLightNavigationBars = true
+
+                window.statusBarColor = Color.rgb(254,254,254)
+                window.navigationBarColor = Color.rgb(254,254,254)
+
+
                 supportFragmentManager
                     .beginTransaction()
                     .replace(id.main_frm, HomeFragment())
                     .addToBackStack(null)
                     .commit()
                 makebtnnav()
+
             }
 
             "Comment"->{
@@ -136,6 +168,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 supportFragmentManager
                     .beginTransaction()
                     .replace(id.main_frm, LikelistFragment())
+                    .addToBackStack(null)
+                    .commit()
+
+                hidebtnnav()
+            }
+
+            "Makestory"->{
+                val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                controller?.isAppearanceLightStatusBars = false
+                controller?.isAppearanceLightNavigationBars = false
+
+                window.statusBarColor = Color.BLACK
+                window.navigationBarColor = Color.BLACK
+
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(id.main_frm, MakestoryFragment())
                     .addToBackStack(null)
                     .commit()
 
@@ -212,14 +261,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 hidebtnnav()
             }
 
-            "SelectGallery"->{
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(id.main_frm,SelectgalleryFragment())
-                    .addToBackStack(null)
-                    .commit()
-            }
-
             "Shopping"->{
                 supportFragmentManager
                     .beginTransaction()
@@ -246,5 +287,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     fun makebtnnav(){
         binding.mainBtmNav.isVisible = true
     }
+
+
+    override fun onGetMyProfileSuccess(response: MyProfileData) {
+
+        // 싱글톤객체에 프로필정보 저장
+        MyInfo.setnickname(response.result.nickname)
+        MyInfo.setprofileimg(response.result.profileUrl)
+    }
+    override fun onGetMyProfileFailure(message: String) {}
+    override fun onGetOthersProfileFailure(message: String) {}
+    override fun onGetOthersProfileSuccess(response: OthersProfileData) {}
+    override fun onPatchModifyProfileFailure(message: String) {}
+    override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {}
+    override fun onPatchunFollowingFailure(message: String) {}
+    override fun onPatchunFollowingSuccess(response: PostFollowingData) { }
+    override fun onPostFollowingFailure(message: String) { }
+    override fun onPostFollowingSuccess(response: PostFollowingData) {}
 
 }

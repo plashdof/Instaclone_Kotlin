@@ -8,9 +8,11 @@ import android.util.Log
 import com.instagram.R
 import com.instagram.config.BaseActivity
 import com.instagram.databinding.ActivityLoginBinding
+import com.instagram.src.main.Jwt
 import com.instagram.src.main.Login.models.LoginData
 import com.instagram.src.main.Login.models.PostLoginData
 import com.instagram.src.main.MainActivity
+import com.instagram.src.main.MyInfo
 import com.instagram.src.main.SignupPages.SignupActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), LoginActivityInterface{
@@ -126,10 +128,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         if(response.code == 1000){
             showCustomToast("로그인 성공")
 
-            val jwt = response.result.jwt
+            Jwt.setjwt(response.result.jwt)
+            MyInfo.setuserId(response.result.userIdx)
 
             val intent = Intent(this, MainActivity::class.java)
-                .putExtra("jwt",jwt)
             startActivity(intent)
         }
 

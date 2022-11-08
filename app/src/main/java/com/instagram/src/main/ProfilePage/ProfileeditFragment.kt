@@ -16,6 +16,7 @@ import com.instagram.databinding.FragmentProfileeditBinding
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileChange
+import com.instagram.src.main.MyInfo
 import com.instagram.src.main.ProfilePage.models.*
 import de.hdodenhof.circleimageview.CircleImageView
 

@@ -1,7 +1,14 @@
 package com.instagram.src.main.ProfilePage
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
@@ -15,6 +22,7 @@ import com.instagram.src.main.Modals.BottomSheetProfilemenu
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileplus
+import com.instagram.src.main.MyInfo
 import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.ModifyProfileData
@@ -22,6 +30,7 @@ import com.instagram.src.main.ProfilePage.models.MyProfileData
 import com.instagram.src.main.ProfilePage.models.OthersProfileData
 import com.instagram.src.main.ProfilePage.models.PostFollowingData
 import com.instagram.src.main.home.models.StorythumbnailData
+import java.text.SimpleDateFormat
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileFragmentInterface{
 
@@ -31,6 +40,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     var description : String? = ""
     var profile : String? = ""
     var postclick : Boolean = true
+
+    var realUri : Uri? = null
+    var state = true
 
     inner class roomToAdapter{
         fun moveToProfilePost(){
@@ -53,7 +65,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         
         // 4.1 API 통신
         // 팔로워수 / 팔로잉수 / 게시물수 / 프로필이미지 / 링크 / 소개글 / 실명 / 닉네임 받아오기
-        ProfileService(this).tryGetMyProfileData(Jwt.getjwt())
+        if(state){
+            ProfileService(this).tryGetMyProfileData(Jwt.getjwt())
+        }
+
 
 
         mypostbtn.setOnClickListener {
@@ -109,15 +124,63 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             Activity.changeFragment("ProfileEdit")
         }
 
+        profileimg.setOnClickListener {
+            openCamera()
+        }
+
     }
+    // 스토리 작성 위해 카메라앱으로 이동
+
+    private fun openCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        state = false
+        Log.d("aaaaaa","openCamera")
+
+        createImageUri(newFileName(), "image/jpg")?.let { uri ->
+            realUri = uri
+            // MediaStore.EXTRA_OUTPUT을 Key로 하여 Uri를 넘겨주면
+            // 일반적인 Camera App은 이를 받아 내가 지정한 경로에 사진을 찍어서 저장시킨다.
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, realUri)
+            intent.also{
+                childForResult.launch(it)
+            }
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun newFileName(): String {
+        val sdf = SimpleDateFormat("yyyyMMdd_HHmmss")
+        val filename = sdf.format(System.currentTimeMillis())
+        return "$filename.jpg"
+    }
+
+    private fun createImageUri(filename: String, mimeType: String): Uri? {
+        val Activity = activity as MainActivity
+        var values = ContentValues()
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, filename)
+        values.put(MediaStore.Images.Media.MIME_TYPE, mimeType)
+        return Activity.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+    }
+
+    private val childForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val Activity = activity as MainActivity
+            Log.d("aaaaaa","$realUri")
+            setFragmentResult("fromCamera", bundleOf("bundleKey" to realUri))
+            Activity.changeFragment("Makestory")
+        }
 
     override fun onGetMyProfileSuccess(response: MyProfileData) {
 
         if(response.isSuccess){
+
+            // 싱글톤객체에 프로필정보 저장
+            MyInfo.setnickname(response.result.nickname)
+            MyInfo.setprofileimg(response.result.profileUrl)
+
             binding.tvProfilePostcount.text = response.result.postCount.toString()
             binding.tvProfileFollowerCount.text = response.result.followerCount.toString()
             binding.tvProfileFollowingCount.text = response.result.followingCount.toString()
-
 
 
             name = response.result.name

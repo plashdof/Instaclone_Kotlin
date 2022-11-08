@@ -1,9 +1,6 @@
 package com.instagram.src.main.home
 
-import com.instagram.src.main.home.models.LikelistData
-import com.instagram.src.main.home.models.PostData
-import com.instagram.src.main.home.models.PostlikeData
-import com.instagram.src.main.home.models.StoryData
+import com.instagram.src.main.home.models.*
 
 interface HomeFragmentInterface {
 
@@ -19,5 +16,7 @@ interface HomeFragmentInterface {
     fun onGetStoryDataSuccess(response: StoryData)
 
     fun onGetStoryDataFailure(message:String)
+
+
 
 }

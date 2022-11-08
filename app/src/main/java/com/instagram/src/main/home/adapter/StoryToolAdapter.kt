@@ -43,7 +43,14 @@ class StoryToolAdapter(private val datas : ArrayList<StorythumbnailData>, var li
                 .into(profile)
 
             nick.text = item.nickname
-            time.text = item.storyDataList[0].createdAt.toString()
+
+            // 시간 데이터 parsing
+            if(item.storyDataList[0].createdAt < 60){
+                time.text = "${(item.storyDataList[0].createdAt)}분 전"
+            }else{
+                time.text = "${(item.storyDataList[0].createdAt)/60}시간 전"
+            }
+
 
             // 처음 이미지
             Glide.with(itemView)
@@ -59,6 +66,7 @@ class StoryToolAdapter(private val datas : ArrayList<StorythumbnailData>, var li
             progressbar.startStories()
 
 
+            // 왼쪽공간 클릭시 왼쪾으로 이동
             leftside.setOnClickListener {
 
                 if(currentindex != 0){
@@ -66,13 +74,18 @@ class StoryToolAdapter(private val datas : ArrayList<StorythumbnailData>, var li
                     Glide.with(itemView)
                         .load(item.storyDataList[currentindex].imgUrl)
                         .into(storyimg)
-                    time.text = item.storyDataList[currentindex].createdAt.toString()
+                    if(item.storyDataList[currentindex].createdAt < 60){
+                        time.text = "${(item.storyDataList[currentindex].createdAt)}분 전"
+                    }else{
+                        time.text = "${(item.storyDataList[currentindex].createdAt)/60}시간 전"
+                    }
                     progressbar.reverse()
 
                 }
 
             }
 
+            // 오른쪽공간 클릭시 오른쪽으로 이동
             rightside.setOnClickListener {
 
                 clicked = true
@@ -82,7 +95,11 @@ class StoryToolAdapter(private val datas : ArrayList<StorythumbnailData>, var li
                     Glide.with(itemView)
                         .load(item.storyDataList[currentindex].imgUrl)
                         .into(storyimg)
-                    time.text = item.storyDataList[currentindex].createdAt.toString()
+                    if(item.storyDataList[currentindex].createdAt < 60){
+                        time.text = "${(item.storyDataList[currentindex].createdAt)}분 전"
+                    }else{
+                        time.text = "${(item.storyDataList[currentindex].createdAt)/60}시간 전"
+                    }
                     progressbar.skip()
                 }
 
@@ -90,15 +107,21 @@ class StoryToolAdapter(private val datas : ArrayList<StorythumbnailData>, var li
 
         }
 
+        // progressBar 다음으로 넘어갈때
         override fun onNext() {
             Log.d("aaaa", "$currentindex")
 
+            // 시간 다되서 넘어갈때 동작
             if(currentindex != items.storyDataList.size - 1 && !clicked){
                 ++currentindex
                 Glide.with(itemView)
                     .load(items.storyDataList[currentindex].imgUrl)
                     .into(viewBinding.storyImg)
-                viewBinding.tvStoryTime.text = items.storyDataList[currentindex].createdAt.toString()
+                if(items.storyDataList[currentindex].createdAt < 60){
+                    viewBinding.tvStoryTime.text = "${(items.storyDataList[currentindex].createdAt)}분 전"
+                }else{
+                    viewBinding.tvStoryTime.text = "${(items.storyDataList[currentindex].createdAt)/60}시간 전"
+                }
             }
 
             clicked = false

@@ -20,8 +20,9 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
         val context = this@StoryToolActivity
     }
     var datas : ArrayList<StorythumbnailData> = arrayListOf()
+    var resultdatas : ArrayList<StorythumbnailData> = arrayListOf()
     var currentnick : String? = ""
-    var currentindex : Int? = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,20 +72,33 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
     override fun onGetLikelistSuccess(response: LikelistData) {}
 
 
+    // 클릭한 스토리 기준 데이터 재배치
+
     fun findindex(){
+        var currentindex = 0
         for(i in 0 until datas.size){
             if(datas[i].nickname == currentnick){
                 currentindex = i
             }
         }
+
+        for(i in currentindex  until datas.size){
+            resultdatas.add(datas[i])
+        }
+        
+        for(i in 0 until currentindex){
+            resultdatas.add(datas[i])
+        }
     }
+
+
     fun viewpageStorytool(){
 
 
         var linking = getcontext()
 
 
-        val adapter = StoryToolAdapter(datas, linking)
+        val adapter = StoryToolAdapter(resultdatas, linking)
         binding.storytoolViewpager.setPageTransformer(ZoomOutPageTransformer())
         binding.storytoolViewpager.adapter = adapter
 

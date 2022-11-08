@@ -61,15 +61,79 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/comment_ownerimage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/shape_story"
+                    android:src="@drawable/test_profile"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+
+                    <TextView
+                        android:id="@+id/comment_ownernick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="p.real_sound"
+                        android:textColor="@color/insta_black"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/comment_ownercontent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="출처-진성박"
+                        android:textColor="@color/insta_black"/>
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/comment_ownertime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:text="38주"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/insta_et"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_comment"
-                android:layout_marginTop="55dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/recycler_comment"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
 
 
         </LinearLayout>

@@ -16,10 +16,12 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/test_profile"
+        android:background="@drawable/shape_story"
         />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:gravity="center|start"
@@ -54,6 +56,13 @@
                 android:text="4일"/>
 
             <TextView
+                android:id="@+id/recycler_comment_likecount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="좋아요 n개"/>
+
+            <TextView
                 android:id="@+id/recycler_comment_addcommentbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +73,19 @@
         </LinearLayout>
 
 
+
     </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/comment_likebtn"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/home_unlike"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"/>
+
 
 
 </LinearLayout>

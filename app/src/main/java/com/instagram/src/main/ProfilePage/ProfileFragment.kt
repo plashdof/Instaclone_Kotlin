@@ -23,13 +23,11 @@ import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.Modals.BottomSheetProfileplus
 import com.instagram.src.main.MyInfo
-import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.ProfilePage.models.*
-import com.instagram.src.main.home.models.StorythumbnailData
 import java.text.SimpleDateFormat
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfilePostFragmentInterface{
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfilePostFragmentInterface, ProfileFragmentInterface{
 
     var name : String? = ""
     var nick : String? = ""
@@ -57,8 +55,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val plusbtn = binding.btnProfilePlus
         val menubtn = binding.btnProfileMenu
 
+        ProfilePostService(this).tryGetUserPostThumbnail(Jwt.getjwt(),MyInfo.getuserId(),0)
 //        recyclerStory()
-        recyclerMypost()
+
         
         // 4.1 API 통신
         // 팔로워수 / 팔로잉수 / 게시물수 / 프로필이미지 / 링크 / 소개글 / 실명 / 닉네임 받아오기
@@ -228,10 +227,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
 
-    override fun onGetUserPostThumbnailSuccesss(response: UserPostThumbnailData) {}
+    override fun onGetUserPostThumbnailSuccesss(response: UserPostThumbnailData) {
+        if(response.isSuccess){
+
+            recyclerMypost(response.result.thumbnailList)
+        }
+    }
     override fun onGetUserPostThumbnailFailure(message: String) {}
 
-    override fun onGetUserTaggedThumbnailSuccess(response: UserPostThumbnailData) {}
+
+    override fun onGetUserTaggedThumbnailSuccess(response: UserPostThumbnailData) {
+        if(response.isSuccess){
+
+            recyclerTagpost(response.result.thumbnailList)
+        }
+    }
     override fun onGetUserTaggedThumbnailFailure(message: String) {}
 
     override fun onGetUserTaggedListSuccess(response: UserPostListData) { }
@@ -241,37 +251,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
 
-    private fun recyclerMypost(){
+    private fun recyclerMypost(datas : ArrayList<PostDataThumbnailList>){
 
-        val data = arrayListOf<String>("https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://source.unsplash.com/collection/3730086/1080x1080",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://source.unsplash.com/collection/3730086/1080x1080",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp","https://source.unsplash.com/collection/932210/1080x1080",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://source.unsplash.com/collection/932210/1080x1080","https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp","https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            )
 
         var linking = roomToAdapter()
-        val adapter = ProfileThumbnailAdapter(data,linking)
+        val adapter = ProfileThumbnailAdapter(datas,linking)
         binding.recyclerProfileThumbnail.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
         binding.recyclerProfileThumbnail.adapter = adapter
     }
 
 
-    private fun recyclerTagpost(){
-        val data = arrayListOf<String>("https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",
-            "https://source.unsplash.com/collection/932210/1080x1080",
-            "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp",)
+    private fun recyclerTagpost(datas : ArrayList<PostDataThumbnailList>){
 
         var linking = roomToAdapter()
-        val adapter = ProfileThumbnailAdapter(data, linking)
+        val adapter = ProfileThumbnailAdapter(datas, linking)
         binding.recyclerProfileThumbnail.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
         binding.recyclerProfileThumbnail.adapter = adapter
     }

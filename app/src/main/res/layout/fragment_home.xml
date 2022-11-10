@@ -141,7 +141,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginLeft="75dp"
+                        android:layout_marginLeft="90dp"
                         android:id="@+id/recycler_home_story"
                         android:layout_width="match_parent"
                         android:layout_height="90dp"

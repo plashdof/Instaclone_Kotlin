@@ -157,6 +157,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_story"
             android:src="@drawable/test_profile"
             />
 

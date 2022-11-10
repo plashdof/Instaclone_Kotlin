@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class ProfilePostService(val profilePostFragmentInterface: ProfilePostFragmentInterface) {
 
-    fun tryGetUserPostThumbnail(jwt : String?, userId : Int, page : Int){
+    fun tryGetUserPostThumbnail(jwt: String?, userId: Int, page: Int){
         val profilePostRetrofitInterface = ApplicationClass.sRetrofit.create(ProfilePostRetrofitInterface::class.java)
         profilePostRetrofitInterface.getUserPostThumbnail(jwt, userId, page).enqueue(object: Callback<UserPostThumbnailData> {
             override fun onResponse(call: Call<UserPostThumbnailData>, response: Response<UserPostThumbnailData>) {
@@ -22,9 +22,9 @@ class ProfilePostService(val profilePostFragmentInterface: ProfilePostFragmentIn
         })
     }
 
-    fun tryGetUserPostList(jwt : String?, userId : Int, page : Int){
+    fun tryGetUserPostList(jwt : String?, postId : Int, page : Int){
         val profilePostRetrofitInterface = ApplicationClass.sRetrofit.create(ProfilePostRetrofitInterface::class.java)
-        profilePostRetrofitInterface.getUserPostList(jwt, userId, page).enqueue(object: Callback<UserPostListData> {
+        profilePostRetrofitInterface.getUserPostList(jwt, postId, page).enqueue(object: Callback<UserPostListData> {
             override fun onResponse(call: Call<UserPostListData>, response: Response<UserPostListData>) {
                 profilePostFragmentInterface.onGetUserPostListSuccess(response.body() as UserPostListData)
             }
@@ -35,7 +35,7 @@ class ProfilePostService(val profilePostFragmentInterface: ProfilePostFragmentIn
         })
     }
 
-    fun tryGetUserTaggedThumbnail(jwt : String?, userId : Int, page : Int){
+    fun tryGetUserTaggedThumbnail(jwt: String?, userId: Int, page: Int){
         val profilePostRetrofitInterface = ApplicationClass.sRetrofit.create(ProfilePostRetrofitInterface::class.java)
         profilePostRetrofitInterface.getUserTaggedThumbnail(jwt, userId, page).enqueue(object: Callback<UserPostThumbnailData> {
             override fun onResponse(call: Call<UserPostThumbnailData>, response: Response<UserPostThumbnailData>) {

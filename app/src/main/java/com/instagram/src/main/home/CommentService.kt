@@ -1,9 +1,8 @@
 package com.instagram.src.main.home
 
+import android.app.Application
 import com.instagram.config.ApplicationClass
-import com.instagram.src.main.home.models.CommentContentData
-import com.instagram.src.main.home.models.CommentData
-import com.instagram.src.main.home.models.PostData
+import com.instagram.src.main.home.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +32,19 @@ class CommentService(val commentFragmentInterface: CommentFragmentInterface) {
 
             override fun onFailure(call: Call<CommentContentData>, t: Throwable) {
                 commentFragmentInterface.onGetCommentContentDataFailure(t.message ?:"통신오류")
+            }
+        })
+    }
+    
+    fun tryPostComment(jwt:String?, datas:AddCommentData){
+        val commentRetrofitInterface = ApplicationClass.sRetrofit.create(CommentRetrofitInterface::class.java)
+        commentRetrofitInterface.postaddComment(jwt,datas).enqueue(object: Callback<PostlikeData>{
+            override fun onResponse(call: Call<PostlikeData>, response: Response<PostlikeData>) {
+                commentFragmentInterface.onPostCommentSuccess(response.body() as PostlikeData)
+            }
+
+            override fun onFailure(call: Call<PostlikeData>, t: Throwable) {
+                commentFragmentInterface.onPostCommentFailure(t.message ?: "통신오류")
             }
         })
     }

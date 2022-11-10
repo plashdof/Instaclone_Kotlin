@@ -18,11 +18,11 @@ interface ProfilePostRetrofitInterface {
     @GET("/posts/user/list")
     fun getUserPostList(
         @Header("ACCESS-TOKEN") jwt : String?,
-        @Query("userId") userId : Int,
+        @Query("postId") postId : Int,
         @Query("page") page : Int
     ) : Call<UserPostListData>
 
-    @GET("posts/user/tag")
+    @GET("posts/user/tag/thumbnail")
     fun getUserTaggedThumbnail(
         @Header("ACCESS-TOKEN") jwt : String?,
         @Query("userId") userId : Int,

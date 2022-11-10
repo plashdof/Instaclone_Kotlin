@@ -2,6 +2,7 @@ package com.instagram.src.main.home
 
 import com.instagram.src.main.home.models.CommentContentData
 import com.instagram.src.main.home.models.CommentData
+import com.instagram.src.main.home.models.PostlikeData
 
 interface CommentFragmentInterface {
 
@@ -12,4 +13,8 @@ interface CommentFragmentInterface {
     fun onGetCommentContentDataSuccess(response  : CommentContentData)
 
     fun onGetCommentContentDataFailure(message : String)
+
+    fun onPostCommentSuccess(response: PostlikeData)
+
+    fun onPostCommentFailure(message : String)
 }

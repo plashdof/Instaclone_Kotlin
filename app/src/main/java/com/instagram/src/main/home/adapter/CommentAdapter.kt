@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.R
 import com.instagram.databinding.RecyclerCommentBinding
+import com.instagram.src.main.home.CommentFragment
+import com.instagram.src.main.home.LikelistFragment
 import com.instagram.src.main.home.models.CommentdetailData
 
-class CommentAdapter(private val datas: ArrayList<CommentdetailData>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(private val datas: ArrayList<CommentdetailData>, var linking : CommentFragment.getcontext? = null) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
     inner class ViewHolder(private val viewBinding: RecyclerCommentBinding) : RecyclerView.ViewHolder(viewBinding.root){
         fun bind(item:CommentdetailData){
             val commentNum = item.commentNum
@@ -32,6 +34,13 @@ class CommentAdapter(private val datas: ArrayList<CommentdetailData>) : Recycler
                 val param = layout.layoutParams  as ViewGroup.MarginLayoutParams
                 param.setMargins(200,50,50,0)
                 layout.layoutParams =param
+            }
+
+            profileimg.setOnClickListener {
+                linking?.gotoLiketoOthersprofile(item.nickname, item.userId)
+            }
+            nickname.setOnClickListener {
+                linking?.gotoLiketoOthersprofile(item.nickname, item.userId)
             }
 
             // 스토리 여부

@@ -2,16 +2,13 @@ package com.instagram.src.main.ProfilePage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.databinding.RecyclerThumbnailBinding
-import com.instagram.src.main.MainActivity
-import com.instagram.src.main.ProfilePage.ProfileFragment
+import com.instagram.src.main.ProfilePage.OthersProfileFragment
 import com.instagram.src.main.ProfilePage.models.PostDataThumbnailList
-import com.instagram.src.main.home.adapter.PostAdapter
 
-class ProfileThumbnailAdapter(private val datas : ArrayList<PostDataThumbnailList>, var link : ProfileFragment.roomToAdapter) : RecyclerView.Adapter<ProfileThumbnailAdapter.ViewHolder>(){
+class OthersProfileThumbnailAdapter(private val datas : ArrayList<PostDataThumbnailList>, var link : OthersProfileFragment.roomToAdapter) : RecyclerView.Adapter<OthersProfileThumbnailAdapter.ViewHolder>(){
     inner class ViewHolder(private val viewBinding: RecyclerThumbnailBinding) : RecyclerView.ViewHolder(viewBinding.root){
         fun bind(item : PostDataThumbnailList){
             val view = viewBinding.recyclerThumbnailImg
@@ -19,9 +16,8 @@ class ProfileThumbnailAdapter(private val datas : ArrayList<PostDataThumbnailLis
                 .load(item.thumbnail)
                 .into(view)
 
-
             view.setOnClickListener{
-                link.moveToProfilePost()
+                link.moveToProfilePost(item.postId)
             }
         }
     }

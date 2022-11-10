@@ -62,6 +62,11 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/recycler_post"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+
 
         </LinearLayout>
 

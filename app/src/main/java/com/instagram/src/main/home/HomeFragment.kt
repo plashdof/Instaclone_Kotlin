@@ -76,9 +76,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
         if(state){
             HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
-            HomeService(this).tryGetStoryData(Jwt.getjwt())
             ProfileService(this).tryGetMyProfileData(Jwt.getjwt())
         }
+
+        binding.homeMakestoryBtn.isVisible = false
 
 
 
@@ -175,6 +176,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
     }
 
+    override fun onGetMyProfileSuccess(response: MyProfileData) {
+        if(response.isSuccess){
+
+            // 프로필 API 성공시,  내 프로필 닉네임 표시
+
+            MyInfo.setprofileimg(response.result.profileUrl)
+            MyInfo.setnickname(response.result.nickname)
+
+            Glide.with(this)
+                .load(response.result.profileUrl)
+                .into(binding.homeMyprofileImagebtn)
+            binding.homeMynick.text = response.result.nickname
+            StoryService(this).tryGetUserStoryData(Jwt.getjwt(),MyInfo.getnickname())
+            HomeService(this).tryGetStoryData(Jwt.getjwt())
+        }else{
+            showCustomToast("프로필 데이터 불러오기 실패")
+        }
+    }
+
+    override fun onGetMyProfileFailure(message: String) {}
+
 
     
     override fun onGetHomePostDataSuccess(response: PostData) {
@@ -202,7 +224,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
             if(index == passStoryData.size) break
 
-            if(passStoryData[index].storyDataList.isEmpty()){
+            if(passStoryData[index].storyDataList.isEmpty() || passStoryData[index].nickname == MyInfo.getnickname()){
                 passStoryData.removeAt(index)
                 Log.d("aaaaa", "${passStoryData.toString()}")
             }else{
@@ -226,6 +248,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
         
         // page수를 증가시켜서 서버 요청
         HomeService(this).tryGetHomePostData(Jwt.getjwt(),page.toString())
+    }
+
+
+    override fun onGetUserStorySuccess(response: UserStoryData) {
+        if(response.isSuccess){
+            
+            // 내 스토리가 있는지 없는지체크. Home myprofile 레이아웃 변경
+            
+            if(response.result.storyDataList.isEmpty()){
+                mystoryState = false
+                binding.homeMakestoryBtn.isVisible = true
+                binding.homeMystoryBorder.isVisible = false
+            }else{
+                mystoryState = true
+                binding.homeMakestoryBtn.isVisible = false
+                binding.homeMystoryBorder.isVisible = true
+            }
+        }else{
+            showCustomToast("My Story 데이터 불러오기 실패")
+        }
     }
 
     fun movetoCommentPage(postid : Int){
@@ -254,46 +296,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             .putExtra("currentNick", targetNickname)
         startActivity(intent)
 
-    }
-
-    
-
-    override fun onGetMyProfileSuccess(response: MyProfileData) {
-        if(response.isSuccess){
-
-            // 프로필 API 성공시,  내 프로필 닉네임 표시
-
-            MyInfo.setprofileimg(response.result.profileUrl)
-            MyInfo.setnickname(response.result.nickname)
-            
-            Glide.with(this)
-                .load(response.result.profileUrl)
-                .into(binding.homeMyprofileImagebtn)
-            StoryService(this).tryGetUserStoryData(Jwt.getjwt(),MyInfo.getnickname())
-        }else{
-            showCustomToast("프로필 데이터 불러오기 실패")
-        }
-    }
-
-    override fun onGetMyProfileFailure(message: String) {}
-
-    override fun onGetUserStorySuccess(response: UserStoryData) {
-        if(response.isSuccess){
-            
-            // 내 스토리가 있는지 없는지체크. Home myprofile 레이아웃 변경
-            
-            if(response.result.storyDataList.isEmpty()){
-                mystoryState = false
-                binding.homeMakestoryBtn.isVisible = true
-                binding.homeMystoryBorder.isVisible = false
-            }else{
-                mystoryState = true
-                binding.homeMakestoryBtn.isVisible = false
-                binding.homeMystoryBorder.isVisible = true
-            }
-        }else{
-            showCustomToast("My Story 데이터 불러오기 실패")
-        }
     }
 
     override fun onGetUserStoryFailure(message: String) {}

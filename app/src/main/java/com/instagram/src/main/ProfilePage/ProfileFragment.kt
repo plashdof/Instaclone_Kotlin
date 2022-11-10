@@ -25,14 +25,11 @@ import com.instagram.src.main.Modals.BottomSheetProfileplus
 import com.instagram.src.main.MyInfo
 import com.instagram.src.main.home.adapter.StoryThumbnailAdapter
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
-import com.instagram.src.main.ProfilePage.models.ModifyProfileData
-import com.instagram.src.main.ProfilePage.models.MyProfileData
-import com.instagram.src.main.ProfilePage.models.OthersProfileData
-import com.instagram.src.main.ProfilePage.models.PostFollowingData
+import com.instagram.src.main.ProfilePage.models.*
 import com.instagram.src.main.home.models.StorythumbnailData
 import java.text.SimpleDateFormat
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfileFragmentInterface{
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::bind, R.layout.fragment_profile),ProfilePostFragmentInterface{
 
     var name : String? = ""
     var nick : String? = ""
@@ -80,7 +77,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
             postclick = true
 
-            recyclerMypost()
+            ProfilePostService(this).tryGetUserPostThumbnail(Jwt.getjwt(),MyInfo.getuserId(),0)
         }
 
 
@@ -94,7 +91,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
             postclick = false
 
-            recyclerTagpost()
+            ProfilePostService(this).tryGetUserTaggedThumbnail(Jwt.getjwt(),MyInfo.getuserId(),0)
         }
 
 
@@ -229,6 +226,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val Activity = activity as MainActivity
         Activity.changeFragment("ProfilePost")
     }
+
+
+    override fun onGetUserPostThumbnailSuccesss(response: UserPostThumbnailData) {}
+    override fun onGetUserPostThumbnailFailure(message: String) {}
+
+    override fun onGetUserTaggedThumbnailSuccess(response: UserPostThumbnailData) {}
+    override fun onGetUserTaggedThumbnailFailure(message: String) {}
+
+    override fun onGetUserTaggedListSuccess(response: UserPostListData) { }
+    override fun onGetUserTaggedListFailure(message: String) {}
+    override fun onGetUserPostListSuccess(response: UserPostListData) {}
+    override fun onGetUserPostListFailure(message: String) {}
 
 
 

@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.databinding.ViewpagePostBinding
+import com.instagram.src.main.home.models.ImgData
 
-class PostViewAdapter(private val datas: ArrayList<String?>) : RecyclerView.Adapter<PostViewAdapter.ViewHolder>() {
+class PostViewAdapter(private val datas: ArrayList<ImgData>) : RecyclerView.Adapter<PostViewAdapter.ViewHolder>() {
     inner class ViewHolder(private val viewBinding: ViewpagePostBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(item:String?){
+        fun bind(item:ImgData){
             val img = viewBinding.viewpageImg
 
-            Log.d("ddddd","viewbind")
+            Log.d("ddddd","${item.imgUrl}")
             Glide.with(itemView)
-                .load(item)
+                .load(item.imgUrl)
                 .into(img)
         }
     }

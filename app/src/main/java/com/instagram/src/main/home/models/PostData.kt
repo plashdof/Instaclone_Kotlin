@@ -29,10 +29,15 @@ data class PostdetialData(
     @SerializedName("commentCount") val commentCount : Int,
     @SerializedName("myPostLike") val myPostLike : Int,
     @SerializedName("storyExist") val storyExist : String? ="",
-    @SerializedName("imgUrlList") val imgUrlList : ArrayList<String?>,
+    @SerializedName("imgUrlList") val imgUrlList : ArrayList<ImgData>,
     @SerializedName("userTagList") val userTagList : ArrayList<Int?>,
     @SerializedName("hashTagList") val hashTagList : ArrayList<String?>
 
+)
+
+data class ImgData(
+    @SerializedName("imgId") val imgId : Int,
+    @SerializedName("imgUrl") val imgUrl : String? =""
 )
 
 

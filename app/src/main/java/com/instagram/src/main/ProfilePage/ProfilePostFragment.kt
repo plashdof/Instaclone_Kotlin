@@ -36,7 +36,8 @@ class ProfilePostFragment : BaseFragment<FragmentProfilePostBinding>(FragmentPro
             Activity.changeFragment("Profile")
         }
 
-//        recyclerPost()
+
+
     }
 
 

@@ -155,6 +155,7 @@ class PostAdapter(private val datas: ArrayList<PostdetialData>, var linking : Ho
 
             val viewpager = viewBinding.recyclerPostViewpager
             val viewImg = item.imgUrlList
+            Log.d("ddddd", "${item.imgUrlList.toString()}")
 
             val indicator = viewBinding.recyclerPostIndicator
             indicator.noOfPages = viewImg.size

@@ -1,11 +1,13 @@
 package com.instagram.src.main.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -17,14 +19,23 @@ import com.instagram.databinding.FragmentCommentBinding
 import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.MyInfo
+import com.instagram.src.main.home.API.CommentAPI
 import com.instagram.src.main.home.adapter.CommentAdapter
 import com.instagram.src.main.home.models.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CommentFragment : BaseFragment<FragmentCommentBinding>(FragmentCommentBinding::bind, R.layout.fragment_comment),CommentFragmentInterface {
 
     var page = 0
     var addcommenttext = ""
     var postId = 0
+    var parentId = 0
+    var commentflag = 0
+
 
     inner class getcontext{
         val fragcontext = context
@@ -32,7 +43,29 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(FragmentCommentBind
         fun gotoLiketoOthersprofile(targetNickname: String?, userId:Int){
             moveLiketoOthersprofilePage(targetNickname, userId)
         }
+
+        fun refreshcomment(){
+            val Activity = activity as MainActivity
+            Activity.changeFragment("Comment")
+        }
+
+        fun startCocoment(data: Int){
+            parentId = data
+            commentflag = 1
+
+            //  edittext 에 포커싱
+            binding.etPostcomment.requestFocus()
+
+            // 키보드 올리기
+            val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(binding.etPostcomment,0)
+
+        }
+
+
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,14 +120,70 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(FragmentCommentBind
 
         // 댓글 추가하기
         binding.btnCommentMakecommentbtn.setOnClickListener {
-            val data = AddCommentData(postId = postId, content = addcommenttext)
-            CommentService(this).tryPostComment(Jwt.getjwt(),data)
+
+            if(commentflag == 0){   // 댓글 추가하기
+                val data = AddCommentData(postId = postId, content = addcommenttext)
+                CommentService(this).tryPostComment(Jwt.getjwt(),data)
+            }else{  // 대댓글추가하기
+
+                val data = AddCocommentData(postId=postId,content=addcommenttext,parentId=parentId)
+
+                val buildLikeRetro = Retrofit.Builder()
+                    .baseUrl("https://prod.lukechoi.shop/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                val api = buildLikeRetro.create(CommentAPI::class.java)
+                api.postCocomments(Jwt.getjwt(), params = data)
+                    .enqueue(object: Callback<PostlikeData> {
+                        override fun onResponse(
+                            call: Call<PostlikeData>,
+                            response: Response<PostlikeData>
+                        ) {
+                            Log.d("API결과","${response.body().toString()}")
+                            Log.d("API결과","${response.raw()}")
+
+                            if(response.body()?.isSuccess == true){
+                                val Activity = activity as MainActivity
+                                Activity.changeFragment("Comment")
+                            }
+
+
+                        }
+                        override fun onFailure(call: Call<PostlikeData>, t: Throwable) {
+                            Log.d("API결과", "실패 : $t")
+                        }
+                    })
+            }
+
         }
 
     }
 
     override fun onGetCommentDataSuccess(response: CommentData) {
         if(response.isSuccess){
+//            val data =response.result.commentList
+//            val result = arrayListOf<CommentdetailData>()
+//            var count = 0
+//            for(i in 0 until data.size){
+//                count = data[i].commentNum
+//                if(count >= 0){
+//
+//                    result.add(data[i])
+//                    Log.d("dddddd","부모댓글추가됨 : ${result.toString()}")
+//                }
+//                if(count > 1){
+//                    for(j in i until data.size){
+//                        if(data[j].commentNum == -1 && data[j].parentId == data[i].commentId){
+//                            result.add(data[j])
+//                            Log.d("dddddd","대댓글추가됨 : ${result.toString()}")
+//                        }
+//                    }
+//                }
+//            }
+//
+//            Log.d("dddddd","${result.toString()}")
+
+
             recyclerComment(response.result.commentList)
         }
     }

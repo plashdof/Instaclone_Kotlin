@@ -1,19 +1,33 @@
 package com.instagram.src.main.SearchPage
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.instagram.R
 import com.instagram.config.BaseFragment
 import com.instagram.databinding.FragmentSearchBinding
+import com.instagram.src.main.Jwt
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.ProfilePage.adapter.ProfileThumbnailAdapter
 import com.instagram.src.main.SearchPage.adapter.SearchThumbnailAdapter
+import com.instagram.src.main.SearchPage.models.SearchAutocompleteData
+import com.instagram.src.main.SearchPage.models.SearchImgList
 import com.instagram.src.main.SearchPage.models.SearchThumbnailData
+import com.instagram.src.main.home.HomeService
 
-class SearchFragment : BaseFragment<FragmentSearchBinding> (FragmentSearchBinding::bind, R.layout.fragment_search){
+class SearchFragment : BaseFragment<FragmentSearchBinding> (FragmentSearchBinding::bind, R.layout.fragment_search),SearchFragmentInterface{
+
+    var cursor = 0
+    var nextpage = false
+    private var datas = arrayListOf<SearchImgList>()
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,20 +38,57 @@ class SearchFragment : BaseFragment<FragmentSearchBinding> (FragmentSearchBindin
             Activity.changeFragment("SearchTool")
         }
 
-        recyclerSearchThumbnail()
+        // 최하단 스크롤 감지시, getMoreData 실행
+        binding.SearchScroll.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+
+            if(!v.canScrollVertically(1)){
+                Log.d("aaaaa","lastScroll")
+
+                getMoreData()
+            }
+        }
+
+
+        SearchService(this).tryGetSearchThumbnail(Jwt.getjwt(),cursor)
+
     }
 
-    fun recyclerSearchThumbnail(){
-        val data = SearchThumbnailData(img = "https://drive.google.com/uc?export=view&id=1eP9m9FNrJS2FuRp5euySNIglCmvnzZtp", id = "12")
-        val data2 = SearchThumbnailData(img = "https://source.unsplash.com/collection/3730086/1080x1080", id = "12")
-        val data3 = SearchThumbnailData(img = "https://source.unsplash.com/collection/2463607/1080x1080", id = "12")
-        val datas = arrayOf(data, data2, data, data, data2, data, data, data, data, data, data, data2, data, data, data3, data, data2, data, data
-            , data, data3, data3, data, data, data3, data, data, data3, data3, data2, data, data3, data, data2, data, data, data, data)
+    override fun onGetSearchThumbnailSuccess(response: SearchThumbnailData) {
+        for(i in response.result){
+            datas.add(i)
+        }
+        recyclerSearchThumbnail(datas)
+    }
+
+    override fun onGetSearchThumbnailFailure(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    fun getMoreData(){
+        nextpage = true
+        cursor++
+        // page수를 증가시켜서 서버 요청
+        SearchService(this).tryGetSearchThumbnail(Jwt.getjwt(),cursor)
+    }
+
+    fun recyclerSearchThumbnail(datas : ArrayList<SearchImgList>){
+
+        if(nextpage){
+            binding.recyclerSearchThumbnail.adapter?.notifyItemInserted(datas.size)
+            binding.recyclerSearchThumbnail.adapter?.notifyDataSetChanged()
+        }
+
         val adapter = SearchThumbnailAdapter(datas)
         binding.recyclerSearchThumbnail.layoutManager = GridLayoutManager(context,3,
             LinearLayoutManager.VERTICAL,false)
         binding.recyclerSearchThumbnail.adapter = adapter
     }
+
+
+    override fun onGetSearchAutocompleteSuccess(response: SearchAutocompleteData) {}
+    override fun onGetSearchAutocompleteFailure(message: String) {}
+
+
 
 
 

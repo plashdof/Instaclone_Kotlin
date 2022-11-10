@@ -22,6 +22,7 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
     var datas : ArrayList<StorythumbnailData> = arrayListOf()
     var resultdatas : ArrayList<StorythumbnailData> = arrayListOf()
     var currentnick : String? = ""
+    var whoclick = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +58,6 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
             datas.add(i)
         }
         findindex()
-
-        viewpageStorytool()
     }
 
     override fun onGetStoryDataFailure(message: String) {}
@@ -72,9 +71,37 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
     override fun onGetLikelistSuccess(response: LikelistData) {}
 
 
-    // 클릭한 스토리 기준 데이터 재배치
 
     fun findindex(){
+        var index = 0
+        var count = 1
+        count = if(currentnick == MyInfo.getnickname()){
+            1
+        }else{
+            2
+        }
+
+
+        // 빈 스토리 제거
+        while(true){
+
+            if(index == datas.size) break
+
+            if(datas[index].nickname == MyInfo.getnickname() && count >= 1){
+                datas.removeAt(index)
+                count--
+            }
+
+            if(datas[index].storyDataList.isEmpty() ){
+                datas.removeAt(index)
+                Log.d("aaaaa", "${datas.toString()}")
+            }else{
+                index++
+            }
+        }
+
+
+        // 클릭한 스토리 기준 데이터 재배치
         var currentindex = 0
         for(i in 0 until datas.size){
             if(datas[i].nickname == currentnick){
@@ -89,6 +116,8 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
         for(i in 0 until currentindex){
             resultdatas.add(datas[i])
         }
+
+        viewpageStorytool()
     }
 
 

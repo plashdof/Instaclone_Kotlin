@@ -1,9 +1,6 @@
 package com.instagram.src.main.home
 
-import com.instagram.src.main.home.models.AddCommentData
-import com.instagram.src.main.home.models.CommentContentData
-import com.instagram.src.main.home.models.CommentData
-import com.instagram.src.main.home.models.PostlikeData
+import com.instagram.src.main.home.models.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -27,4 +24,6 @@ interface CommentRetrofitInterface {
         @Header("ACCESS-TOKEN") jwt : String? = "",
         @Body params : AddCommentData
     ) : Call<PostlikeData>
+
+
 }

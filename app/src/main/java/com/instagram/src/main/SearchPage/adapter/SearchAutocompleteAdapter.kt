@@ -5,24 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.databinding.RecyclerAutocompleteBinding
+import com.instagram.src.main.SearchPage.SearchAutocompleteFragment
+import com.instagram.src.main.SearchPage.models.Autocompletelist
 import com.instagram.src.main.SearchPage.models.SearchAutocompleteData
 
-class SearchAutocompleteAdapter(private val datas : Array<SearchAutocompleteData>): RecyclerView.Adapter<SearchAutocompleteAdapter.ViewHolder>(){
+class SearchAutocompleteAdapter(private val datas : ArrayList<Autocompletelist>, val linking : SearchAutocompleteFragment.getcontext): RecyclerView.Adapter<SearchAutocompleteAdapter.ViewHolder>(){
     inner class ViewHolder(private val viewBinding : RecyclerAutocompleteBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(item: SearchAutocompleteData){
+        fun bind(item: Autocompletelist){
             val profile = viewBinding.recyclerAutocompleteProfile
             val nick = viewBinding.recyclerAutocompleteNick
             val name = viewBinding.recyclerAutocompleteName
 
-            nick.text = item.nick
+            nick.text = item.nickname
             name.text = item.name
             Glide.with(itemView)
-                .load(item.profile)
+                .load(item.profileUrl)
                 .into(profile)
 
 
             viewBinding.recyclerAutocompleteLayout.setOnClickListener {
-
+                linking.gotoLiketoOthersprofile(item.nickname,item.userId)
             }
         }
     }

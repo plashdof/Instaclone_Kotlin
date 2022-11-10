@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.databinding.RecyclerThumbnailBinding
+import com.instagram.src.main.SearchPage.models.SearchImgList
 import com.instagram.src.main.SearchPage.models.SearchThumbnailData
 
-class SearchThumbnailAdapter(private val datas : Array<SearchThumbnailData>):RecyclerView.Adapter<SearchThumbnailAdapter.ViewHolder>(){
+class SearchThumbnailAdapter(private val datas : ArrayList<SearchImgList>):RecyclerView.Adapter<SearchThumbnailAdapter.ViewHolder>(){
     inner class ViewHolder(private val viewBinding : RecyclerThumbnailBinding) : RecyclerView.ViewHolder(viewBinding.root){
-        fun bind(item: SearchThumbnailData){
+        fun bind(item: SearchImgList){
             val img = viewBinding.recyclerThumbnailImg
-            val id = item.id
+            val postId = item.postId
 
             Glide.with(itemView)
-                .load(item.img)
+                .load(item.imgUrl)
                 .into(img)
         }
     }

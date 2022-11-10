@@ -79,11 +79,12 @@
 
     <ImageButton
         android:id="@+id/comment_likebtn"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/home_unlike"
         android:scaleType="fitCenter"
         android:layout_gravity="center"
+        android:padding="7dp"
         android:background="@android:color/transparent"/>
 
 

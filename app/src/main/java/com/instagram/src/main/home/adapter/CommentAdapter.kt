@@ -1,5 +1,7 @@
 package com.instagram.src.main.home.adapter
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -7,12 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.instagram.R
 import com.instagram.databinding.RecyclerCommentBinding
+import com.instagram.src.main.Jwt
+import com.instagram.src.main.ProfilePage.ProfileRetrofitInterface
+import com.instagram.src.main.ProfilePage.models.PostFollowingData
+import com.instagram.src.main.home.API.CommentAPI
 import com.instagram.src.main.home.CommentFragment
 import com.instagram.src.main.home.LikelistFragment
+import com.instagram.src.main.home.models.AddCocommentData
 import com.instagram.src.main.home.models.CommentdetailData
+import com.instagram.src.main.home.models.PostlikeData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CommentAdapter(private val datas: ArrayList<CommentdetailData>, var linking : CommentFragment.getcontext? = null) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
     inner class ViewHolder(private val viewBinding: RecyclerCommentBinding) : RecyclerView.ViewHolder(viewBinding.root){
+
         fun bind(item:CommentdetailData){
             val commentNum = item.commentNum
             val nickname = viewBinding.recyclerCommentNick
@@ -22,6 +36,7 @@ class CommentAdapter(private val datas: ArrayList<CommentdetailData>, var linkin
             val layout = viewBinding.recyclerCommentLayout
             val commentlikebtn = viewBinding.commentLikebtn
             val commentlikecount = viewBinding.recyclerCommentLikecount
+            var likestate = item.myLike
 
             Glide.with(itemView)
                 .load(item.userImg)
@@ -68,6 +83,68 @@ class CommentAdapter(private val datas: ArrayList<CommentdetailData>, var linkin
                     .load(R.drawable.home_unlike)
                     .into(commentlikebtn)
             }
+
+
+            // 댓글 좋아요, 좋아요취소 API 통신
+
+            commentlikebtn.setOnClickListener {
+                if(likestate == 1){
+                    val buildLikeRetro = Retrofit.Builder()
+                        .baseUrl("https://prod.lukechoi.shop/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                    val api = buildLikeRetro.create(CommentAPI::class.java)
+                    api.patchCommentunlike(Jwt.getjwt(),commentId = item.commentId)
+                        .enqueue(object: Callback<PostlikeData> {
+                            override fun onResponse(
+                                call: Call<PostlikeData>,
+                                response: Response<PostlikeData>
+                            ) {
+                                Log.d("API결과","${response.body().toString()}")
+                                Log.d("API결과","${response.raw()}")
+                                Glide.with(itemView)
+                                    .load(R.drawable.home_unlike)
+                                    .into(commentlikebtn)
+                                likestate = 0
+                            }
+                            override fun onFailure(call: Call<PostlikeData>, t: Throwable) {
+                                Log.d("API결과", "실패 : $t")
+                            }
+                        })
+                }else{
+                    val buildLikeRetro = Retrofit.Builder()
+                        .baseUrl("https://prod.lukechoi.shop/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                    val api = buildLikeRetro.create(CommentAPI::class.java)
+                    api.postCommentlike(Jwt.getjwt(), commentId = item.commentId)
+                        .enqueue(object: Callback<PostlikeData> {
+                            override fun onResponse(
+                                call: Call<PostlikeData>,
+                                response: Response<PostlikeData>
+                            ) {
+                                Log.d("API결과","${response.body().toString()}")
+                                Log.d("API결과","${response.raw()}")
+                                Glide.with(itemView)
+                                    .load(R.drawable.home_like)
+                                    .into(commentlikebtn)
+                                likestate = 1
+
+                            }
+                            override fun onFailure(call: Call<PostlikeData>, t: Throwable) {
+                                Log.d("API결과", "실패 : $t")
+                            }
+                        })
+                }
+
+            }
+
+            viewBinding.recyclerCommentAddcommentbtn.setOnClickListener {
+
+                linking?.startCocoment(item.parentId)
+            }
+
+
 
 
 

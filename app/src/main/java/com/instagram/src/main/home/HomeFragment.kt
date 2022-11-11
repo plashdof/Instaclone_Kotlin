@@ -94,6 +94,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
             }
         }
 
+        // 내 스토리화면 클릭
+
         binding.homeMystoryBorder.setOnClickListener {
             Log.d("aaaaa", "Clicked")
             if(mystoryState){
@@ -183,6 +185,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind
 
             MyInfo.setprofileimg(response.result.profileUrl)
             MyInfo.setnickname(response.result.nickname)
+            MyInfo.setname(response.result.name)
+            MyInfo.setwebsite(response.result.link)
+            MyInfo.setdescription(response.result.description)
 
             Glide.with(this)
                 .load(response.result.profileUrl)

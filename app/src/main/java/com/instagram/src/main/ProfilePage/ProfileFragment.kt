@@ -34,14 +34,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     var website : String? = ""
     var description : String? = ""
     var profile : String? = ""
-    var postclick : Boolean = true
+    var poststate  = 1
 
     var realUri : Uri? = null
     var state = true
 
     inner class roomToAdapter{
-        fun moveToProfilePost(){
-            changeProfile()
+        fun moveToProfilePost(postId : Int ){
+            changeProfile(postId)
         }
     }
 
@@ -74,7 +74,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             tagpostbtn.setBackgroundResource(R.drawable.shape_signupbtn)
             tagpostbtn.alpha = 0.3F
 
-            postclick = true
+            poststate = 1
 
             ProfilePostService(this).tryGetUserPostThumbnail(Jwt.getjwt(),MyInfo.getuserId(),0)
         }
@@ -88,7 +88,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             mypostbtn.setBackgroundResource(R.drawable.shape_signupbtn)
             mypostbtn.alpha = 0.3F
 
-            postclick = false
+            poststate = 0
 
             ProfilePostService(this).tryGetUserTaggedThumbnail(Jwt.getjwt(),MyInfo.getuserId(),0)
         }
@@ -220,8 +220,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onPatchunFollowingSuccess(response: PostFollowingData) {}
     override fun onPatchunFollowingFailure(message: String) {}
 
-    fun changeProfile(){
-        setFragmentResult("fromProfileFragment", bundleOf("bundleKey" to postclick))
+    fun changeProfile(postId : Int){
+        OtherProfileInfo.setpostId(postId)
+        OtherProfileInfo.setpoststate(poststate)
+        OtherProfileInfo.setnick(MyInfo.getnickname())
+        OtherProfileInfo.setId(MyInfo.getuserId())
         val Activity = activity as MainActivity
         Activity.changeFragment("ProfilePost")
     }

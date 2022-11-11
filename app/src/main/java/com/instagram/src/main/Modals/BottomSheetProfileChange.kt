@@ -1,10 +1,14 @@
 package com.instagram.src.main.Modals
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.TextView
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +24,10 @@ import com.instagram.config.BaseFragment
 import com.instagram.databinding.BottomSheetProfilechangeBinding
 import com.instagram.src.main.MainActivity
 import com.instagram.src.main.ProfilePage.ProfileeditFragment
+import java.text.SimpleDateFormat
 
 class BottomSheetProfileChange() : BottomSheetDialogFragment(){
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +46,7 @@ class BottomSheetProfileChange() : BottomSheetDialogFragment(){
 
 
         view.findViewById<TextView>(R.id.bottomsheet_newimg)?.setOnClickListener {
-            this.dismiss()
-            val Activity = activity as MainActivity
-            Activity.changeFragment("SelectGallery")
+
         }
 
         view.findViewById<TextView>(R.id.bottomsheet_toFacebook)?.setOnClickListener {
@@ -58,6 +62,8 @@ class BottomSheetProfileChange() : BottomSheetDialogFragment(){
         }
 
     }
+
+
 
 
 

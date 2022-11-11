@@ -211,8 +211,15 @@ class ProfileeditFragment : BaseFragment<FragmentProfileeditBinding>(FragmentPro
 
     override fun onPatchModifyProfileSuccess(response: ModifyProfileData) {
         if(response.isSuccess){
+            MyInfo.setnickname(nick)
+            MyInfo.setdescription(description)
+            MyInfo.setwebsite(website)
+            MyInfo.setname(name)
+            MyInfo.setprofileimg(profile)
+
             val Activity = activity as MainActivity
             Activity.changeFragment("Profile")
+
         }else{
             showCustomToast("저장 실패")
         }

@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import com.instagram.R
 import com.instagram.R.*
@@ -15,15 +14,12 @@ import com.instagram.src.main.ProfilePage.models.ModifyProfileData
 import com.instagram.src.main.ProfilePage.models.MyProfileData
 import com.instagram.src.main.ProfilePage.models.OthersProfileData
 import com.instagram.src.main.ProfilePage.models.PostFollowingData
-import com.instagram.src.main.home.HomeFragment
 import com.instagram.src.main.SearchPage.SearchFragment
 import com.instagram.src.main.SearchPage.SearchToolFragment
 import com.instagram.src.main.ShoppingPage.ShoppingFragment
 import com.instagram.src.main.ShoppingPage.ShoppingToolFragment
 import com.instagram.src.main.VideoPage.VideoFragment
-import com.instagram.src.main.home.CommentFragment
-import com.instagram.src.main.home.LikelistFragment
-import com.instagram.src.main.home.MakestoryFragment
+import com.instagram.src.main.home.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),ProfileFragmentInterface {
 
@@ -185,6 +181,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 supportFragmentManager
                     .beginTransaction()
                     .replace(id.main_frm, MakestoryFragment())
+                    .addToBackStack(null)
+                    .commit()
+
+                hidebtnnav()
+            }
+
+            "MakePost"->{
+                val controller = ViewCompat.getWindowInsetsController(window.decorView)
+                controller?.isAppearanceLightStatusBars = true
+                controller?.isAppearanceLightNavigationBars = true
+
+                window.statusBarColor = Color.rgb(254,254,254)
+                window.navigationBarColor = Color.rgb(254,254,254)
+
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(id.main_frm, MakepostFragment())
                     .addToBackStack(null)
                     .commit()
 

@@ -21,7 +21,7 @@ class ProfileThumbnailAdapter(private val datas : ArrayList<PostDataThumbnailLis
 
 
             view.setOnClickListener{
-                link.moveToProfilePost()
+                link.moveToProfilePost(item.postId)
             }
         }
     }

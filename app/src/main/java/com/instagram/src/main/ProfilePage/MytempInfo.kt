@@ -1,6 +1,6 @@
-package com.instagram.src.main
+package com.instagram.src.main.ProfilePage
 
-object MyInfo {
+object MytempInfo {
     private var profileimg : String? = ""
     private var userId : Int = 0
     private var nickname : String? = ""

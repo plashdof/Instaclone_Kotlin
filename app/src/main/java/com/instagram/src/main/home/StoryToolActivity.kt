@@ -30,7 +30,7 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
         window.navigationBarColor = Color.BLACK
 
         currentnick = intent.getStringExtra("currentNick")
-        Log.d("aaaaa", "$currentnick")
+        Log.d("aaaaaa", "$currentnick")
 
         StoryService(this).tryGetUserStoryData(Jwt.getjwt(),currentnick)
 
@@ -87,18 +87,18 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
 
             if(index == datas.size) break
 
-            if(datas[index].nickname == MyInfo.getnickname() && count >= 1){
-                datas.removeAt(index)
-                count--
-            }
+//            if(datas[index].nickname == MyInfo.getnickname() && count >= 1){
+//                datas.removeAt(index)
+//                count--
+//            }
 
             if(datas[index].storyDataList.isEmpty() ){
                 datas.removeAt(index)
-                Log.d("aaaaa", "${datas.toString()}")
             }else{
                 index++
             }
         }
+
 
 
         // 클릭한 스토리 기준 데이터 재배치
@@ -116,6 +116,8 @@ class StoryToolActivity : BaseActivity<ActivityStoryToolBinding>(ActivityStoryTo
         for(i in 0 until currentindex){
             resultdatas.add(datas[i])
         }
+
+        Log.d("aaaaaa","${resultdatas.toString()}")
 
         viewpageStorytool()
     }

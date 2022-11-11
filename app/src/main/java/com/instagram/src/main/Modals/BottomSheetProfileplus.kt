@@ -37,7 +37,7 @@ class BottomSheetProfileplus() : BottomSheetDialogFragment(){
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<LinearLayout>(R.id.bottomsheet_post)?.setOnClickListener {
-            Log.d("aaaaa", "clicked post")
+            openCamera()
         }
 
         view.findViewById<LinearLayout>(R.id.bottomsheet_reels)?.setOnClickListener {
@@ -95,10 +95,11 @@ class BottomSheetProfileplus() : BottomSheetDialogFragment(){
 
     private val childForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            this.dismiss()
             val Activity = activity as MainActivity
             Log.d("aaaaaa","$realUri")
             setFragmentResult("fromCamera", bundleOf("bundleKey" to realUri))
-            Activity.changeFragment("Makestory")
+            Activity.changeFragment("MakePost")
         }
 
 
